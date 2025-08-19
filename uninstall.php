@@ -1,0 +1,39 @@
+<?php
+/**
+ * This will be executed when the plugin is uninstalled.
+ *
+ * @package OneUpdate
+ */
+
+// If uninstall not called from WordPress, exit.
+if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
+	exit;
+}
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+if ( ! function_exists( 'oneupdate_plugin_sync_deactivate' ) ) {
+
+	/**
+	 * Function to deactivate the plugin and clean up options.
+	 */
+	function oneupdate_plugin_sync_deactivate() {
+		// Remove the site type option.
+		delete_option( 'oneupdate_site_type' );
+		// Remove the S3 credentials option.
+		delete_option( 'oneupdate_s3_credentials' );
+		// Remove the shared sites option.
+		delete_option( 'oneupdate_shared_sites' );
+		// Remove github token option.
+		delete_option( 'oneupdate_gh_token' );
+		// Remove oneupdate_site_type_transient transient.
+		delete_transient( 'oneupdate_site_type_transient' );
+		// Remove oneupdate_get_plugins transient.
+		delete_transient( 'oneupdate_get_plugins' );
+	}
+}
+/**
+ * Uninstall the plugin and clean up options.
+ */
+oneupdate_plugin_sync_deactivate();

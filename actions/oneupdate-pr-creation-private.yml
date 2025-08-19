@@ -1,0 +1,282 @@
+name: OneUpdate Private Plugin Management
+
+on:
+  workflow_dispatch:
+    inputs:
+      zip_url:
+        description: 'ZIP File URL (Pre-signed S3 URL)'
+        required: true
+        type: string
+      base_branch:
+        description: 'Base branch to create working branch from'
+        required: false
+        type: string
+        default: 'develop'
+
+jobs:
+  create-working-branch:
+    runs-on: ubuntu-latest
+    outputs:
+      working_branch: ${{ steps.set-vars.outputs.working_branch }}
+      base_branches: ${{ steps.bases.outputs.base_branches }}
+      changes_exist: ${{ steps.check-changes.outputs.changes_exist }}
+      plugin_slug: ${{ steps.extract-slug.outputs.plugin_slug }}
+      plugin_version: ${{ steps.extract-version.outputs.plugin_version }}
+      source_base_branch: ${{ steps.determine-base.outputs.source_base_branch }}
+      version_found: ${{ steps.extract-version.outputs.version_found }}
+    steps:
+      - name: Checkout full repo history
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.ONEUPDATE_RTCAMP_TOKEN }}
+
+      - name: Validate inputs
+        run: |
+          if [[ -z "${{ inputs.zip_url }}" ]]; then
+            echo "Error: zip_url is required"
+            exit 1
+          fi
+
+      - name: Determine source base branch
+        id: determine-base
+        run: |
+          # Check if specified base branch exists, fall back to alternatives
+          if git ls-remote --exit-code --heads origin "${{ inputs.base_branch }}" >/dev/null 2>&1; then
+            SOURCE_BASE="${{ inputs.base_branch }}"
+          elif git ls-remote --exit-code --heads origin "production" >/dev/null 2>&1; then
+            SOURCE_BASE="production"
+          elif git ls-remote --exit-code --heads origin "main" >/dev/null 2>&1; then
+            SOURCE_BASE="main"
+          elif git ls-remote --exit-code --heads origin "master" >/dev/null 2>&1; then
+            SOURCE_BASE="master"
+          else
+            echo "Error: No suitable base branch found"
+            exit 1
+          fi
+          echo "source_base_branch=$SOURCE_BASE" >> $GITHUB_OUTPUT
+          echo "Using source base branch: $SOURCE_BASE"
+
+      - name: Install unzip
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y unzip
+
+      - name: Download and extract plugin ZIP
+        id: extract-slug
+        run: |
+          # Download plugin zip
+          echo "Downloading ZIP from ${{ inputs.zip_url }}"
+          curl -L "${{ inputs.zip_url }}" -o plugin.zip
+
+          # Extract to temporary folder
+          mkdir -p temp_plugin
+          unzip -q plugin.zip -d temp_plugin
+
+          # Identify the top-level folder as the plugin slug
+          TOP_LEVEL=$(find temp_plugin -maxdepth 1 -type d | grep -v '^temp_plugin$' | head -n 1)
+          if [ -z "$TOP_LEVEL" ]; then
+            echo "Error: No top-level folder found in ZIP"
+            exit 1
+          fi
+          PLUGIN_SLUG=$(basename "$TOP_LEVEL")
+          if [ -z "$PLUGIN_SLUG" ]; then
+            echo "Error: Could not determine plugin slug"
+            exit 1
+          fi
+          echo "Detected plugin slug: $PLUGIN_SLUG"
+          echo "plugin_slug=$PLUGIN_SLUG" >> $GITHUB_OUTPUT
+
+      - name: Extract plugin version
+        id: extract-version
+        run: |
+          PLUGIN_SLUG="${{ steps.extract-slug.outputs.plugin_slug }}"
+          VERSION="unknown"
+          VERSION_FOUND="false"
+          
+          # Try to find version in main plugin file
+          MAIN_FILE="temp_plugin/$PLUGIN_SLUG/$PLUGIN_SLUG.php"
+          if [ -f "$MAIN_FILE" ]; then
+            VERSION=$(grep -i "Version:" "$MAIN_FILE" | head -1 | sed 's/.*Version:\s*//' | sed 's/\s*$//' | tr -d '\r')
+            if [ ! -z "$VERSION" ] && [ "$VERSION" != "unknown" ]; then
+              VERSION_FOUND="true"
+            fi
+          fi
+          
+          # If not found, try other common patterns
+          if [ "$VERSION_FOUND" = "false" ]; then
+            for file in temp_plugin/$PLUGIN_SLUG/*.php; do
+              if [ -f "$file" ]; then
+                VERSION=$(grep -i "Version:" "$file" | head -1 | sed 's/.*Version:\s*//' | sed 's/\s*$//' | tr -d '\r')
+                if [ ! -z "$VERSION" ] && [ "$VERSION" != "unknown" ]; then
+                  VERSION_FOUND="true"
+                  break
+                fi
+              fi
+            done
+          fi
+          
+          # Exit if version is not found
+          if [ "$VERSION_FOUND" = "false" ] || [ "$VERSION" = "unknown" ] || [ -z "$VERSION" ]; then
+            echo "Error: Plugin version not found in any PHP files"
+            echo "Please ensure the plugin has a proper Version header in one of its PHP files"
+            exit 1
+          fi
+          
+          echo "Detected plugin version: $VERSION"
+          echo "plugin_version=$VERSION" >> $GITHUB_OUTPUT
+          echo "version_found=$VERSION_FOUND" >> $GITHUB_OUTPUT
+
+      - name: Set branch name
+        id: set-vars
+        run: |
+          BRANCH="install-private-${{ steps.extract-slug.outputs.plugin_slug }}-${{ steps.extract-version.outputs.plugin_version }}-$(date +%s)"
+          echo "working_branch=$BRANCH" >> $GITHUB_OUTPUT
+
+      - name: Create working branch from base
+        run: |
+          git fetch origin ${{ steps.determine-base.outputs.source_base_branch }}
+          git checkout -b ${{ steps.set-vars.outputs.working_branch }} origin/${{ steps.determine-base.outputs.source_base_branch }}
+
+      - name: Handle plugin installation
+        run: |
+          PLUGIN_SLUG="${{ steps.extract-slug.outputs.plugin_slug }}"
+
+          # Remove existing plugin directory if it exists
+          if [ -d "./plugins/$PLUGIN_SLUG" ]; then
+            echo "Removing existing plugin directory: ./plugins/$PLUGIN_SLUG"
+            rm -rf ./plugins/$PLUGIN_SLUG
+          fi
+
+          # Prepare plugin directory
+          mkdir -p ./plugins/$PLUGIN_SLUG
+
+          # Move extracted files into target plugin slug directory
+          shopt -s dotglob
+          mv temp_plugin/$PLUGIN_SLUG/* ./plugins/$PLUGIN_SLUG/
+          rm -rf temp_plugin plugin.zip
+
+      - name: Check if changes exist
+        id: check-changes
+        run: |
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No changes detected"
+            echo "changes_exist=false" >> $GITHUB_OUTPUT
+          else
+            echo "Changes detected"
+            echo "changes_exist=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Commit plugin changes
+        if: steps.check-changes.outputs.changes_exist == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git commit -m "chore: install private plugin ${{ steps.extract-slug.outputs.plugin_slug }} v${{ steps.extract-version.outputs.plugin_version }}"
+
+      - name: Push working branch
+        if: steps.check-changes.outputs.changes_exist == 'true'
+        run: git push --force origin ${{ steps.set-vars.outputs.working_branch }}
+
+      - name: Determine existing base branches
+        id: bases
+        run: |
+          # Build JSON array manually without jq to avoid formatting issues
+          BRANCHES=""
+          FIRST=true
+          
+          for branch in develop preprod main master production; do
+            if git ls-remote --exit-code --heads origin "$branch" >/dev/null 2>&1; then
+              if [ "$FIRST" = true ]; then
+                BRANCHES="\"$branch\""
+                FIRST=false
+              else
+                BRANCHES="$BRANCHES,\"$branch\""
+              fi
+            fi
+          done
+          
+          if [ -z "$BRANCHES" ]; then
+            echo "base_branches=[]" >> $GITHUB_OUTPUT
+          else
+            echo "base_branches=[$BRANCHES]" >> $GITHUB_OUTPUT
+          fi
+          
+          echo "Found branches for PR creation: [$BRANCHES]"
+
+  ensure-label-exists:
+    needs: [create-working-branch]
+    # Only run if version was found and changes exist
+    if: needs.create-working-branch.outputs.version_found == 'true' && needs.create-working-branch.outputs.changes_exist == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.ONEUPDATE_RTCAMP_TOKEN }}
+
+      - name: Create skip-phpcs-scan label if it doesn't exist
+        run: |
+          # Check if label exists
+          if ! gh label list | grep -q "skip-phpcs-scan"; then
+            echo "Creating skip-phpcs-scan label..."
+            gh label create "skip-phpcs-scan" \
+              --description "Skip PHPCS scanning for this PR" \
+              --color "d73a4a"
+          else
+            echo "skip-phpcs-scan label already exists"
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.ONEUPDATE_RTCAMP_TOKEN }}
+
+  create-prs:
+    needs: [create-working-branch, ensure-label-exists]
+    # Only create PRs if version was found, changes exist, and base branches are available
+    if: needs.create-working-branch.outputs.base_branches != '[]' && needs.create-working-branch.outputs.changes_exist == 'true' && needs.create-working-branch.outputs.version_found == 'true'
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        base: ${{ fromJson(needs.create-working-branch.outputs.base_branches) }}
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.ONEUPDATE_RTCAMP_TOKEN }}
+
+      - name: Create PR to ${{ matrix.base }}
+        run: |
+          TITLE="[${{ matrix.base }}] [OneUpdate] Install private plugin ${{ needs.create-working-branch.outputs.plugin_slug }} v${{ needs.create-working-branch.outputs.plugin_version }}"
+          BODY="This PR installs the private plugin \`${{ needs.create-working-branch.outputs.plugin_slug }}\` version \`${{ needs.create-working-branch.outputs.plugin_version }}\` from the provided ZIP URL.
+
+          ## Details
+          - **Plugin Slug**: ${{ needs.create-working-branch.outputs.plugin_slug }}
+          - **Version**: ${{ needs.create-working-branch.outputs.plugin_version }}
+          - **Source**: ${{ inputs.zip_url }}
+          - **Base Branch**: ${{ needs.create-working-branch.outputs.source_base_branch }}
+          - **Target Branch**: ${{ matrix.base }}
+          
+          ## Changes
+          - Installed/Updated private plugin files
+          - Plugin extracted from pre-signed S3 URL
+          
+          ---
+          *Automatically generated by OneUpdate Private Plugin Management*"
+          
+          # Check if PR already exists
+          if gh pr list --head ${{ needs.create-working-branch.outputs.working_branch }} --base ${{ matrix.base }} --json number | grep -q "number"; then
+            echo "PR already exists for base ${{ matrix.base }}, updating it..."
+            gh pr edit ${{ needs.create-working-branch.outputs.working_branch }} \
+                --title "$TITLE" \
+                --body "$BODY"
+          else
+            echo "Creating new PR for base ${{ matrix.base }}..."
+            gh pr create \
+                --title "$TITLE" \
+                --body "$BODY" \
+                --base ${{ matrix.base }} \
+                --head ${{ needs.create-working-branch.outputs.working_branch }} \
+                --label "skip-phpcs-scan"
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.ONEUPDATE_RTCAMP_TOKEN }}

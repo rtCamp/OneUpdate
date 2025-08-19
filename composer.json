@@ -1,0 +1,35 @@
+{
+	"name": "rtcamp/oneupdate",
+	"description": "OneUpdate Plugin Loader",
+	"type": "wordpress-plugin",
+	"autoload": {
+		"classmap": [
+			"inc/"
+		],
+		"files": [
+			"inc/helpers/custom-functions.php"
+		]
+	},
+	"authors": [
+		{
+			"name": "Utsav Patel",
+			"email": "up1512001@gmail.com"
+		}
+	],
+	"require-dev": {
+		"wp-coding-standards/wpcs": "^2.3",
+		"phpcompatibility/phpcompatibility-wp": "^2.1",
+		"automattic/vipwpcs": "^2.3",
+		"phpunit/phpunit": "^9.6",
+		"wp-phpunit/wp-phpunit": "^6.2",
+		"yoast/phpunit-polyfills": "^1.0"
+	},
+	"config": {
+		"allow-plugins": {
+			"dealerdirect/phpcodesniffer-composer-installer": true
+		}
+	},
+	"require": {
+		"aws/aws-sdk-php": "^3.343"
+	}
+}

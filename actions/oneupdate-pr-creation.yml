@@ -1,0 +1,352 @@
+name: OneUpdate Plugin Management
+
+on:
+  workflow_dispatch:
+    inputs:
+      plugin_slug:
+        description: 'Plugin Slug'
+        required: true
+        type: string
+      version:
+        description: 'Plugin Version (required for add/update)'
+        required: false
+        type: string
+      zip_url:
+        description: 'ZIP File URL (required for add/update)'
+        required: false
+        type: string
+      plugin_type:
+        description: 'Plugin Operation Type'
+        required: true
+        type: choice
+        options:
+          - add_update
+          - activate
+          - deactivate
+          - remove
+        default: 'add_update'
+      base_branch:
+        description: 'Base branch to create working branch from'
+        required: false
+        type: string
+        default: 'develop'
+
+jobs:
+  create-working-branch:
+    runs-on: ubuntu-latest
+    outputs:
+      working_branch: ${{ steps.set-vars.outputs.working_branch }}
+      base_branches: ${{ steps.bases.outputs.base_branches }}
+      changes_exist: ${{ steps.check-changes.outputs.changes_exist }}
+      operation_type: ${{ inputs.plugin_type }}
+      source_base_branch: ${{ steps.determine-base.outputs.source_base_branch }}
+    steps:
+      - name: Checkout full repo history
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.ONEUPDATE_RTCAMP_TOKEN }}
+
+      - name: Validate inputs
+        run: |
+          if [[ "${{ inputs.plugin_type }}" == "add_update" ]]; then
+            if [[ -z "${{ inputs.version }}" || -z "${{ inputs.zip_url }}" ]]; then
+              echo "Error: version and zip_url are required for add_update operations"
+              exit 1
+            fi
+          fi
+
+      - name: Determine source base branch
+        id: determine-base
+        run: |
+          # Check if specified base branch exists, fall back to alternatives
+          if git ls-remote --exit-code --heads origin "${{ inputs.base_branch }}" >/dev/null 2>&1; then
+            SOURCE_BASE="${{ inputs.base_branch }}"
+          elif git ls-remote --exit-code --heads origin "production" >/dev/null 2>&1; then
+            SOURCE_BASE="production"
+          elif git ls-remote --exit-code --heads origin "main" >/dev/null 2>&1; then
+            SOURCE_BASE="main"
+          elif git ls-remote --exit-code --heads origin "master" >/dev/null 2>&1; then
+            SOURCE_BASE="master"
+          else
+            echo "Error: No suitable base branch found"
+            exit 1
+          fi
+          echo "source_base_branch=$SOURCE_BASE" >> $GITHUB_OUTPUT
+          echo "Using source base branch: $SOURCE_BASE"
+
+      - name: Set branch name
+        id: set-vars
+        run: |
+          case "${{ inputs.plugin_type }}" in
+            "add_update")
+              BRANCH="update-${{ inputs.plugin_slug }}-${{ inputs.version }}"
+              ;;
+            "activate")
+              BRANCH="activate-${{ inputs.plugin_slug }}"
+              ;;
+            "deactivate")
+              BRANCH="deactivate-${{ inputs.plugin_slug }}"
+              ;;
+            "remove")
+              BRANCH="remove-${{ inputs.plugin_slug }}"
+              ;;
+            *)
+              BRANCH="manage-${{ inputs.plugin_slug }}"
+              ;;
+          esac
+          echo "working_branch=$BRANCH" >> $GITHUB_OUTPUT
+
+      - name: Create working branch from base
+        run: |
+          git fetch origin ${{ steps.determine-base.outputs.source_base_branch }}
+          git checkout -b ${{ steps.set-vars.outputs.working_branch }} origin/${{ steps.determine-base.outputs.source_base_branch }}
+
+      - name: Handle plugin addition/update
+        if: inputs.plugin_type == 'add_update'
+        run: |
+          # Remove existing plugin directory if it exists
+          if [ -d "./plugins/${{ inputs.plugin_slug }}" ]; then
+            echo "Removing existing plugin directory..."
+            rm -rf ./plugins/${{ inputs.plugin_slug }}
+          fi
+
+          # Prepare plugin directory
+          mkdir -p ./plugins/${{ inputs.plugin_slug }}
+          
+          # Download plugin zip
+          curl -L "${{ inputs.zip_url }}" -o plugin.zip
+          
+          # Extract plugin zip to correct folder
+          mkdir -p temp_plugin
+          unzip -q plugin.zip -d temp_plugin
+          
+          # Move extracted files into target plugin slug directory
+          shopt -s dotglob
+          CONTENT=$(find temp_plugin/* -maxdepth 0 2>/dev/null | wc -l)
+          if [ "$CONTENT" -eq 1 ] && [ -d temp_plugin/* ]; then
+            # ZIP contains a top-level folder
+            mv temp_plugin/*/* ./plugins/${{ inputs.plugin_slug }}/
+          else
+            # ZIP contains files directly
+            mv temp_plugin/* ./plugins/${{ inputs.plugin_slug }}/
+          fi
+          rm -rf temp_plugin plugin.zip
+
+      - name: Handle plugin activation
+        if: inputs.plugin_type == 'activate'
+        run: |
+          # Create or update active_plugins option in wp-config or similar
+          # This step depends on your WordPress setup and how you manage plugin activation
+          echo "Activating plugin: ${{ inputs.plugin_slug }}"
+          # Add your plugin activation logic here
+          # For example, you might update a configuration file or database export
+          
+      - name: Handle plugin deactivation
+        if: inputs.plugin_type == 'deactivate'
+        run: |
+          # Remove from active_plugins option
+          # This step depends on your WordPress setup and how you manage plugin activation
+          echo "Deactivating plugin: ${{ inputs.plugin_slug }}"
+          # Add your plugin deactivation logic here
+
+      - name: Handle plugin removal
+        if: inputs.plugin_type == 'remove'
+        run: |
+          # Check if plugin directory exists
+          if [ -d "./plugins/${{ inputs.plugin_slug }}" ]; then
+            echo "Plugin directory found. Removing..."
+            rm -rf ./plugins/${{ inputs.plugin_slug }}
+          else
+            echo "Plugin directory not found: ./plugins/${{ inputs.plugin_slug }}"
+          fi
+
+      - name: Check if changes exist
+        id: check-changes
+        run: |
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No changes detected"
+            echo "changes_exist=false" >> $GITHUB_OUTPUT
+          else
+            echo "Changes detected"
+            echo "changes_exist=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Commit plugin changes
+        if: steps.check-changes.outputs.changes_exist == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          
+          case "${{ inputs.plugin_type }}" in
+            "add_update")
+              git commit -m "chore: add/update plugin ${{ inputs.plugin_slug }} v${{ inputs.version }}"
+              ;;
+            "activate")
+              git commit -m "chore: activate plugin ${{ inputs.plugin_slug }}"
+              ;;
+            "deactivate")
+              git commit -m "chore: deactivate plugin ${{ inputs.plugin_slug }}"
+              ;;
+            "remove")
+              git commit -m "chore: remove plugin ${{ inputs.plugin_slug }}"
+              ;;
+            *)
+              git commit -m "chore: manage plugin ${{ inputs.plugin_slug }}"
+              ;;
+          esac
+
+      - name: Push working branch
+        if: steps.check-changes.outputs.changes_exist == 'true'
+        run: git push --force origin ${{ steps.set-vars.outputs.working_branch }}
+
+      - name: Determine existing base branches
+        id: bases
+        run: |
+          # Build JSON array manually without jq to avoid formatting issues
+          BRANCHES=""
+          FIRST=true
+          
+          for branch in develop preprod main master production; do
+            if git ls-remote --exit-code --heads origin "$branch" >/dev/null 2>&1; then
+              if [ "$FIRST" = true ]; then
+                BRANCHES="\"$branch\""
+                FIRST=false
+              else
+                BRANCHES="$BRANCHES,\"$branch\""
+              fi
+            fi
+          done
+          
+          if [ -z "$BRANCHES" ]; then
+            echo "base_branches=[]" >> $GITHUB_OUTPUT
+          else
+            echo "base_branches=[$BRANCHES]" >> $GITHUB_OUTPUT
+          fi
+          
+          echo "Found branches for PR creation: [$BRANCHES]"
+
+  ensure-label-exists:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.ONEUPDATE_RTCAMP_TOKEN }}
+
+      - name: Create skip-phpcs-scan label if it doesn't exist
+        run: |
+          # Check if label exists
+          if ! gh label list | grep -q "skip-phpcs-scan"; then
+            echo "Creating skip-phpcs-scan label..."
+            gh label create "skip-phpcs-scan" \
+              --description "Skip PHPCS scanning for this PR" \
+              --color "d73a4a"
+          else
+            echo "skip-phpcs-scan label already exists"
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.ONEUPDATE_RTCAMP_TOKEN }}
+
+  create-prs:
+    needs: [create-working-branch, ensure-label-exists]
+    if: needs.create-working-branch.outputs.base_branches != '[]' && needs.create-working-branch.outputs.changes_exist == 'true'
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        base: ${{ fromJson(needs.create-working-branch.outputs.base_branches) }}
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.ONEUPDATE_RTCAMP_TOKEN }}
+
+      - name: Create PR to ${{ matrix.base }}
+        run: |
+          case "${{ needs.create-working-branch.outputs.operation_type }}" in
+            "add_update")
+              TITLE="[${{ matrix.base }}] [OneUpdate] Add/Update plugin ${{ inputs.plugin_slug }} v${{ inputs.version }}"
+              BODY="This PR adds or updates the plugin \`${{ inputs.plugin_slug }}\` to version \`${{ inputs.version }}\`.
+
+          ## Details
+          - **Plugin Slug**: ${{ inputs.plugin_slug }}
+          - **Version**: ${{ inputs.version }}
+          - **Source**: ${{ inputs.zip_url }}
+          - **Base Branch**: ${{ needs.create-working-branch.outputs.source_base_branch }}
+          - **Target Branch**: ${{ matrix.base }}
+          
+          ---
+          *Automatically generated by OneUpdate Plugin Management*"
+              ;;
+            "activate")
+              TITLE="[${{ matrix.base }}] [OneUpdate] Activate plugin ${{ inputs.plugin_slug }}"
+              BODY="This PR activates the plugin \`${{ inputs.plugin_slug }}\`.
+
+          ## Details
+          - **Plugin Slug**: ${{ inputs.plugin_slug }}
+          - **Operation**: Activation
+          - **Base Branch**: ${{ needs.create-working-branch.outputs.source_base_branch }}
+          - **Target Branch**: ${{ matrix.base }}
+          
+          ---
+          *Automatically generated by OneUpdate Plugin Management*"
+              ;;
+            "deactivate")
+              TITLE="[${{ matrix.base }}] [OneUpdate] Deactivate plugin ${{ inputs.plugin_slug }}"
+              BODY="This PR deactivates the plugin \`${{ inputs.plugin_slug }}\`.
+
+          ## Details
+          - **Plugin Slug**: ${{ inputs.plugin_slug }}
+          - **Operation**: Deactivation
+          - **Base Branch**: ${{ needs.create-working-branch.outputs.source_base_branch }}
+          - **Target Branch**: ${{ matrix.base }}
+          
+          ---
+          *Automatically generated by OneUpdate Plugin Management*"
+              ;;
+            "remove")
+              TITLE="[${{ matrix.base }}] [OneUpdate] Remove plugin ${{ inputs.plugin_slug }}"
+              BODY="This PR removes the plugin \`${{ inputs.plugin_slug }}\` from the codebase.
+
+          ## Details
+          - **Plugin Slug**: ${{ inputs.plugin_slug }}
+          - **Operation**: Removal
+          - **Base Branch**: ${{ needs.create-working-branch.outputs.source_base_branch }}
+          - **Target Branch**: ${{ matrix.base }}
+          
+          ---
+          *Automatically generated by OneUpdate Plugin Management*"
+              ;;
+            *)
+              TITLE="[${{ matrix.base }}] [OneUpdate] Manage plugin ${{ inputs.plugin_slug }}"
+              BODY="This PR manages the plugin \`${{ inputs.plugin_slug }}\`.
+
+          ## Details
+          - **Plugin Slug**: ${{ inputs.plugin_slug }}
+          - **Operation**: Management
+          - **Base Branch**: ${{ needs.create-working-branch.outputs.source_base_branch }}
+          - **Target Branch**: ${{ matrix.base }}
+          
+          ---
+          *Automatically generated by OneUpdate Plugin Management*"
+              ;;
+          esac
+          
+          # Check if PR already exists
+          if gh pr list --head ${{ needs.create-working-branch.outputs.working_branch }} --base ${{ matrix.base }} --json number | grep -q "number"; then
+            echo "PR already exists for base ${{ matrix.base }}, updating it..."
+            gh pr edit ${{ needs.create-working-branch.outputs.working_branch }} \
+                --title "$TITLE" \
+                --body "$BODY"
+          else
+            echo "Creating new PR for base ${{ matrix.base }}..."
+            gh pr create \
+                --title "$TITLE" \
+                --body "$BODY" \
+                --base ${{ matrix.base }} \
+                --head ${{ needs.create-working-branch.outputs.working_branch }} \
+                --label "skip-phpcs-scan"
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.ONEUPDATE_RTCAMP_TOKEN }}

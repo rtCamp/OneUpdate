@@ -1,0 +1,98 @@
+/* oneupdate admin styles */
+.toplevel_page_oneupdate {
+
+	.oneupdate-heading {
+		display: none;
+	}
+
+	&:has(.oneupdate-add-plugin-screen) {
+
+		.oneupdate-heading {
+			display: inline-block;
+		}
+	}
+
+	.oneupdate-plugin-manager {
+		margin-block-start: 1.5rem;
+	}
+
+	.components-modal__header-heading {
+		font-size: 1.25rem;
+		margin-top: 1rem;
+	}
+}
+
+#oneupdate-settings-page,
+#oneupdate-plugin-manager {
+
+	.components-snackbar {
+		position: fixed;
+		bottom: 20px;
+		right: 20px;
+		z-index: 1000000;
+	}
+
+	.components-notice__content {
+		white-space: pre-line !important;
+	}
+
+	.oneupdate-success-notice {
+		background-color: #16a32d;
+		color: #fff;
+	}
+
+	.oneupdate-error-notice {
+		background-color: #e11d1d;
+		color: #fff;
+	}
+
+}
+
+body {
+
+	&.oneupdate-missing-brand-sites,
+	&.oneupdate-brand-site {
+
+		.wp-first-item:has(.oneupdate-plugin-manager-page) {
+			display: none;
+		}
+	}
+
+	&.oneupdate-governing-site-site {
+
+		.wp-first-item:has(.oneupdate-plugin-manager-page) {
+			display: inline-block;
+		}
+	}
+}
+
+[id="oneupdate-site-selection-modal"] {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 10000;
+	min-width: 40vw;
+}
+
+body.oneupdate-site-selection-modal {
+
+	&::before {
+		content: "";
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-color: rgba(0, 0, 0, 0.5);
+		z-index: 9999;
+	}
+}
+
+
+[id="toplevel_page_oneupdate"] {
+
+	.dashicons-admin-generic::before {
+		content: url("../images/logo.svg") !important;
+	}
+}

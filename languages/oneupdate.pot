@@ -1,0 +1,1693 @@
+# Copyright (C) 2025 Utsav Patel, rtCamp
+# This file is distributed under the same license as the OneUpdate plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: OneUpdate 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/oneupdate\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2025-08-14T06:38:38+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: oneupdate\n"
+
+#. Plugin Name of the plugin
+#: oneupdate.php
+#: inc/classes/settings/class-shared-sites.php:45
+#: oneupdate.php:43
+#: assets/build/js/plugin.js:1
+#: assets/src/admin/plugin/index.js:111
+msgid "OneUpdate"
+msgstr ""
+
+#. Description of the plugin
+#: oneupdate.php
+msgid "A plugin to load OneUpdate common plugins."
+msgstr ""
+
+#. Author of the plugin
+#: oneupdate.php
+msgid "Utsav Patel, rtCamp"
+msgstr ""
+
+#. Author URI of the plugin
+#: oneupdate.php
+msgid "https://rtcamp.com"
+msgstr ""
+
+#: inc/classes/class-cache.php:112
+msgid "No plugins found."
+msgstr ""
+
+#: inc/classes/class-hooks.php:139
+msgid "Setup"
+msgstr ""
+
+#. translators: %s is the error message from AWS S3
+#: inc/classes/class-s3-upload.php:73
+#, php-format
+msgid "Error deleting file from S3: %s"
+msgstr ""
+
+#: inc/classes/plugin-configs/class-secret-key.php:79
+msgid "Secret key regenerated successfully."
+msgstr ""
+
+#: inc/classes/rest/class-basic-options.php:239
+msgid "Health check passed successfully."
+msgstr ""
+
+#: inc/classes/rest/class-basic-options.php:254
+#: inc/classes/rest/class-workflow.php:642
+#: inc/classes/rest/class-workflow.php:928
+msgid "GitHub token not found."
+msgstr ""
+
+#: inc/classes/rest/class-basic-options.php:280
+msgid "Failed to fetch GitHub repositories."
+msgstr ""
+
+#: inc/classes/rest/class-basic-options.php:312
+msgid "No repositories found for rtCamp or wpcomvip."
+msgstr ""
+
+#: inc/classes/rest/class-basic-options.php:375
+msgid "GitHub token is required."
+msgstr ""
+
+#: inc/classes/rest/class-basic-options.php:394
+msgid "Invalid GitHub token provided."
+msgstr ""
+
+#: inc/classes/rest/class-basic-options.php:441
+#: inc/classes/rest/class-basic-options.php:448
+msgid "Invalid S3 credentials provided."
+msgstr ""
+
+#: inc/classes/rest/class-basic-options.php:495
+msgid "Brand Site already exists."
+msgstr ""
+
+#: inc/classes/rest/class-basic-options.php:504
+msgid "GitHub repository already exists in one of Brand sites."
+msgstr ""
+
+#: inc/classes/rest/class-workflow.php:280
+msgid "Transient rebuilt successfully."
+msgstr ""
+
+#: inc/classes/rest/class-workflow.php:298
+msgid "Invalid plugins provided."
+msgstr ""
+
+#: inc/classes/rest/class-workflow.php:307
+msgid "Invalid site provided."
+msgstr ""
+
+#: inc/classes/rest/class-workflow.php:337
+msgid "Bulk plugin update initiated successfully."
+msgstr ""
+
+#: inc/classes/rest/class-workflow.php:361
+msgid "Invalid action provided."
+msgstr ""
+
+#: inc/classes/rest/class-workflow.php:365
+msgid "Invalid plugin slug provided."
+msgstr ""
+
+#: inc/classes/rest/class-workflow.php:369
+msgid "Invalid sites provided."
+msgstr ""
+
+#. translators: %s is the site URL
+#: inc/classes/rest/class-workflow.php:407
+#: inc/classes/rest/class-workflow.php:434
+#, php-format
+msgid "Failed to execute plugin action on site %s."
+msgstr ""
+
+#: inc/classes/rest/class-workflow.php:440
+msgid "Unknown error occurred."
+msgstr ""
+
+#. translators: %s is the site URL
+#: inc/classes/rest/class-workflow.php:458
+#: inc/classes/rest/class-workflow.php:498
+#: inc/classes/rest/class-workflow.php:538
+#, php-format
+msgid "GitHub repository not found for site %s."
+msgstr ""
+
+#: inc/classes/rest/class-workflow.php:572
+msgid "Plugin action executed successfully."
+msgstr ""
+
+#: inc/classes/rest/class-workflow.php:592
+msgid "Invalid data provided."
+msgstr ""
+
+#: inc/classes/rest/class-workflow.php:606
+#: inc/classes/rest/class-workflow.php:847
+msgid "Invalid site data provided."
+msgstr ""
+
+#: inc/classes/rest/class-workflow.php:671
+#: inc/classes/rest/class-workflow.php:685
+#: inc/classes/rest/class-workflow.php:963
+#: inc/classes/rest/class-workflow.php:984
+msgid "Failed to trigger GitHub action for PR creation."
+msgstr ""
+
+#: inc/classes/rest/class-workflow.php:702
+#: inc/classes/rest/class-workflow.php:1008
+msgid "GitHub Action workflow dispatched successfully"
+msgstr ""
+
+#: inc/classes/rest/class-workflow.php:740
+msgid "Invalid options provided."
+msgstr ""
+
+#: inc/classes/settings/class-shared-sites.php:44
+#: inc/classes/settings/class-shared-sites.php:56
+#: inc/classes/settings/class-shared-sites.php:57
+msgid "Plugin Manager"
+msgstr ""
+
+#: inc/classes/settings/class-shared-sites.php:66
+#: inc/classes/settings/class-shared-sites.php:67
+#: inc/classes/settings/class-shared-sites.php:110
+msgid "Settings"
+msgstr ""
+
+#: inc/classes/settings/class-shared-sites.php:87
+#: inc/classes/settings/class-shared-sites.php:105
+msgid "You do not have sufficient permissions to access this page."
+msgstr ""
+
+#: inc/classes/settings/class-shared-sites.php:91
+#: assets/build/js/plugin-manager.js:3
+#: assets/src/admin/plugin-manager/index.js:1172
+msgid "OneUpdate - Plugin Manager"
+msgstr ""
+
+#. translators: %s is the plugin name.
+#: oneupdate.php:42
+#, php-format
+msgid "You are running the %s plugin from the GitHub repository. Please build the assets and install composer dependencies to use the plugin."
+msgstr ""
+
+#. translators: %s is the command to run.
+#: oneupdate.php:51
+#, php-format
+msgid "Run the following commands in the plugin directory: %s"
+msgstr ""
+
+#. translators: %s is the plugin name.
+#: oneupdate.php:59
+#, php-format
+msgid "Please refer to the %s for more information."
+msgstr ""
+
+#: oneupdate.php:63
+msgid "OneUpdate GitHub repository"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:1
+#: assets/src/components/PluginsSharing.js:64
+msgid "By"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:1
+#: assets/build/js/plugin-manager.js:3
+#: assets/src/admin/plugin-manager/index.js:566
+#: assets/src/components/PluginsSharing.js:71
+msgid "Latest"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:1
+#: assets/src/components/PluginsSharing.js:72
+msgid "v"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:1
+#: assets/src/components/PluginCard.js:64
+#: assets/src/components/PluginsSharing.js:90
+msgid "Selected"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:1
+#: assets/src/components/PluginCard.js:64
+#: assets/src/components/PluginsSharing.js:90
+msgid "Select Plugin"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:1
+#: assets/build/js/plugin-manager.js:6
+#: assets/src/admin/plugin-manager/index.js:1997
+#: assets/src/components/PluginCard.js:118
+#: assets/src/components/PluginsSharing.js:143
+msgid "Version"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:1
+#: assets/src/components/PluginsSharing.js:161
+msgid "Search & Share WordPress Plugins"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:1
+#: assets/src/components/PluginsSharing.js:164
+msgid "Find and install plugins across all your connected sites"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:1
+#: assets/src/components/PluginsSharing.js:178
+msgid "Search for plugins (e.g., \"contact form\", \"SEO\", \"security\")…"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:1
+#: assets/build/js/plugin-manager.js:3
+#: assets/src/admin/plugin-manager/index.js:1264
+#: assets/src/components/PluginsSharing.js:197
+msgid "Search Plugins"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:1
+#: assets/src/components/PluginsSharing.js:203
+msgid "💡 Tip: Try searching for specific functionality like \"backup\", \"analytics\", or \"forms\""
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:1
+#: assets/src/components/PluginGrid.js:34
+#: assets/src/components/PluginsSharing.js:243
+msgid "Failed to fetch plugins."
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:1
+#: assets/src/components/PluginsSharing.js:350
+msgid "Searching plugins…"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:1
+#: assets/src/components/PluginGrid.js:160
+#: assets/src/components/PluginsSharing.js:358
+msgid "Unable to load plugins"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:1
+#: assets/src/components/PluginGrid.js:163
+#: assets/src/components/PluginsSharing.js:361
+msgid "Try Again"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:1
+#: assets/build/js/plugin-manager.js:5
+#: assets/src/admin/plugin-manager/index.js:1693
+#: assets/src/components/PluginGrid.js:173
+#: assets/src/components/PluginsSharing.js:371
+msgid "No plugins found"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:1
+#: assets/src/components/PluginsSharing.js:373
+msgid "No plugins found for"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:1
+#: assets/src/components/PluginsSharing.js:374
+msgid "Try different keywords or check your spelling."
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:1
+#: assets/src/components/PluginsSharing.js:377
+msgid "Clear Search"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:1
+#: assets/src/components/PluginsSharing.js:388
+msgid "Search Results for"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:1
+#: assets/src/components/PluginGrid.js:191
+#: assets/src/components/PluginsSharing.js:398
+#: assets/src/components/S3ZipUploader.js:210
+msgid "plugin"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:1
+#: assets/src/components/PluginGrid.js:192
+#: assets/src/components/PluginsSharing.js:399
+#: assets/src/components/S3ZipUploader.js:210
+msgid "plugins"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:1
+#: assets/src/components/PluginGrid.js:193
+#: assets/src/components/PluginsSharing.js:400
+msgid "selected"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:1
+#: assets/src/components/PluginsSharing.js:405
+#: assets/src/components/PluginsSharing.js:408
+#: assets/src/components/PluginsSharing.js:615
+msgid "Install Selected Plugins"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:1
+#: assets/src/components/PluginGrid.js:238
+#: assets/src/components/PluginsSharing.js:456
+msgid "Previous"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:1
+#: assets/src/components/PluginGrid.js:241
+#: assets/src/components/PluginsSharing.js:459
+msgid "Page"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:1
+#: assets/src/components/PluginGrid.js:241
+#: assets/src/components/PluginsSharing.js:459
+msgid "of"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:1
+#: assets/src/components/PluginGrid.js:248
+#: assets/src/components/PluginsSharing.js:466
+#: assets/src/components/PluginsSharing.js:512
+msgid "Next"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:1
+#: assets/src/components/PluginsSharing.js:481
+msgid "Select Plugin Apply Type"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:1
+#: assets/src/components/PluginsSharing.js:490
+msgid "Add/Update"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:1
+#: assets/src/components/PluginsSharing.js:491
+msgid "Activate"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:1
+#: assets/src/components/PluginsSharing.js:492
+msgid "Deactivate"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:1
+#: assets/src/components/PluginsSharing.js:493
+msgid "Remove"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:1
+#: assets/build/js/plugin-manager.js:5
+#: assets/build/js/settings.js:1
+#: assets/src/admin/plugin-manager/index.js:1845
+#: assets/src/components/PluginsSharing.js:506
+#: assets/src/components/PluginsSharing.js:726
+#: assets/src/components/S3ZipUploader.js:155
+#: assets/src/components/S3ZipUploader.js:336
+#: assets/src/components/S3ZipUploader.js:925
+#: assets/src/components/SiteTable.js:110
+msgid "Cancel"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:1
+#: assets/src/components/PluginsSharing.js:626
+msgid "Select the sites where you want to install the selected plugins."
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:1
+#: assets/build/js/plugin-manager.js:5
+#: assets/src/admin/plugin-manager/index.js:1753
+#: assets/src/components/PluginsSharing.js:636
+#: assets/src/components/S3ZipUploader.js:220
+#: assets/src/components/S3ZipUploader.js:801
+msgid "Select All Sites"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:1
+#: assets/build/js/plugin-manager.js:5
+#: assets/src/admin/plugin-manager/index.js:1764
+#: assets/src/components/PluginsSharing.js:653
+#: assets/src/components/S3ZipUploader.js:76
+#: assets/src/components/S3ZipUploader.js:231
+#: assets/src/components/S3ZipUploader.js:825
+msgid "Clear Selection"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:1
+#: assets/src/components/PluginGrid.js:350
+#: assets/src/components/PluginsSharing.js:713
+msgid "No sites available to apply plugins."
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:1
+#: assets/src/components/PluginsSharing.js:565
+#: assets/src/components/S3ZipUploader.js:406
+msgid "Plugins applied successfully."
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:1
+#: assets/src/components/PluginGrid.js:317
+#: assets/src/components/PluginsSharing.js:597
+msgid "Failed to apply plugins. Please try again."
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:1
+#: assets/src/components/PluginGrid.js:324
+#: assets/src/components/PluginsSharing.js:604
+#: assets/src/components/S3ZipUploader.js:440
+msgid "An error occurred while applying plugins."
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:1
+#: assets/src/components/PluginsSharing.js:738
+#: assets/src/components/S3ZipUploader.js:346
+#: assets/src/components/S3ZipUploader.js:934
+msgid "Installing…"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:1
+#: assets/src/components/PluginsSharing.js:739
+#: assets/src/components/S3ZipUploader.js:347
+#: assets/src/components/S3ZipUploader.js:952
+msgid "Install Plugins"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:1
+#: assets/src/components/S3ZipUploader.js:44
+msgid "Select Plugins to Install"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:1
+#: assets/src/components/S3ZipUploader.js:55
+msgid "Select the plugins you want to install on your sites. Only plugins uploaded within the last hour are shown."
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:1
+#: assets/src/components/S3ZipUploader.js:65
+msgid "Select All Plugins"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:1
+#: assets/src/components/S3ZipUploader.js:129
+msgid "Uploaded:"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:1
+#: assets/src/components/S3ZipUploader.js:143
+msgid "No plugins uploaded within the last hour."
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:1
+#: assets/src/components/S3ZipUploader.js:163
+msgid "Next: Select Sites"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:1
+#: assets/src/components/S3ZipUploader.js:199
+msgid "Select Sites for Installation"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:1
+#: assets/src/components/S3ZipUploader.js:210
+msgid "Choose the sites where you want to install the selected plugins. You have selected"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:1
+#: assets/src/components/S3ZipUploader.js:315
+msgid "No sites available for plugin installation."
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:1
+#: assets/build/js/plugin-manager.js:3
+#: assets/src/admin/plugin-manager/index.js:960
+#: assets/src/admin/plugin-manager/index.js:1038
+#: assets/src/admin/plugin-manager/index.js:1065
+#: assets/src/components/S3ZipUploader.js:329
+msgid "Back"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:1
+#: assets/src/components/S3ZipUploader.js:400
+msgid "Network response was not ok"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:1
+#: assets/src/components/S3ZipUploader.js:436
+msgid "Failed to apply plugins:"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:1
+#: assets/src/components/S3ZipUploader.js:473
+msgid "Please select at least one site to install plugins on."
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:1
+#: assets/src/components/S3ZipUploader.js:465
+msgid "Please select at least one plugin to apply."
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:1
+#: assets/src/components/S3ZipUploader.js:551
+#: assets/src/components/S3ZipUploader.js:704
+#: assets/src/components/S3ZipUploader.js:989
+msgid "Copy URL"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:1
+#: assets/src/components/S3ZipUploader.js:732
+msgid "Upload Private Plugin"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:1
+#: assets/src/components/S3ZipUploader.js:574
+msgid "Please select a ZIP file."
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:1
+#: assets/src/components/S3ZipUploader.js:742
+msgid "Upload & Install Plugin"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:1
+#: assets/src/components/S3ZipUploader.js:755
+#: assets/src/components/S3ZipUploader.js:767
+msgid "Choose plugin zip file"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:1
+#: assets/src/components/S3ZipUploader.js:772
+msgid "Selected file:"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:1
+#: assets/src/components/S3ZipUploader.js:783
+msgid "Select Sites for Plugin Installation"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:1
+#: assets/src/components/S3ZipUploader.js:793
+msgid "Select the sites where you want to install this plugin."
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:1
+#: assets/src/components/S3ZipUploader.js:911
+msgid "No sites available. Please add sites first."
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:1
+#: assets/src/components/S3ZipUploader.js:611
+msgid "Failed to upload plugin zip."
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:1
+#: assets/src/components/S3ZipUploader.js:645
+msgid "Plugin uploaded and applied successfully!"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:1
+#: assets/src/components/S3ZipUploader.js:674
+msgid "Plugin uploaded but failed to apply:"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:1
+#: assets/src/components/S3ZipUploader.js:686
+msgid "Upload failed:"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:1
+#: assets/src/components/S3ZipUploader.js:583
+msgid "Please select at least one site."
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:1
+#: assets/src/components/S3ZipUploader.js:934
+msgid "Install Plugin"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:1
+#: assets/src/components/S3ZipUploader.js:944
+msgid "Upload History"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:1
+#: assets/src/components/S3ZipUploader.js:965
+msgid "File Name"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:1
+#: assets/src/components/S3ZipUploader.js:966
+msgid "Upload Time"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:1
+#: assets/src/components/S3ZipUploader.js:967
+msgid "Action"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:1
+#: assets/build/js/plugin-manager.js:3
+#: assets/src/admin/plugin-manager/index.js:1274
+#: assets/src/components/S3ZipUploader.js:968
+msgid "Status"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:1
+#: assets/src/components/S3ZipUploader.js:975
+msgid "No uploads yet."
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:1
+#: assets/src/components/S3ZipUploader.js:698
+msgid "Copied URL"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:1
+#: assets/src/components/S3ZipUploader.js:1011
+msgid "Expired"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:1
+#: assets/build/js/plugin-manager.js:3
+#: assets/build/js/plugin-manager.js:5
+#: assets/build/js/plugin-manager.js:7
+#: assets/src/admin/plugin-manager/index.js:1279
+#: assets/src/admin/plugin-manager/index.js:1822
+#: assets/src/admin/plugin-manager/index.js:2229
+#: assets/src/components/S3ZipUploader.js:1023
+msgid "Active"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:1
+#: assets/src/admin/plugin-manager/index.js:87
+msgid "Failed to perform S3 health check."
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:1
+#: assets/src/admin/plugin-manager/index.js:115
+msgid "Failed to fetch sites data."
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:1
+#: assets/src/admin/plugin-manager/index.js:348
+msgid "Fetching sites…"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:1
+#: assets/src/admin/plugin-manager/index.js:354
+msgid "No sites found."
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:1
+#: assets/src/admin/plugin-manager/index.js:360
+msgid "Fetching shared plugins data…"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:1
+#: assets/src/admin/plugin-manager/index.js:370
+msgid "Fetching real-time plugin status…"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:1
+#: assets/src/admin/plugin-manager/index.js:381
+msgid "Fetching plugins info from"
+msgstr ""
+
+#. translators: %s is the error message
+#: assets/build/js/plugin-manager.js:2
+#: assets/src/admin/plugin-manager/index.js:398
+#, js-format
+msgid "Error fetching plugins data: %s"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:2
+#: assets/src/admin/plugin-manager/index.js:399
+msgid "Unknown error"
+msgstr ""
+
+#. translators: %s is the list of sites with updates available
+#: assets/build/js/plugin-manager.js:3
+#: assets/src/admin/plugin-manager/index.js:445
+#, js-format
+msgid "Updates available on: %s"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:3
+#: assets/src/admin/plugin-manager/index.js:585
+msgid "No sites available for installation."
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:3
+#: assets/src/admin/plugin-manager/index.js:895
+msgid "Activate Plugin"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:3
+#: assets/src/admin/plugin-manager/index.js:896
+msgid "Select sites where you want to activate this plugin."
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:3
+#: assets/src/admin/plugin-manager/index.js:897
+msgid "Activate on Selected Sites"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:3
+#: assets/src/admin/plugin-manager/index.js:902
+msgid "Deactivate Plugin"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:3
+#: assets/src/admin/plugin-manager/index.js:903
+msgid "Select sites where you want to deactivate this plugin."
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:3
+#: assets/src/admin/plugin-manager/index.js:904
+msgid "Deactivate on Selected Sites"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:3
+#: assets/src/admin/plugin-manager/index.js:909
+msgid "Update Plugin"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:3
+#: assets/src/admin/plugin-manager/index.js:910
+msgid "Select sites where you want to update this plugin."
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:3
+#: assets/src/admin/plugin-manager/index.js:911
+msgid "Update on Selected Sites"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:3
+#: assets/src/admin/plugin-manager/index.js:916
+msgid "Change Plugin Version"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:3
+#: assets/src/admin/plugin-manager/index.js:917
+msgid "Choose plugin version and select sites where you want to change/update version."
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:3
+#: assets/src/admin/plugin-manager/index.js:918
+msgid "Change Version on Selected Sites"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:3
+#: assets/src/admin/plugin-manager/index.js:923
+msgid "Remove Plugin"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:3
+#: assets/src/admin/plugin-manager/index.js:924
+msgid "Select sites where you want to remove this plugin."
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:3
+#: assets/src/admin/plugin-manager/index.js:925
+msgid "Remove from Selected Sites"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:3
+#: assets/src/admin/plugin-manager/index.js:930
+msgid "Plugin Action"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:3
+#: assets/src/admin/plugin-manager/index.js:931
+msgid "Select sites for this action."
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:3
+#: assets/src/admin/plugin-manager/index.js:932
+msgid "Execute Action"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:3
+#: assets/src/admin/plugin-manager/index.js:1087
+#: assets/src/components/PluginGrid.js:152
+msgid "Loading plugins…"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:3
+#: assets/src/admin/plugin-manager/index.js:965
+#: assets/src/admin/plugin-manager/index.js:1197
+msgid "Add Plugin"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:3
+#: assets/src/admin/plugin-manager/index.js:968
+msgid "Choose how you want to add a plugin to your sites."
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:3
+#: assets/build/js/plugin-manager.js:6
+#: assets/src/admin/plugin-manager/index.js:984
+#: assets/src/admin/plugin-manager/index.js:1945
+msgid "Public Plugin"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:3
+#: assets/src/admin/plugin-manager/index.js:985
+msgid "Add a plugin from the WordPress.org repository."
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:3
+#: assets/src/admin/plugin-manager/index.js:993
+msgid "Invalid S3 credentials. Please check your settings."
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:3
+#: assets/build/js/plugin-manager.js:6
+#: assets/src/admin/plugin-manager/index.js:1009
+#: assets/src/admin/plugin-manager/index.js:1946
+msgid "Private Plugin"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:3
+#: assets/src/admin/plugin-manager/index.js:1010
+msgid "Upload a custom plugin from your computer."
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:3
+#: assets/src/admin/plugin-manager/index.js:1175
+msgid "Manage plugins across all your WordPress sites"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:3
+#: assets/src/admin/plugin-manager/index.js:801
+#: assets/src/admin/plugin-manager/index.js:809
+#: assets/src/admin/plugin-manager/index.js:865
+msgid "Failed to update plugins."
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:3
+#: assets/src/admin/plugin-manager/index.js:835
+msgid "Plugins update's PR raised successfully."
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:3
+#: assets/src/admin/plugin-manager/index.js:1188
+msgid "Update All"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:3
+#: assets/src/admin/plugin-manager/index.js:1267
+msgid "Search by name or description…"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:3
+#: assets/src/admin/plugin-manager/index.js:1278
+msgid "All Status"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:3
+#: assets/build/js/plugin-manager.js:7
+#: assets/src/admin/plugin-manager/index.js:1280
+#: assets/src/admin/plugin-manager/index.js:2230
+msgid "Inactive"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:3
+#: assets/src/admin/plugin-manager/index.js:1284
+msgid "Type"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:3
+#: assets/src/admin/plugin-manager/index.js:1288
+msgid "All Types"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:3
+#: assets/build/js/plugin-manager.js:4
+#: assets/src/admin/plugin-manager/index.js:1289
+#: assets/src/admin/plugin-manager/index.js:1459
+msgid "Public"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:3
+#: assets/build/js/plugin-manager.js:4
+#: assets/src/admin/plugin-manager/index.js:1290
+#: assets/src/admin/plugin-manager/index.js:1460
+msgid "Private"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:3
+#: assets/src/admin/plugin-manager/index.js:1294
+msgid "Updates"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:3
+#: assets/src/admin/plugin-manager/index.js:1298
+msgid "All Updates"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:3
+#: assets/src/admin/plugin-manager/index.js:1299
+msgid "Updates Available"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:3
+#: assets/src/admin/plugin-manager/index.js:1304
+msgid "Filter By Site"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:3
+#: assets/src/admin/plugin-manager/index.js:1308
+msgid "All Sites"
+msgstr ""
+
+#. translators: %1$d is the number of filtered plugins, %2$d is the total number of plugins
+#: assets/build/js/plugin-manager.js:4
+#: assets/src/admin/plugin-manager/index.js:1324
+#, js-format
+msgid "Showing %1$d of %2$d plugins"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:4
+#: assets/src/admin/plugin-manager/index.js:1468
+msgid "Plugin Actions"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:4
+#: assets/src/admin/plugin-manager/index.js:1483
+msgid "Change version/update"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:4
+#: assets/src/admin/plugin-manager/index.js:1496
+msgid "Activate on sites"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:4
+#: assets/src/admin/plugin-manager/index.js:1509
+msgid "Deactivate on sites"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:4
+#: assets/src/admin/plugin-manager/index.js:1525
+msgid "Install on sites"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:4
+#: assets/src/admin/plugin-manager/index.js:1536
+msgid "Uninstall from sites"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:4
+#: assets/src/admin/plugin-manager/index.js:1548
+msgid "Plugin Details"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:4
+#: assets/src/admin/plugin-manager/index.js:1660
+msgid "1 site needs update"
+msgstr ""
+
+#. translators: %d is the number of sites needing updates
+#: assets/build/js/plugin-manager.js:5
+#: assets/src/admin/plugin-manager/index.js:1663
+#, js-format
+msgid "%d sites need updates"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:5
+#: assets/src/admin/plugin-manager/index.js:1696
+msgid "No plugins found matching your filters. Try adjusting your search criteria."
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:5
+#: assets/src/admin/plugin-manager/index.js:1728
+msgid "Select Version"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:5
+#: assets/src/admin/plugin-manager/index.js:1732
+msgid "Select a version…"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:5
+#: assets/src/admin/plugin-manager/index.js:1735
+msgid "Choose from the latest 5 stable versions available"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:5
+#: assets/src/admin/plugin-manager/index.js:1740
+msgid "No stable versions available for this plugin."
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:5
+#: assets/src/admin/plugin-manager/index.js:1781
+msgid "No sites available for activation. Plugin is already active on all sites."
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:5
+#: assets/src/admin/plugin-manager/index.js:1786
+msgid "No sites available for deactivation. Plugin is not active on any sites."
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:5
+#: assets/src/admin/plugin-manager/index.js:1791
+msgid "No sites have updates available for this plugin."
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:5
+#: assets/build/js/plugin-manager.js:7
+#: assets/src/admin/plugin-manager/index.js:1827
+#: assets/src/admin/plugin-manager/index.js:2244
+msgid "Update Available"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:5
+#: assets/src/admin/plugin-manager/index.js:645
+msgid "Failed to execute action."
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:5
+#: assets/src/admin/plugin-manager/index.js:649
+msgid "Action failed."
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:5
+#: assets/src/admin/plugin-manager/index.js:682
+msgid "selected sites"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:5
+#: assets/src/admin/plugin-manager/index.js:687
+msgid "activated"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:5
+#: assets/src/admin/plugin-manager/index.js:690
+msgid "deactivated"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:5
+#: assets/src/admin/plugin-manager/index.js:693
+msgid "updated"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:5
+#: assets/src/admin/plugin-manager/index.js:696
+msgid "installed"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:5
+#: assets/src/admin/plugin-manager/index.js:699
+msgid "removed"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:5
+#: assets/src/admin/plugin-manager/index.js:702
+msgid "version change PR raised"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:5
+#: assets/src/admin/plugin-manager/index.js:705
+msgid "executed"
+msgstr ""
+
+#. translators: %s is the plugin name, %s is the action verb, %s is the site names
+#: assets/build/js/plugin-manager.js:6
+#: assets/src/admin/plugin-manager/index.js:709
+#, js-format
+msgid "%1$s %2$s successfully on %3$s."
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:6
+#: assets/src/admin/plugin-manager/index.js:1863
+msgid "Processing…"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:6
+#: assets/src/admin/plugin-manager/index.js:1973
+msgid "Description"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:6
+#: assets/src/admin/plugin-manager/index.js:1991
+msgid "Author"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:6
+#: assets/src/admin/plugin-manager/index.js:2003
+msgid "Sites"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:6
+#: assets/src/admin/plugin-manager/index.js:2012
+msgid "Downloads"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:6
+#: assets/src/admin/plugin-manager/index.js:2022
+msgid "Requires WordPress"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:6
+#: assets/src/admin/plugin-manager/index.js:2030
+msgid "Tested up to"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:6
+#: assets/src/admin/plugin-manager/index.js:2038
+msgid "Requires PHP"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:6
+#: assets/src/admin/plugin-manager/index.js:2046
+msgid "Last Updated"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:6
+#: assets/src/admin/plugin-manager/index.js:2059
+msgid "Tags"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:6
+#: assets/src/admin/plugin-manager/index.js:2086
+msgid "Plugin URI"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:6
+#: assets/src/admin/plugin-manager/index.js:2103
+msgid "Installation"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:6
+#: assets/src/admin/plugin-manager/index.js:2120
+msgid "FAQ"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:6
+#: assets/src/admin/plugin-manager/index.js:2137
+msgid "Changelog"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:6
+#: assets/build/js/plugin-manager.js:7
+#: assets/src/admin/plugin-manager/index.js:2161
+#: assets/src/admin/plugin-manager/index.js:2261
+msgid "Close"
+msgstr ""
+
+#. translators: %s is the plugin name
+#: assets/build/js/plugin-manager.js:7
+#: assets/src/admin/plugin-manager/index.js:2173
+#, js-format
+msgid "%s - Sites"
+msgstr ""
+
+#: assets/build/js/plugin-manager.js:7
+#: assets/src/admin/plugin-manager/index.js:2181
+msgid "Plugin status across all sites"
+msgstr ""
+
+#: assets/build/js/plugin.js:1
+#: assets/src/admin/plugin/index.js:10
+msgid "Site Type"
+msgstr ""
+
+#: assets/build/js/plugin.js:1
+#: assets/src/admin/plugin/index.js:12
+msgid "Choose your site's primary purpose. This setting cannot be changed later and affects available features and configurations."
+msgstr ""
+
+#: assets/build/js/plugin.js:1
+#: assets/src/admin/plugin/index.js:17
+msgid "Select…"
+msgstr ""
+
+#: assets/build/js/plugin.js:1
+#: assets/src/admin/plugin/index.js:18
+msgid "Brand Site"
+msgstr ""
+
+#: assets/build/js/plugin.js:1
+#: assets/src/admin/plugin/index.js:19
+msgid "Governing site"
+msgstr ""
+
+#: assets/build/js/plugin.js:1
+#: assets/build/js/settings.js:1
+#: assets/src/admin/plugin/index.js:48
+#: assets/src/admin/settings/index.js:50
+msgid "Error fetching site type or Brand sites."
+msgstr ""
+
+#: assets/build/js/plugin.js:1
+#: assets/src/admin/plugin/index.js:74
+#: assets/src/admin/plugin/index.js:89
+msgid "Error setting site type."
+msgstr ""
+
+#: assets/build/js/plugin.js:1
+#: assets/src/admin/plugin/index.js:122
+msgid "Select current site type"
+msgstr ""
+
+#: assets/build/js/settings.js:1
+#: assets/src/components/SiteTable.js:101
+msgid "Delete Brand Site"
+msgstr ""
+
+#: assets/build/js/settings.js:1
+#: assets/src/components/SiteTable.js:105
+msgid "Are you sure you want to delete this Brand Site? This action cannot be undone."
+msgstr ""
+
+#: assets/build/js/settings.js:1
+#: assets/src/components/SiteTable.js:81
+#: assets/src/components/SiteTable.js:107
+msgid "Delete"
+msgstr ""
+
+#: assets/build/js/settings.js:1
+#: assets/src/components/SiteTable.js:28
+msgid "Brand Sites"
+msgstr ""
+
+#: assets/build/js/settings.js:1
+#: assets/src/components/SiteModal.js:113
+#: assets/src/components/SiteTable.js:34
+msgid "Add Brand Site"
+msgstr ""
+
+#: assets/build/js/settings.js:1
+#: assets/src/components/SiteTable.js:41
+msgid "Site Name"
+msgstr ""
+
+#: assets/build/js/settings.js:1
+#: assets/src/components/SiteTable.js:42
+msgid "Site URL"
+msgstr ""
+
+#: assets/build/js/settings.js:1
+#: assets/src/components/SiteTable.js:43
+msgid "GitHub Repo"
+msgstr ""
+
+#: assets/build/js/settings.js:1
+#: assets/src/components/SiteSettings.js:99
+#: assets/src/components/SiteTable.js:44
+msgid "Public Key"
+msgstr ""
+
+#: assets/build/js/settings.js:1
+#: assets/src/components/SiteTable.js:45
+msgid "Actions"
+msgstr ""
+
+#: assets/build/js/settings.js:1
+#: assets/src/components/SiteTable.js:52
+msgid "No Brand Sites found."
+msgstr ""
+
+#: assets/build/js/settings.js:1
+#: assets/src/components/SiteTable.js:74
+msgid "Edit"
+msgstr ""
+
+#: assets/build/js/settings.js:1
+#: assets/src/components/SiteModal.js:113
+msgid "Edit Brand Site"
+msgstr ""
+
+#: assets/build/js/settings.js:1
+#: assets/src/components/SiteModal.js:128
+msgid "Site Name*"
+msgstr ""
+
+#: assets/build/js/settings.js:1
+#: assets/src/components/SiteModal.js:132
+msgid "This is the name of the site that will be registered."
+msgstr ""
+
+#: assets/build/js/settings.js:1
+#: assets/src/components/SiteModal.js:135
+msgid "Site URL*"
+msgstr ""
+
+#: assets/build/js/settings.js:1
+#: assets/src/components/SiteModal.js:139
+msgid "It must start with http or https and end with /, like: https://oneupdate.com/"
+msgstr ""
+
+#: assets/build/js/settings.js:1
+#: assets/src/components/SiteModal.js:142
+msgid "GitHub Repository*"
+msgstr ""
+
+#: assets/build/js/settings.js:1
+#: assets/src/components/SiteModal.js:146
+msgid "Select a repository"
+msgstr ""
+
+#: assets/build/js/settings.js:1
+#: assets/src/components/SiteModal.js:148
+msgid "Select the GitHub repository associated with this site."
+msgstr ""
+
+#: assets/build/js/settings.js:1
+#: assets/src/components/SiteModal.js:151
+msgid "Public Key*"
+msgstr ""
+
+#: assets/build/js/settings.js:1
+#: assets/src/components/SiteModal.js:155
+msgid "This is the public key that will be used to authenticate the site for OneUpdate."
+msgstr ""
+
+#: assets/build/js/settings.js:1
+#: assets/src/components/SiteModal.js:29
+msgid "Enter a valid URL (must start with http or https)."
+msgstr ""
+
+#: assets/build/js/settings.js:1
+#: assets/src/components/SiteModal.js:27
+msgid "Site URL is required."
+msgstr ""
+
+#: assets/build/js/settings.js:1
+#: assets/src/components/SiteModal.js:33
+msgid "Site Name is required."
+msgstr ""
+
+#: assets/build/js/settings.js:1
+#: assets/src/components/SiteModal.js:35
+msgid "Public Key is required."
+msgstr ""
+
+#: assets/build/js/settings.js:1
+#: assets/src/components/SiteModal.js:41
+msgid "Site Name must be under 20 characters."
+msgstr ""
+
+#: assets/build/js/settings.js:1
+#: assets/src/components/SiteModal.js:73
+msgid "Health check failed. Please ensure the site is accessible and the public key is correct."
+msgstr ""
+
+#: assets/build/js/settings.js:1
+#: assets/src/components/SiteModal.js:87
+#: assets/src/components/SiteModal.js:94
+msgid "An error occurred while saving the site. Please try again."
+msgstr ""
+
+#: assets/build/js/settings.js:1
+#: assets/src/components/SiteModal.js:101
+msgid "An unexpected error occurred. Please try again."
+msgstr ""
+
+#: assets/build/js/settings.js:1
+#: assets/src/components/SiteModal.js:166
+msgid "Update Site"
+msgstr ""
+
+#: assets/build/js/settings.js:1
+#: assets/src/components/SiteModal.js:166
+msgid "Add Site"
+msgstr ""
+
+#: assets/build/js/settings.js:1
+#: assets/src/components/GitHubRepoToken.js:54
+msgid "Please enter valid GitHub PAT token."
+msgstr ""
+
+#: assets/build/js/settings.js:1
+#: assets/src/components/GitHubRepoToken.js:71
+msgid "GitHub token set successfully."
+msgstr ""
+
+#: assets/build/js/settings.js:1
+#: assets/src/components/GitHubRepoToken.js:63
+msgid "Enter valid PAT token."
+msgstr ""
+
+#: assets/build/js/settings.js:1
+#: assets/src/components/GitHubRepoToken.js:86
+msgid "GitHub Credentials"
+msgstr ""
+
+#: assets/build/js/settings.js:1
+#: assets/src/components/GitHubRepoToken.js:94
+msgid "Save GitHub Token"
+msgstr ""
+
+#: assets/build/js/settings.js:1
+#: assets/src/components/GitHubRepoToken.js:100
+msgid "GitHub Personal Access Token*"
+msgstr ""
+
+#: assets/build/js/settings.js:1
+#: assets/src/components/GitHubRepoToken.js:103
+msgid "Enter your GitHub Personal Access Token to authenticate with the GitHub API. This token should have permissions to access your public/private repositories."
+msgstr ""
+
+#: assets/build/js/settings.js:1
+#: assets/src/components/GitHubRepoToken.js:104
+msgid "ghp_XXXXXXXXXXXXXXXX"
+msgstr ""
+
+#: assets/build/js/settings.js:1
+#: assets/src/components/S3Credentials.js:42
+msgid "Failed to fetch S3 credentials."
+msgstr ""
+
+#: assets/build/js/settings.js:1
+#: assets/src/components/S3Credentials.js:67
+msgid "All fields are required to save S3 credentials."
+msgstr ""
+
+#: assets/build/js/settings.js:1
+#: assets/src/components/S3Credentials.js:76
+msgid "Please enter a valid URL for the S3 endpoint."
+msgstr ""
+
+#: assets/build/js/settings.js:1
+#: assets/src/components/S3Credentials.js:97
+#: assets/src/components/S3Credentials.js:112
+msgid "Failed to save S3 credentials. Please try again later."
+msgstr ""
+
+#: assets/build/js/settings.js:1
+#: assets/src/components/S3Credentials.js:107
+msgid "S3 credentials saved successfully."
+msgstr ""
+
+#: assets/build/js/settings.js:1
+#: assets/src/components/S3Credentials.js:126
+msgid "S3 Credentials"
+msgstr ""
+
+#: assets/build/js/settings.js:1
+#: assets/src/components/S3Credentials.js:133
+msgid "Save Credentials"
+msgstr ""
+
+#: assets/build/js/settings.js:1
+#: assets/src/components/S3Credentials.js:138
+msgid "Loading…"
+msgstr ""
+
+#: assets/build/js/settings.js:1
+#: assets/src/components/S3Credentials.js:146
+msgid "Bucket Name*"
+msgstr ""
+
+#: assets/build/js/settings.js:1
+#: assets/src/components/S3Credentials.js:149
+msgid "Enter your S3 Bucket Name"
+msgstr ""
+
+#: assets/build/js/settings.js:1
+#: assets/src/components/S3Credentials.js:150
+msgid "The name of your S3 bucket where files will be uploaded."
+msgstr ""
+
+#: assets/build/js/settings.js:1
+#: assets/src/components/S3Credentials.js:153
+msgid "Region*"
+msgstr ""
+
+#: assets/build/js/settings.js:1
+#: assets/src/components/S3Credentials.js:156
+msgid "Enter your S3 Region"
+msgstr ""
+
+#: assets/build/js/settings.js:1
+#: assets/src/components/S3Credentials.js:157
+msgid "The AWS region where your S3 bucket is located."
+msgstr ""
+
+#: assets/build/js/settings.js:1
+#: assets/src/components/S3Credentials.js:161
+msgid "Endpoint*"
+msgstr ""
+
+#: assets/build/js/settings.js:1
+#: assets/src/components/S3Credentials.js:164
+msgid "Enter your S3 Endpoint"
+msgstr ""
+
+#: assets/build/js/settings.js:1
+#: assets/src/components/S3Credentials.js:165
+msgid "The custom endpoint for your S3 bucket."
+msgstr ""
+
+#: assets/build/js/settings.js:1
+#: assets/src/components/S3Credentials.js:168
+msgid "Access Key*"
+msgstr ""
+
+#: assets/build/js/settings.js:1
+#: assets/src/components/S3Credentials.js:171
+msgid "Enter your S3 Access Key"
+msgstr ""
+
+#: assets/build/js/settings.js:1
+#: assets/src/components/S3Credentials.js:172
+msgid "Your S3 Access Key ID will go here…"
+msgstr ""
+
+#: assets/build/js/settings.js:1
+#: assets/src/components/S3Credentials.js:176
+msgid "Secret Key*"
+msgstr ""
+
+#: assets/build/js/settings.js:1
+#: assets/src/components/S3Credentials.js:180
+msgid "Enter your S3 Secret"
+msgstr ""
+
+#: assets/build/js/settings.js:1
+#: assets/src/components/S3Credentials.js:181
+msgid "Your S3 Secret Access Key will go here…"
+msgstr ""
+
+#: assets/build/js/settings.js:1
+#: assets/src/components/SiteSettings.js:31
+msgid "Failed to fetch public key. Please try again later."
+msgstr ""
+
+#: assets/build/js/settings.js:1
+#: assets/src/components/SiteSettings.js:55
+msgid "Public key regenerated successfully. Please update your old key with this newly generated key to make sure plugin works properly."
+msgstr ""
+
+#: assets/build/js/settings.js:1
+#: assets/src/components/SiteSettings.js:60
+msgid "Failed to regenerate public key. Please try again later."
+msgstr ""
+
+#: assets/build/js/settings.js:1
+#: assets/src/components/SiteSettings.js:66
+msgid "Error regenerating public key. Please try again later."
+msgstr ""
+
+#: assets/build/js/settings.js:1
+#: assets/src/components/SiteSettings.js:102
+msgid "This key is used for secure communication with the Governing site."
+msgstr ""
+
+#: assets/build/js/settings.js:1
+#: assets/src/components/SiteSettings.js:113
+msgid "Public key copied to clipboard."
+msgstr ""
+
+#: assets/build/js/settings.js:1
+#: assets/src/components/SiteSettings.js:119
+msgid "Failed to copy public key. Please try again."
+msgstr ""
+
+#: assets/build/js/settings.js:1
+#: assets/src/components/SiteSettings.js:124
+msgid "Copy Public Key"
+msgstr ""
+
+#: assets/build/js/settings.js:1
+#: assets/src/components/SiteSettings.js:132
+msgid "Regenerate Public Key"
+msgstr ""
+
+#: assets/build/js/settings.js:1
+#: assets/src/admin/settings/index.js:147
+msgid "Failed to delete Brand site. Please try again."
+msgstr ""
+
+#: assets/build/js/settings.js:1
+#: assets/src/admin/settings/index.js:153
+msgid "Brand Site deleted successfully."
+msgstr ""
+
+#: assets/build/js/settings.js:1
+#: assets/src/admin/settings/index.js:164
+msgid "Error deleting Brand site. Please try again later."
+msgstr ""
+
+#: assets/build/js/settings.js:1
+#: assets/src/admin/settings/index.js:117
+msgid "Brand Site saved successfully."
+msgstr ""
+
+#: assets/build/js/settings.js:1
+#: assets/src/admin/settings/index.js:122
+msgid "Error saving Brand site. Please try again later."
+msgstr ""
+
+#: assets/src/components/PluginGrid.js:134
+msgid "Search plugins…"
+msgstr ""
+
+#: assets/src/components/PluginGrid.js:144
+msgid "Search"
+msgstr ""
+
+#: assets/src/components/PluginGrid.js:174
+msgid "Unable to find any plugins to display."
+msgstr ""
+
+#: assets/src/components/PluginGrid.js:176
+msgid "Refresh"
+msgstr ""
+
+#: assets/src/components/PluginGrid.js:198
+msgid "Apply selected plugins"
+msgstr ""
+
+#: assets/src/components/PluginGrid.js:201
+msgid "Apply Selected plugins"
+msgstr ""
+
+#: assets/src/components/PluginGrid.js:310
+msgid "Plugins applied successfully. Please check the PR at:"
+msgstr ""
+
+#: assets/src/components/PluginGrid.js:331
+msgid "Apply Selected Plugins"
+msgstr ""
+
+#: assets/src/components/PluginGrid.js:337
+msgid "Select a site to apply the plugins"
+msgstr ""
+
+#: assets/src/components/PluginGrid.js:361
+msgid "Apply Plugins"
+msgstr ""
