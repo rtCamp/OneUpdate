@@ -168,7 +168,7 @@ Private plugin uploads expire after 1 hour for security purposes. You'll need to
 
 ## Troubleshooting
 
-### Plugin Not Showing in Governing
+### Plugin Not Showing on the governing site
 
 - Verify governing site configuration  
 - Check network connectivity between sites  
