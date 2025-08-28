@@ -221,10 +221,10 @@ class Cache {
 			self::build_plugins_transient();
 		}
 		$reconstructed_plugins = json_decode( $existing_transient, true );
-		
+
 		// add is_active field to the plugin.
 		$reconstructed_plugins[ $original_plugin_slug ]['is_active'] = $is_activation ? true : ( $is_deactivation ? false : is_plugin_active( $original_plugin_slug ) );
-		
+
 		// set the cache for one hour.
 		set_transient( 'oneupdate_get_plugins', wp_json_encode( $reconstructed_plugins ), HOUR_IN_SECONDS );
 	}
