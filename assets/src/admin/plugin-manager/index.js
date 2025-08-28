@@ -430,7 +430,9 @@ const PluginManager = () => {
 					updateFilter === 'all' || ( updateFilter === 'available' && plugin.update_available_sites > 0 );
 
 			const matchesSite =
-				siteFilter === 'all' || ( siteFilter !== 'all' && Object.keys( plugin.sites ).includes( siteFilter ) );
+				siteFilter === 'all' ||
+				( siteFilter === 'common-plugins' && Object.keys( plugin.sites ).length === allAvailableSites.length ) ||
+				( siteFilter !== 'all' && Object.keys( plugin.sites ).includes( siteFilter ) );
 
 			return matchesSearch && matchesStatus && matchesType && matchesUpdate && matchesSite;
 		} );
@@ -1307,6 +1309,7 @@ const PluginManager = () => {
 										onChange={ setSiteFilter }
 										options={ [
 											{ label: __( 'All Sites', 'oneupdate' ), value: 'all' },
+											{ label: __( 'Common plugins', 'oneupdate' ), value: 'common-plugins' },
 											...allAvailableSites.map( ( site ) => ( {
 												label: site.siteName,
 												value: site.siteUrl,
