@@ -35,7 +35,7 @@ class Hooks {
 		add_action( 'init', array( $this, 'create_global_oneupdate_sites' ), -1 );
 
 		// add setup page link to plugins page.
-		add_filter( 'plugin_action_links_' . ONEUPDATE_PLUGIN_LOADER_PLUGIN_BASENAME, array( $this, 'add_setup_page_link' ) );
+		add_filter( 'plugin_action_links_' . ONEUPDATE_PLUGIN_LOADER_PLUGIN_BASENAME, array( $this, 'add_settings_page_link' ) );
 
 		// add container for modal for site selection on activation.
 		add_action( 'admin_footer', array( $this, 'add_site_selection_modal' ) );
@@ -127,18 +127,18 @@ class Hooks {
 	}
 
 	/**
-	 * Add setup page link to plugins page.
+	 * Add settings page link to plugins page.
 	 *
 	 * @param array $links Existing plugin action links.
 	 * @return array Modified plugin action links.
 	 */
-	public function add_setup_page_link( $links ): array {
-		$setup_link = sprintf(
+	public function add_settings_page_link( $links ): array {
+		$settings_link = sprintf(
 			'<a href="%s">%s</a>',
 			esc_url( admin_url( 'admin.php?page=oneupdate-settings' ) ),
-			__( 'Setup', 'oneupdate' )
+			__( 'Settings', 'oneupdate' )
 		);
-		array_unshift( $links, $setup_link );
+		array_unshift( $links, $settings_link );
 		return $links;
 	}
 
