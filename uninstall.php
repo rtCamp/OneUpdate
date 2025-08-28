@@ -36,7 +36,7 @@ if ( ! function_exists( 'oneupdate_plugin_sync_deactivate' ) ) {
 		// Remove oneupdate_child_site_api_key option.
 		delete_option( 'oneupdate_child_site_api_key' );
 
-		// remove oneupdate_s3_zip_history table.
+		// Remove oneupdate_s3_zip_history table.
 		DB::remove_oneupdate_s3_zip_history_table();
 	}
 }
