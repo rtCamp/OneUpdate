@@ -48,4 +48,16 @@ class DB {
 		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 		dbDelta( $sql );
 	}
+
+	/**
+	 * Remove database tables on plugin uninstall.
+	 *
+	 * @return void
+	 */
+	public static function remove_oneupdate_s3_zip_history_table(): void {
+		global $wpdb;
+		$table_name = $wpdb->prefix . 'oneupdate_s3_zip_history';
+		$sql        = "DROP TABLE IF EXISTS $table_name;";
+		$wpdb->query( $sql ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.NotPrepared -- dropping table, no user input.
+	}
 }

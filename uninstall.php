@@ -5,6 +5,8 @@
  * @package OneUpdate
  */
 
+use OneUpdate\Plugin_Configs\DB;
+
 // If uninstall not called from WordPress, exit.
 if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 	exit;
@@ -31,6 +33,11 @@ if ( ! function_exists( 'oneupdate_plugin_sync_deactivate' ) ) {
 		delete_transient( 'oneupdate_site_type_transient' );
 		// Remove oneupdate_get_plugins transient.
 		delete_transient( 'oneupdate_get_plugins' );
+		// Remove oneupdate_child_site_api_key option.
+		delete_option( 'oneupdate_child_site_api_key' );
+
+		// remove oneupdate_s3_zip_history table.
+		DB::remove_oneupdate_s3_zip_history_table();
 	}
 }
 /**
