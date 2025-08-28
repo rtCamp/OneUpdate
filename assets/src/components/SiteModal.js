@@ -14,7 +14,7 @@ const SiteModal = ( { formData, setFormData, onSubmit, onClose, editing, allGitH
 	const [ errors, setErrors ] = useState( {
 		siteName: '',
 		siteUrl: '',
-		publicKey: '',
+		apiKey: '',
 		message: '',
 	} );
 	const [ showNotice, setShowNotice ] = useState( false );
@@ -32,7 +32,7 @@ const SiteModal = ( { formData, setFormData, onSubmit, onClose, editing, allGitH
 		const newErrors = {
 			siteName: ! formData.siteName.trim() ? __( 'Site Name is required.', 'oneupdate' ) : '',
 			siteUrl: siteUrlError,
-			publicKey: ! formData.publicKey.trim() ? __( 'Public Key is required.', 'oneupdate' ) : '',
+			apiKey: ! formData.apiKey.trim() ? __( 'API Key is required.', 'oneupdate' ) : '',
 			message: '',
 		};
 
@@ -61,7 +61,7 @@ const SiteModal = ( { formData, setFormData, onSubmit, onClose, editing, allGitH
 					method: 'GET',
 					headers: {
 						'Content-Type': 'application/json',
-						'X-OneUpdate-Plugins-Token': formData.publicKey,
+						'X-OneUpdate-Plugins-Token': formData.apiKey,
 					},
 				},
 			);
@@ -70,7 +70,7 @@ const SiteModal = ( { formData, setFormData, onSubmit, onClose, editing, allGitH
 			if ( ! healthCheckData.success ) {
 				setErrors( {
 					...newErrors,
-					message: __( 'Health check failed. Please ensure the site is accessible and the public key is correct.', 'oneupdate' ),
+					message: __( 'Health check failed. Please ensure the site is accessible and the api key is correct.', 'oneupdate' ),
 				} );
 				setShowNotice( true );
 				setIsProcessing( false );
@@ -120,7 +120,7 @@ const SiteModal = ( { formData, setFormData, onSubmit, onClose, editing, allGitH
 					isDismissible={ true }
 					onRemove={ () => setShowNotice( false ) }
 				>
-					{ errors.message || errors.siteName || errors.siteUrl || errors.publicKey }
+					{ errors.message || errors.siteName || errors.siteUrl || errors.apiKey }
 				</Notice>
 			) }
 
@@ -148,18 +148,18 @@ const SiteModal = ( { formData, setFormData, onSubmit, onClose, editing, allGitH
 				help={ __( 'Select the GitHub repository associated with this site.', 'oneupdate' ) }
 			/>
 			<TextareaControl
-				label={ __( 'Public Key*', 'oneupdate' ) }
-				value={ formData.publicKey }
-				onChange={ ( value ) => setFormData( { ...formData, publicKey: value } ) }
-				error={ errors.publicKey }
-				help={ __( 'This is the public key that will be used to authenticate the site for OneUpdate.', 'oneupdate' ) }
+				label={ __( 'API Key*', 'oneupdate' ) }
+				value={ formData.apiKey }
+				onChange={ ( value ) => setFormData( { ...formData, apiKey: value } ) }
+				error={ errors.apiKey }
+				help={ __( 'This is the api key that will be used to authenticate the site for OneUpdate.', 'oneupdate' ) }
 			/>
 
 			<Button
 				isPrimary
 				onClick={ handleSubmit }
 				className={ isProcessing ? 'is-busy' : '' }
-				disabled={ isProcessing || ! formData.siteName || ! formData.siteUrl || ! formData.publicKey || ! formData.githubRepo }
+				disabled={ isProcessing || ! formData.siteName || ! formData.siteUrl || ! formData.apiKey || ! formData.githubRepo }
 				style={ { marginTop: '12px' } }
 			>
 				{ (

@@ -7,7 +7,7 @@ import { Button, CheckboxControl, Modal, Spinner, TextControl, Notice } from '@w
 import PluginCard from './PluginCard';
 
 const API_NAMESPACE = OneUpdatePlugins.restUrl + '/oneupdate/v1';
-const PUBLIC_KEY = OneUpdatePlugins.publicKey;
+const API_KEY = OneUpdatePlugins.apiKey;
 
 const PluginGrid = () => {
 	const [ page, setPage ] = useState( 1 );
@@ -83,7 +83,7 @@ const PluginGrid = () => {
 				method: 'GET',
 				headers: {
 					'Content-Type': 'application/json',
-					'X-ONEUPDATE-TOKEN': PUBLIC_KEY,
+					'X-ONEUPDATE-TOKEN': API_KEY,
 				},
 			},
 		);
@@ -288,7 +288,7 @@ const ApplyPluginsModal = ( { sharedSites, selectedPlugin, setShowApplyModal, se
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json',
-						'X-ONEUPDATE-TOKEN': PUBLIC_KEY,
+						'X-ONEUPDATE-TOKEN': API_KEY,
 					},
 					body: JSON.stringify( {
 						sites: selectedSiteInfo,

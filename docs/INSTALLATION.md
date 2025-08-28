@@ -31,7 +31,7 @@ OneUpdate requires installation on **two types of sites**: one **Governing Site*
 
 1. **Activate Plugin:** Go to WordPress Admin → Plugins and activate OneUpdate on each brand site
 2. **Configure Site Type:** Upon activation, select **"Brand Site"** when prompted
-3. **Generate API Key:** The plugin will generate a unique public key for secure communication
+3. **Generate API Key:** The plugin will generate a unique api key for secure communication
 4. **Copy Configuration Details:** Note down:
    - Site Name
    - Site URL  
@@ -46,7 +46,7 @@ OneUpdate requires installation on **two types of sites**: one **Governing Site*
 2. **Add Brand Site:** Click "Add New Site" and enter:
    - **Site Name:** Descriptive name for the brand site
    - **Site URL:** Full URL of the brand site
-   - **Public Key:** The API key generated on the brand site
+   - **API Key:** The API key generated on the brand site
    - **GitHub Repository:** Repository URL for the brand site
 
 ## Step 5: Configure GitHub Actions Workflows

@@ -94,7 +94,7 @@ class Basic_Options {
 		);
 
 		/**
-		 * Register a route to get oneupdate_child_site_public_key option.
+		 * Register a route to get oneupdate_child_site_api_key option.
 		 */
 		register_rest_route(
 			self::NAMESPACE,
@@ -150,7 +150,7 @@ class Basic_Options {
 			)
 		);
 		/**
-		 * Register a route which will store array of sites data like site name, site url, its GitHub repo and public key.
+		 * Register a route which will store array of sites data like site name, site url, its GitHub repo and api key.
 		 */
 		register_rest_route(
 			self::NAMESPACE,

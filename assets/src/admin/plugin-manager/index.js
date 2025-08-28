@@ -130,7 +130,7 @@ const PluginManager = () => {
 				method: 'GET',
 				headers: {
 					'Content-Type': 'application/json',
-					'X-OneUpdate-Plugins-Token': site.publicKey || '',
+					'X-OneUpdate-Plugins-Token': site.apiKey || '',
 				},
 				'cache-control': 'no-cache, no-store, must-revalidate',
 			} );

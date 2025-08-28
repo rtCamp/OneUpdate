@@ -257,7 +257,7 @@ class Workflow {
 	 */
 	public function webhook_permission_callback(): bool {
 		$secret       = isset( $_GET['secret'] ) ? sanitize_text_field( wp_unslash( $_GET['secret'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- no need for nonce as its called from webhook like vip or github.
-		$valid_secret = get_option( 'oneupdate_child_site_public_key', 'default_public_key' );
+		$valid_secret = get_option( 'oneupdate_child_site_api_key', 'default_api_key' );
 		return hash_equals( $secret, $valid_secret );
 	}
 
@@ -374,19 +374,19 @@ class Workflow {
 		if ( 'activate' === $action || 'deactivate' === $action || 'remove' === $action ) {
 			foreach ( $sites as $site ) {
 				$oneupdate_sites = $GLOBALS['oneupdate_sites'] ?? array();
-				$public_key      = $oneupdate_sites[ $site ]['publicKey'] ?? '';
+				$api_key      = $oneupdate_sites[ $site ]['apiKey'] ?? '';
 
 				$request_postfix = '/wp-json/' . self::NAMESPACE . '/oneupdate-plugins-options';
 				// strip the trailing slash from the site URL.
 				$site_url = rtrim( $oneupdate_sites[ $site ]['siteUrl'], '/' );
 
-				if ( ! empty( $public_key ) ) {
+				if ( ! empty( $api_key ) ) {
 					$response = wp_remote_post(
 						$site_url . $request_postfix,
 						array(
 							'headers' => array(
 								'Content-Type' => 'application/json',
-								'X-OneUpdate-Plugins-Token' => $public_key,
+								'X-OneUpdate-Plugins-Token' => $api_key,
 							),
 							'body'    => wp_json_encode(
 								array(
@@ -448,7 +448,7 @@ class Workflow {
 		if ( 'update' === $action || 'change-version' === $action ) {
 			foreach ( $sites as $site ) {
 				$oneupdate_sites = $GLOBALS['oneupdate_sites'] ?? array();
-				$public_key      = $oneupdate_sites[ $site ]['publicKey'] ?? '';
+				$api_key      = $oneupdate_sites[ $site ]['apiKey'] ?? '';
 				$github_repo     = $oneupdate_sites[ $site ]['gh_repo'] ?? '';
 				if ( empty( $github_repo ) ) {
 					$errors[] = new \WP_Error(
@@ -488,7 +488,7 @@ class Workflow {
 		if ( 'remove' === $action ) {
 			foreach ( $sites as $site ) {
 				$oneupdate_sites = $GLOBALS['oneupdate_sites'] ?? array();
-				$public_key      = $oneupdate_sites[ $site ]['publicKey'] ?? '';
+				$api_key      = $oneupdate_sites[ $site ]['apiKey'] ?? '';
 				$github_repo     = $oneupdate_sites[ $site ]['gh_repo'] ?? '';
 				if ( empty( $github_repo ) ) {
 					$errors[] = new \WP_Error(
@@ -528,7 +528,7 @@ class Workflow {
 		if ( 'install' === $action ) {
 			foreach ( $sites as $site ) {
 				$oneupdate_sites = $GLOBALS['oneupdate_sites'] ?? array();
-				$public_key      = $oneupdate_sites[ $site ]['publicKey'] ?? '';
+				$api_key      = $oneupdate_sites[ $site ]['apiKey'] ?? '';
 				$github_repo     = $oneupdate_sites[ $site ]['gh_repo'] ?? '';
 				if ( empty( $github_repo ) ) {
 					$errors[] = new \WP_Error(
@@ -855,7 +855,7 @@ class Workflow {
 			// set oneupdate_plugins_options for all sites.
 			$request_postfix = '/wp-json/' . self::NAMESPACE . '/oneupdate-plugins-options';
 			$site_url        = $site['siteUrl'] ?? '';
-			$token           = $site['publicKey'] ?? '';
+			$token           = $site['apiKey'] ?? '';
 			if ( ! empty( $site_url ) ) {
 				$site_url        = rtrim( $site_url, '/' );
 				$request_postfix = $site_url . '/' . $request_postfix;
@@ -863,7 +863,7 @@ class Workflow {
 
 			// if current site is same as site_url then use current site token.
 			if ( empty( $token ) ) {
-				$token = get_option( 'oneupdate_child_site_public_key', 'default_public_key' );
+				$token = get_option( 'oneupdate_child_site_api_key', 'default_api_key' );
 			}
 
 			// create comma separated string array of plugins.

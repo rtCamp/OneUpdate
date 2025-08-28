@@ -189,7 +189,7 @@ const SiteSelectionModal = ( {
 			setSelectedSiteInfo( sharedSites.map( ( site ) => ( {
 				siteUrl: site.siteUrl,
 				siteName: site.siteName,
-				publicKey: site.publicKey,
+				apiKey: site.apiKey,
 				githubRepo: site.githubRepo,
 			} ) ) );
 		}
@@ -265,7 +265,7 @@ const SiteSelectionModal = ( {
 																	{
 																		siteUrl: site.siteUrl,
 																		siteName: site.siteName,
-																		publicKey: site.publicKey,
+																		apiKey: site.apiKey,
 																		githubRepo: site.githubRepo,
 																	},
 																],
@@ -283,7 +283,7 @@ const SiteSelectionModal = ( {
 																{
 																	siteUrl: site.siteUrl,
 																	siteName: site.siteName,
-																	publicKey: site.publicKey,
+																	apiKey: site.apiKey,
 																	githubRepo: site.githubRepo,
 																},
 															],
@@ -809,7 +809,7 @@ const S3ZipUploader = () => {
 															sharedSites.map( ( site ) => ( {
 																siteUrl: site.siteUrl,
 																siteName: site.siteName,
-																publicKey: site.publicKey,
+																apiKey: site.apiKey,
 																githubRepo: site.githubRepo,
 															} ) ),
 														);
@@ -863,7 +863,7 @@ const S3ZipUploader = () => {
 																			{
 																				siteUrl: site.siteUrl,
 																				siteName: site.siteName,
-																				publicKey: site.publicKey,
+																				apiKey: site.apiKey,
 																				githubRepo: site.githubRepo,
 																			},
 																		],
@@ -881,7 +881,7 @@ const S3ZipUploader = () => {
 																		{
 																			siteUrl: site.siteUrl,
 																			siteName: site.siteName,
-																			publicKey: site.publicKey,
+																			apiKey: site.apiKey,
 																			githubRepo: site.githubRepo,
 																		},
 																	],

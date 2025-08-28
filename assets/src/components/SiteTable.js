@@ -41,7 +41,7 @@ const SiteTable = ( { sites, onEdit, onDelete, setFormData, setShowModal } ) => 
 							<th>{ __( 'Site Name', 'oneupdate' ) }</th>
 							<th>{ __( 'Site URL', 'oneupdate' ) }</th>
 							<th>{ __( 'GitHub Repo', 'oneupdate' ) }</th>
-							<th>{ __( 'Public Key', 'oneupdate' ) }</th>
+							<th>{ __( 'API Key', 'oneupdate' ) }</th>
 							<th>{ __( 'Actions', 'oneupdate' ) }</th>
 						</tr>
 					</thead>
@@ -60,7 +60,7 @@ const SiteTable = ( { sites, onEdit, onDelete, setFormData, setShowModal } ) => 
 								<td>
 									{ site?.githubRepo }
 								</td>
-								<td><code>{ site.publicKey.substring( 0, 10 ) }...</code></td>
+								<td><code>{ site?.apiKey.substring( 0, 10 ) }...</code></td>
 								<td>
 									<Button
 										variant="secondary"

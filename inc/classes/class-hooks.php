@@ -117,7 +117,7 @@ class Hooks {
 					'siteName'  => $site['siteName'],
 					'siteUrl'   => $site['siteUrl'],
 					'gh_repo'   => $site['githubRepo'],
-					'publicKey' => $site['publicKey'],
+					'apiKey' => $site['apiKey'],
 				);
 			}
 

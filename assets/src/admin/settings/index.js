@@ -17,7 +17,7 @@ const OneUpdateSettingsPage = () => {
 	const [ showModal, setShowModal ] = useState( false );
 	const [ editingIndex, setEditingIndex ] = useState( null );
 	const [ sites, setSites ] = useState( [] );
-	const [ formData, setFormData ] = useState( { siteName: '', siteUrl: '', publicKey: '' } );
+	const [ formData, setFormData ] = useState( { siteName: '', siteUrl: '', apiKey: '' } );
 	const [ notice, setNotice ] = useState( {
 		type: 'success',
 		message: '',
@@ -125,7 +125,7 @@ const OneUpdateSettingsPage = () => {
 			} );
 		}
 
-		setFormData( { siteName: '', siteUrl: '', publicKey: '' } );
+		setFormData( { siteName: '', siteUrl: '', apiKey: '' } );
 		setShowModal( false );
 		setEditingIndex( null );
 	};
@@ -209,7 +209,7 @@ const OneUpdateSettingsPage = () => {
 					onClose={ () => {
 						setShowModal( false );
 						setEditingIndex( null );
-						setFormData( { siteName: '', siteUrl: '', publicKey: '' } );
+						setFormData( { siteName: '', siteUrl: '', apiKey: '' } );
 					} }
 					editing={ editingIndex !== null }
 					allGitHubRepos={ allGitHubRepos }
