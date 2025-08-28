@@ -150,13 +150,13 @@ const PluginSelectionModal = ( { history, onClose, onNext, selectedPlugins, setS
 					{ /* Action Buttons */ }
 					<HStack justify="flex-end" spacing={ 3 }>
 						<Button
-							isSecondary
+							variant="secondary"
 							onClick={ onClose }
 						>
 							{ __( 'Cancel', 'oneupdate' ) }
 						</Button>
 						<Button
-							isPrimary
+							variant="primary"
 							onClick={ onNext }
 							disabled={ selectedPlugins.length === 0 }
 						>
@@ -322,7 +322,7 @@ const SiteSelectionModal = ( {
 					{ /* Action Buttons */ }
 					<HStack justify="flex-end" spacing={ 3 }>
 						<Button
-							isSecondary
+							variant="secondary"
 							onClick={ onBack }
 							disabled={ applyingPlugins }
 						>
@@ -330,14 +330,14 @@ const SiteSelectionModal = ( {
 							{ __( 'Back', 'oneupdate' ) }
 						</Button>
 						<Button
-							isSecondary
+							variant="secondary"
 							onClick={ onClose }
 							disabled={ applyingPlugins }
 						>
 							{ __( 'Cancel', 'oneupdate' ) }
 						</Button>
 						<Button
-							isPrimary
+							variant="primary"
 							onClick={ onInstall }
 							disabled={ selectedPlugins.length === 0 || selectedSiteInfo.length === 0 || applyingPlugins }
 							isBusy={ applyingPlugins }
@@ -732,7 +732,7 @@ const S3ZipUploader = () => {
 					<CardHeader>
 						<h2>{ __( 'Upload Private Plugin', 'oneupdate' ) }</h2>
 						<Button
-							isPrimary
+							variant="primary"
 							onClick={ handleUploadPrivatePlugin }
 							disabled={ uploading || ! file }
 							style={ {
@@ -782,8 +782,10 @@ const S3ZipUploader = () => {
 				{ showSiteSelectionModal && (
 					<Modal
 						title={ __( 'Select Sites for Plugin Installation', 'oneupdate' ) }
-						onRequestClose={ () => setShowSiteSelectionModal( false ) }
-						shouldCloseOnClickOutside={ false }
+						onRequestClose={ () => {
+							setShowSiteSelectionModal( false );
+						} }
+						shouldCloseOnClickOutside={ true }
 						className="oneupdate-site-selection-modal"
 						style={ { maxWidth: '600px', minWidth: '600px' } }
 					>
@@ -917,7 +919,7 @@ const S3ZipUploader = () => {
 
 								<HStack justify="flex-end" spacing={ 3 }>
 									<Button
-										isSecondary
+										variant="secondary"
 										onClick={ () => {
 											setShowSiteSelectionModal( false );
 											setSelectedSitesForUpload( [] );
@@ -926,7 +928,7 @@ const S3ZipUploader = () => {
 										{ __( 'Cancel', 'oneupdate' ) }
 									</Button>
 									<Button
-										isPrimary
+										variant="primary"
 										onClick={ handleConfirmUpload }
 										disabled={ selectedSitesForUpload.length === 0 || uploading }
 										isBusy={ uploading }

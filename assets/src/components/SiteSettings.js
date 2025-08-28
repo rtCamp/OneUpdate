@@ -104,7 +104,7 @@ const SiteSettings = () => {
 			</div>
 			{ /* Copy to clipboard button */ }
 			<Button
-				isPrimary
+				variant="primary"
 				onClick={ () => {
 					navigator?.clipboard?.writeText( apiKey )
 						.then( () => {
@@ -125,7 +125,7 @@ const SiteSettings = () => {
 			</Button>
 			{ /* Regenerate key button */ }
 			<Button
-				isSecondary
+				variant="secondary"
 				onClick={ regenerateApiKey }
 				style={ { marginLeft: '10px' } }
 			>

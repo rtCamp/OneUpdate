@@ -28,7 +28,7 @@ const SiteTable = ( { sites, onEdit, onDelete, setFormData, setShowModal } ) => 
 				<h3>{ __( 'Brand Sites', 'oneupdate' ) }</h3>
 				<Button
 					style={ { width: 'fit-content' } }
-					isPrimary
+					variant="primary"
 					onClick={ () => setShowModal( true ) }
 				>
 					{ __( 'Add Brand Site', 'oneupdate' ) }
@@ -101,12 +101,21 @@ const DeleteConfirmationModal = ( { onConfirm, onCancel } ) => (
 		title={ __( 'Delete Brand Site', 'oneupdate' ) }
 		onRequestClose={ onCancel }
 		isDismissible={ true }
+		shouldCloseOnClickOutside={ true }
 	>
 		<p>{ __( 'Are you sure you want to delete this Brand Site? This action cannot be undone.', 'oneupdate' ) }</p>
-		<Button variant="secondary" isDestructive onClick={ onConfirm }>
+		<Button
+			variant="secondary"
+			isDestructive
+			onClick={ onConfirm }
+		>
 			{ __( 'Delete', 'oneupdate' ) }
 		</Button>
-		<Button variant="secondary" isSecondary onClick={ onCancel } style={ { marginLeft: '10px' } }>
+		<Button
+			variant="secondary"
+			onClick={ onCancel }
+			style={ { marginLeft: '10px' } }
+		>
 			{ __( 'Cancel', 'oneupdate' ) }
 		</Button>
 	</Modal>

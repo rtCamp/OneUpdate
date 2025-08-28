@@ -142,7 +142,10 @@ const PluginGrid = () => {
 						}
 					} }
 				/>
-				<Button variant="primary" onClick={ handleSearchSubmit }>
+				<Button
+					variant="primary"
+					onClick={ handleSearchSubmit }
+				>
 					{ __( 'Search', 'oneupdate' ) }
 				</Button>
 			</div>
@@ -161,7 +164,10 @@ const PluginGrid = () => {
 					<div className="error-content">
 						<h3>{ __( 'Unable to load plugins', 'oneupdate' ) }</h3>
 						<p>{ error }</p>
-						<Button variant="primary" onClick={ handleRetry }>
+						<Button
+							variant="primary"
+							onClick={ handleRetry }
+						>
 							{ __( 'Try Again', 'oneupdate' ) }
 						</Button>
 					</div>
@@ -174,7 +180,10 @@ const PluginGrid = () => {
 					<div className="empty-content">
 						<h3>{ __( 'No plugins found', 'oneupdate' ) }</h3>
 						<p>{ __( 'Unable to find any plugins to display.', 'oneupdate' ) }</p>
-						<Button variant="secondary" onClick={ handleRetry }>
+						<Button
+							variant="secondary"
+							onClick={ handleRetry }
+						>
 							{ __( 'Refresh', 'oneupdate' ) }
 						</Button>
 					</div>

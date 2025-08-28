@@ -358,7 +358,10 @@ const PluginGrid = () => {
 							<div className="error-content">
 								<h3>{ __( 'Unable to load plugins', 'oneupdate' ) }</h3>
 								<p>{ error }</p>
-								<Button variant="primary" onClick={ handleRetry }>
+								<Button
+									variant="primary"
+									onClick={ handleRetry }
+								>
 									{ __( 'Try Again', 'oneupdate' ) }
 								</Button>
 							</div>
@@ -374,7 +377,10 @@ const PluginGrid = () => {
 									{ __( 'No plugins found for', 'oneupdate' ) } &quot;<strong>{ searchQuery }</strong>&quot;.
 									{ __( 'Try different keywords or check your spelling.', 'oneupdate' ) }
 								</p>
-								<Button variant="secondary" onClick={ () => setSearchInput( '' ) }>
+								<Button
+									variant="secondary"
+									onClick={ () => setSearchInput( '' ) }
+								>
 									{ __( 'Clear Search', 'oneupdate' ) }
 								</Button>
 							</div>
@@ -720,14 +726,14 @@ const ApplyPluginsModal = ( { sharedSites, selectedPlugin, setShowApplyModal, se
 					{ /* Action Buttons */ }
 					<HStack justify="flex-end" spacing={ 3 }>
 						<Button
-							isSecondary
+							variant="secondary"
 							onClick={ () => setShowApplyModal( false ) }
 							disabled={ isApplyingPlugins }
 						>
 							{ __( 'Cancel', 'oneupdate' ) }
 						</Button>
 						<Button
-							isPrimary
+							variant="primary"
 							onClick={ () => {
 								handleApplyPlugins();
 							} }

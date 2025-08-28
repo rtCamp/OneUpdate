@@ -951,7 +951,7 @@ const PluginManager = () => {
 					<>
 						{ showBackButton && (
 							<Button
-								isSecondary
+								variant="secondary"
 								icon={ arrowLeft }
 								onClick={ () => {
 									setShowAddPluginModal( false );
@@ -1028,7 +1028,7 @@ const PluginManager = () => {
 				<>
 					{ showBackButton && (
 						<Button
-							isSecondary
+							variant="secondary"
 							icon={ arrowLeft }
 							onClick={ () => {
 								setShowAddPluginModal( true );
@@ -1055,7 +1055,7 @@ const PluginManager = () => {
 				<>
 					{ showBackButton && (
 						<Button
-							isSecondary
+							variant="secondary"
 							icon={ arrowLeft }
 							onClick={ () => {
 								setShowAddPluginModal( true );
@@ -1182,7 +1182,7 @@ const PluginManager = () => {
 								<Flex gap={ 3 }>
 									<FlexItem>
 										<Button
-											isSecondary
+											variant="secondary"
 											onClick={ handleUpdateAll }
 											disabled={ updatesAvailable === 0 || isBulkUpdateProcess }
 											icon={ loop }
@@ -1193,7 +1193,7 @@ const PluginManager = () => {
 									</FlexItem>
 									<FlexItem>
 										<Button
-											isPrimary
+											variant="primary"
 											onClick={ handleAddPlugin }
 											icon={ plus }
 										>
@@ -1711,6 +1711,7 @@ const PluginManager = () => {
 							title={ getActionInfo( currentAction ).title }
 							onRequestClose={ () => setShowSiteSelectionModal( false ) }
 							style={ { maxWidth: '600px', minWidth: '600px' } }
+							shouldCloseOnClickOutside={ true }
 						>
 							<div style={ { paddingTop: '24px' } }>
 								<VStack spacing={ 4 }>
@@ -1845,11 +1846,15 @@ const PluginManager = () => {
 
 									{ /* Action Buttons */ }
 									<HStack justify="flex-end" spacing={ 3 }>
-										<Button isSecondary onClick={ () => setShowSiteSelectionModal( false ) } disabled={ actionLoading }>
+										<Button
+											variant="secondary"
+											onClick={ () => setShowSiteSelectionModal( false ) }
+											disabled={ actionLoading }
+										>
 											{ __( 'Cancel', 'oneupdate' ) }
 										</Button>
 										<Button
-											isPrimary
+											variant="primary"
 											onClick={ executeAction }
 											disabled={
 												selectedSites.length === 0 ||
@@ -1879,6 +1884,7 @@ const PluginManager = () => {
 							title={ decodeEntities( selectedPlugin.plugin_info.name ) }
 							onRequestClose={ () => setShowPluginModal( false ) }
 							style={ { maxWidth: '800px', minWidth: '800px' } }
+							shouldCloseOnClickOutside={ true }
 						>
 							<div style={ { paddingTop: '24px' } }>
 								{ /* Plugin Header */ }
@@ -2159,7 +2165,7 @@ const PluginManager = () => {
 
 								<div style={ { textAlign: 'right', marginTop: '32px' } }>
 									<Button
-										isPrimary
+										variant="primary"
 										onClick={ () => setShowPluginModal( false ) }
 									>
 										{ __( 'Close', 'oneupdate' ) }
@@ -2179,6 +2185,7 @@ const PluginManager = () => {
 							) }
 							onRequestClose={ () => setShowSitesModal( false ) }
 							style={ { maxWidth: '400px', minWidth: '400px' } }
+							shouldCloseOnClickOutside={ true }
 						>
 							<div style={ { padding: '8px' } }>
 								<p style={ { marginBottom: '1rem', color: '#50575e', fontSize: '14px' } }>
@@ -2259,7 +2266,7 @@ const PluginManager = () => {
 
 								<div style={ { textAlign: 'right', marginTop: '24px' } }>
 									<Button
-										isPrimary
+										variant="primary"
 										onClick={ () => setShowSitesModal( false ) }
 									>
 										{ __( 'Close', 'oneupdate' ) }

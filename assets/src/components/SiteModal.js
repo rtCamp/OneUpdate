@@ -113,6 +113,7 @@ const SiteModal = ( { formData, setFormData, onSubmit, onClose, editing, allGitH
 			title={ editing ? __( 'Edit Brand Site', 'oneupdate' ) : __( 'Add Brand Site', 'oneupdate' ) }
 			onRequestClose={ onClose }
 			size="medium"
+			shouldCloseOnClickOutside={ true }
 		>
 			{ showNotice && (
 				<Notice
@@ -156,7 +157,7 @@ const SiteModal = ( { formData, setFormData, onSubmit, onClose, editing, allGitH
 			/>
 
 			<Button
-				isPrimary
+				variant="primary"
 				onClick={ handleSubmit }
 				className={ isProcessing ? 'is-busy' : '' }
 				disabled={ isProcessing || ! formData.siteName || ! formData.siteUrl || ! formData.apiKey || ! formData.githubRepo }
