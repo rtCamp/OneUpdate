@@ -70,7 +70,7 @@ const SiteModal = ( { formData, setFormData, onSubmit, onClose, editing, allGitH
 			if ( ! healthCheckData.success ) {
 				setErrors( {
 					...newErrors,
-					message: __( 'Health check failed. Please ensure the site is accessible and the api key is correct.', 'oneupdate' ),
+					message: __( 'Health check failed. Please ensure the site is accessible and the API key is correct.', 'oneupdate' ),
 				} );
 				setShowNotice( true );
 				setIsProcessing( false );
@@ -153,7 +153,7 @@ const SiteModal = ( { formData, setFormData, onSubmit, onClose, editing, allGitH
 				value={ formData.apiKey }
 				onChange={ ( value ) => setFormData( { ...formData, apiKey: value } ) }
 				error={ errors.apiKey }
-				help={ __( 'This is the api key that will be used to authenticate the site for OneUpdate.', 'oneupdate' ) }
+				help={ __( 'This is the API key that will be used to authenticate the site for OneUpdate.', 'oneupdate' ) }
 			/>
 
 			<Button

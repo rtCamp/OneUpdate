@@ -60,7 +60,7 @@ const SiteTable = ( { sites, onEdit, onDelete, setFormData, setShowModal } ) => 
 								<td>
 									{ site?.githubRepo }
 								</td>
-								<td><code>{ site?.apiKey.substring( 0, 10 ) }...</code></td>
+								<td><code>{ site?.apiKey?.substring( 0, 10 ) }...</code></td>
 								<td>
 									<Button
 										variant="secondary"

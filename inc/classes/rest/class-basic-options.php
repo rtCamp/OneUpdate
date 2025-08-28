@@ -150,7 +150,7 @@ class Basic_Options {
 			)
 		);
 		/**
-		 * Register a route which will store array of sites data like site name, site url, its GitHub repo and api key.
+		 * Register a route which will store array of sites data like site name, site url, its GitHub repo and API key.
 		 */
 		register_rest_route(
 			self::NAMESPACE,

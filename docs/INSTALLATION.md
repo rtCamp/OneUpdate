@@ -31,7 +31,7 @@ OneUpdate requires installation on **two types of sites**: one **Governing Site*
 
 1. **Activate Plugin:** Go to WordPress Admin → Plugins and activate OneUpdate on each brand site
 2. **Configure Site Type:** Upon activation, select **"Brand Site"** when prompted
-3. **Generate API Key:** The plugin will generate a unique api key for secure communication
+3. **Generate API Key:** The plugin will generate a unique API key for secure communication
 4. **Copy Configuration Details:** Note down:
    - Site Name
    - Site URL  

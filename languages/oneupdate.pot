@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-08-28T06:33:29+00:00\n"
+"POT-Creation-Date: 2025-08-28T11:08:25+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: oneupdate\n"
@@ -1374,7 +1374,7 @@ msgstr ""
 
 #: assets/build/js/settings.js:1
 #: assets/src/components/SiteModal.js:156
-msgid "This is the api key that will be used to authenticate the site for OneUpdate."
+msgid "This is the API key that will be used to authenticate the site for OneUpdate."
 msgstr ""
 
 #: assets/build/js/settings.js:1
@@ -1404,7 +1404,7 @@ msgstr ""
 
 #: assets/build/js/settings.js:1
 #: assets/src/components/SiteModal.js:73
-msgid "Health check failed. Please ensure the site is accessible and the api key is correct."
+msgid "Health check failed. Please ensure the site is accessible and the API key is correct."
 msgstr ""
 
 #: assets/build/js/settings.js:1
@@ -1586,7 +1586,7 @@ msgstr ""
 
 #: assets/build/js/settings.js:1
 #: assets/src/components/SiteSettings.js:31
-msgid "Failed to fetch api key. Please try again later."
+msgid "Failed to fetch API key. Please try again later."
 msgstr ""
 
 #: assets/build/js/settings.js:1
@@ -1596,12 +1596,12 @@ msgstr ""
 
 #: assets/build/js/settings.js:1
 #: assets/src/components/SiteSettings.js:60
-msgid "Failed to regenerate api key. Please try again later."
+msgid "Failed to regenerate API key. Please try again later."
 msgstr ""
 
 #: assets/build/js/settings.js:1
 #: assets/src/components/SiteSettings.js:66
-msgid "Error regenerating api key. Please try again later."
+msgid "Error regenerating API key. Please try again later."
 msgstr ""
 
 #: assets/build/js/settings.js:1
@@ -1616,7 +1616,7 @@ msgstr ""
 
 #: assets/build/js/settings.js:1
 #: assets/src/components/SiteSettings.js:119
-msgid "Failed to copy api key. Please try again."
+msgid "Failed to copy API key. Please try again."
 msgstr ""
 
 #: assets/build/js/settings.js:1

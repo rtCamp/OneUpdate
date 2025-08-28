@@ -28,7 +28,7 @@ const SiteSettings = () => {
 		} catch ( error ) {
 			setNotice( {
 				type: 'error',
-				message: __( 'Failed to fetch api key. Please try again later.', 'oneupdate' ),
+				message: __( 'Failed to fetch API key. Please try again later.', 'oneupdate' ),
 			} );
 		} finally {
 			setIsLoading( false );
@@ -57,13 +57,13 @@ const SiteSettings = () => {
 			} else {
 				setNotice( {
 					type: 'error',
-					message: __( 'Failed to regenerate api key. Please try again later.', 'oneupdate' ),
+					message: __( 'Failed to regenerate API key. Please try again later.', 'oneupdate' ),
 				} );
 			}
 		} catch ( error ) {
 			setNotice( {
 				type: 'error',
-				message: __( 'Error regenerating api key. Please try again later.', 'oneupdate' ),
+				message: __( 'Error regenerating API key. Please try again later.', 'oneupdate' ),
 			} );
 		}
 	}, [] );
@@ -116,7 +116,7 @@ const SiteSettings = () => {
 						.catch( ( error ) => {
 							setNotice( {
 								type: 'error',
-								message: __( 'Failed to copy api key. Please try again.', 'oneupdate' ) + ' ' + error,
+								message: __( 'Failed to copy API key. Please try again.', 'oneupdate' ) + ' ' + error,
 							} );
 						} );
 				} }
