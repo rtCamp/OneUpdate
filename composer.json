@@ -1,5 +1,6 @@
 {
 	"name": "rtcamp/oneupdate",
+	"version": "1.0.1",
 	"description": "OneUpdate Plugin Loader",
 	"type": "wordpress-plugin",
 	"autoload": {

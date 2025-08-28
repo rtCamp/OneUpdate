@@ -1,13 +1,13 @@
 <?php
 /**
  * Plugin Name: OneUpdate
- * Version: 1.0.0
+ * Version: 1.0.1
  * Description: A plugin to load OneUpdate common plugins.
  * Author: Utsav Patel, rtCamp
  * Author URI: https://rtcamp.com
  * Text Domain: oneupdate
  * Domain Path: /languages
- * Requires at least: 6.0.0
+ * Requires at least: 6.5.0
  * Requires PHP: 7.4
  * Tested up to: 6.8.2
  *
@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'ONEUPDATE_PLUGIN_LOADER_VERSION', '1.0.0' );
+define( 'ONEUPDATE_PLUGIN_LOADER_VERSION', '1.0.1' );
 define( 'ONEUPDATE_PLUGIN_LOADER_FEATURES_PATH', untrailingslashit( plugin_dir_path( __FILE__ ) ) );
 define( 'ONEUPDATE_PLUGIN_LOADER_RELATIVE_PATH', dirname( plugin_basename( __FILE__ ) ) );
 define( 'ONEUPDATE_PLUGIN_LOADER_FEATURES_URL', untrailingslashit( plugin_dir_url( __FILE__ ) ) );
