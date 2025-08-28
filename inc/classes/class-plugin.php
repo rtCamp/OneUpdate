@@ -7,8 +7,7 @@
 
 namespace OneUpdate;
 
-use OneUpdate\Plugin_Configs\{ DB, Secret_Key };
-use OneUpdate\Plugin_Configs\VIP_Plugin_Activation;
+use OneUpdate\Plugin_Configs\{ DB, Secret_Key, VIP_Plugin_Activation };
 use OneUpdate\Traits\Singleton;
 
 /**

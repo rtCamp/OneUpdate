@@ -9,8 +9,6 @@ namespace OneUpdate;
 
 use OneUpdate\Traits\Singleton;
 
-use function Sodium\compare;
-
 /**
  * Class Cache
  */
@@ -201,42 +199,8 @@ class Cache {
 		}
 		$reconstructed_plugins = json_decode( $existing_transient, true );
 
-		$plugin_api_slug = isset( $reconstructed_plugins[ $plugin_slug ]['plugin_slug'] ) ? $reconstructed_plugins[ $plugin_slug ]['plugin_slug'] : $plugin_slug;
-
-		// get plugin info from the api.
-		$plugin_info = wp_safe_remote_get(
-			"https://api.wordpress.org/plugins/info/1.0/{$plugin_api_slug}.json?fields=icons",
-			array(
-				'timeout' => 5, // phpcs:ignore WordPressVIPMinimum.Performance.RemoteRequestTimeout.timeout_timeout -- this is to avoid timeout issues.
-				'headers' => array(
-					'Accept' => 'application/json',
-				),
-			)
-		);
-		if ( is_wp_error( $plugin_info ) || wp_remote_retrieve_response_code( $plugin_info ) !== 200 ) {
-			$reconstructed_plugins[ $plugin_slug ]['is_public'] = false;
-		} else {
-			$plugin_info                                        = json_decode( wp_remote_retrieve_body( $plugin_info ), true );
-			$reconstructed_plugins[ $plugin_slug ]['is_public'] = ! empty( $plugin_info['name'] );
-			$reconstructed_plugins[ $plugin_slug ]['plugin_info'] = $plugin_info;
-		}
-
 		// add is_active field to the plugin.
 		$reconstructed_plugins[ $plugin_slug ]['is_active'] = $is_activation ? true : ( $is_deactivation ? false : is_plugin_active( $original_plugin_slug ) );
-
-		// check if update is available for the plugin.
-		$plugin_version = $reconstructed_plugins[ $plugin_slug ]['Version'] ?? '';
-
-		// check if second last version and plugin version is same.
-		$plugin_info_versions = $reconstructed_plugins[ $plugin_slug ]['plugin_info']['versions'] ?? array();
-
-		if ( ! empty( $plugin_info_versions ) && is_array( $plugin_info_versions ) ) {
-			$second_last_version = array_slice( $plugin_info_versions, -2, 1, true );
-			$second_last_version = key( $second_last_version );
-			$reconstructed_plugins[ $plugin_slug ]['is_update_available'] = version_compare( $plugin_version, $second_last_version, '<' );
-		} else {
-			$reconstructed_plugins[ $plugin_slug ]['is_update_available'] = false;
-		}
 
 		// set the cache for one hour.
 		set_transient( 'oneupdate_get_plugins', wp_json_encode( $reconstructed_plugins ), HOUR_IN_SECONDS );
@@ -251,44 +215,16 @@ class Cache {
 	 * @return void
 	 */
 	public static function hello_dolly_plugin( bool $is_activation, bool $is_deactivation ): void {
-		$plugin_slug          = 'hello-dolly';
 		$original_plugin_slug = 'hello.php';
 		$existing_transient   = get_transient( 'oneupdate_get_plugins' );
 		if ( ! $existing_transient ) {
 			self::build_plugins_transient();
 		}
 		$reconstructed_plugins = json_decode( $existing_transient, true );
-		// get plugin info from the api.
-		$plugin_api_slug = $reconstructed_plugins[ $plugin_slug ]['plugin_slug'] ?? $plugin_slug;
-		$plugin_info     = wp_safe_remote_get(
-			"https://api.wordpress.org/plugins/info/1.0/{$plugin_api_slug}.json?fields=icons",
-			array(
-				'timeout' => 5, // phpcs:ignore WordPressVIPMinimum.Performance.RemoteRequestTimeout.timeout_timeout -- this is to avoid timeout issues.
-				'headers' => array(
-					'Accept' => 'application/json',
-				),
-			)
-		);
-		if ( is_wp_error( $plugin_info ) || wp_remote_retrieve_response_code( $plugin_info ) !== 200 ) {
-			$reconstructed_plugins[ $original_plugin_slug ]['is_public'] = false;
-		} else {
-			$plugin_info = json_decode( wp_remote_retrieve_body( $plugin_info ), true );
-			$reconstructed_plugins[ $original_plugin_slug ]['is_public']   = ! empty( $plugin_info['name'] );
-			$reconstructed_plugins[ $original_plugin_slug ]['plugin_info'] = $plugin_info;
-		}
+		
 		// add is_active field to the plugin.
 		$reconstructed_plugins[ $original_plugin_slug ]['is_active'] = $is_activation ? true : ( $is_deactivation ? false : is_plugin_active( $original_plugin_slug ) );
-		// check if update is available for the plugin.
-		$plugin_version = $reconstructed_plugins[ $original_plugin_slug ]['Version'] ?? '';
-		// check if second last version and plugin version is same.
-		$plugin_info_versions = $reconstructed_plugins[ $original_plugin_slug ]['plugin_info']['versions'] ?? array();
-		if ( ! empty( $plugin_info_versions ) && is_array( $plugin_info_versions ) ) {
-			$second_last_version = array_slice( $plugin_info_versions, -2, 1, true );
-			$second_last_version = key( $second_last_version );
-			$reconstructed_plugins[ $original_plugin_slug ]['is_update_available'] = version_compare( $plugin_version, $second_last_version, '<' );
-		} else {
-			$reconstructed_plugins[ $original_plugin_slug ]['is_update_available'] = false;
-		}
+		
 		// set the cache for one hour.
 		set_transient( 'oneupdate_get_plugins', wp_json_encode( $reconstructed_plugins ), HOUR_IN_SECONDS );
 	}
