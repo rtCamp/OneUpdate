@@ -114,10 +114,10 @@ class Hooks {
 			$oneupdate_sites = array();
 			foreach ( $sites as $site ) {
 				$oneupdate_sites[ $site['siteUrl'] ] = array(
-					'siteName'  => $site['siteName'],
-					'siteUrl'   => $site['siteUrl'],
-					'gh_repo'   => $site['githubRepo'],
-					'apiKey' => $site['apiKey'],
+					'siteName' => $site['siteName'],
+					'siteUrl'  => $site['siteUrl'],
+					'gh_repo'  => $site['githubRepo'],
+					'apiKey'   => $site['apiKey'],
 				);
 			}
 

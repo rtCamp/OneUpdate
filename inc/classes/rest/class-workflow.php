@@ -374,7 +374,7 @@ class Workflow {
 		if ( 'activate' === $action || 'deactivate' === $action || 'remove' === $action ) {
 			foreach ( $sites as $site ) {
 				$oneupdate_sites = $GLOBALS['oneupdate_sites'] ?? array();
-				$api_key      = $oneupdate_sites[ $site ]['apiKey'] ?? '';
+				$api_key         = $oneupdate_sites[ $site ]['apiKey'] ?? '';
 
 				$request_postfix = '/wp-json/' . self::NAMESPACE . '/oneupdate-plugins-options';
 				// strip the trailing slash from the site URL.
@@ -448,7 +448,7 @@ class Workflow {
 		if ( 'update' === $action || 'change-version' === $action ) {
 			foreach ( $sites as $site ) {
 				$oneupdate_sites = $GLOBALS['oneupdate_sites'] ?? array();
-				$api_key      = $oneupdate_sites[ $site ]['apiKey'] ?? '';
+				$api_key         = $oneupdate_sites[ $site ]['apiKey'] ?? '';
 				$github_repo     = $oneupdate_sites[ $site ]['gh_repo'] ?? '';
 				if ( empty( $github_repo ) ) {
 					$errors[] = new \WP_Error(
@@ -488,7 +488,7 @@ class Workflow {
 		if ( 'remove' === $action ) {
 			foreach ( $sites as $site ) {
 				$oneupdate_sites = $GLOBALS['oneupdate_sites'] ?? array();
-				$api_key      = $oneupdate_sites[ $site ]['apiKey'] ?? '';
+				$api_key         = $oneupdate_sites[ $site ]['apiKey'] ?? '';
 				$github_repo     = $oneupdate_sites[ $site ]['gh_repo'] ?? '';
 				if ( empty( $github_repo ) ) {
 					$errors[] = new \WP_Error(
@@ -528,7 +528,7 @@ class Workflow {
 		if ( 'install' === $action ) {
 			foreach ( $sites as $site ) {
 				$oneupdate_sites = $GLOBALS['oneupdate_sites'] ?? array();
-				$api_key      = $oneupdate_sites[ $site ]['apiKey'] ?? '';
+				$api_key         = $oneupdate_sites[ $site ]['apiKey'] ?? '';
 				$github_repo     = $oneupdate_sites[ $site ]['gh_repo'] ?? '';
 				if ( empty( $github_repo ) ) {
 					$errors[] = new \WP_Error(
