@@ -150,13 +150,13 @@ const PluginSelectionModal = ( { history, onClose, onNext, selectedPlugins, setS
 					{ /* Action Buttons */ }
 					<HStack justify="flex-end" spacing={ 3 }>
 						<Button
-							isSecondary
+							variant="secondary"
 							onClick={ onClose }
 						>
 							{ __( 'Cancel', 'oneupdate' ) }
 						</Button>
 						<Button
-							isPrimary
+							variant="primary"
 							onClick={ onNext }
 							disabled={ selectedPlugins.length === 0 }
 						>
@@ -189,7 +189,7 @@ const SiteSelectionModal = ( {
 			setSelectedSiteInfo( sharedSites.map( ( site ) => ( {
 				siteUrl: site.siteUrl,
 				siteName: site.siteName,
-				publicKey: site.publicKey,
+				apiKey: site.apiKey,
 				githubRepo: site.githubRepo,
 			} ) ) );
 		}
@@ -199,7 +199,7 @@ const SiteSelectionModal = ( {
 		<Modal
 			title={ __( 'Select Sites for Installation', 'oneupdate' ) }
 			onRequestClose={ onClose }
-			shouldCloseOnClickOutside={ true }
+			shouldCloseOnClickOutside={ applyingPlugins ? false : true }
 			className="oneupdate-site-selection-modal"
 			style={ { maxWidth: '600px', minWidth: '600px' } }
 		>
@@ -222,11 +222,12 @@ const SiteSelectionModal = ( {
 										checked={ selectedSiteInfo.length === sharedSites.length && sharedSites.length > 0 }
 										onChange={ handleSelectAllSites }
 										style={ { fontWeight: '500' } }
+										disabled={ applyingPlugins }
 									/>
 									<Button
 										variant="link"
 										onClick={ () => setSelectedSiteInfo( [] ) }
-										disabled={ selectedSiteInfo.length === 0 }
+										disabled={ selectedSiteInfo.length === 0 || applyingPlugins }
 										style={ { fontWeight: '500', marginBottom: '8px' } }
 									>
 										{ __( 'Clear Selection', 'oneupdate' ) }
@@ -255,6 +256,10 @@ const SiteSelectionModal = ( {
 												role="button"
 												tabIndex={ 0 }
 												onKeyDown={ ( e ) => {
+													if ( applyingPlugins ) {
+														e.preventDefault();
+														return;
+													}
 													if ( e.key === 'Enter' || e.key === ' ' ) {
 														e.preventDefault();
 														setSelectedSiteInfo( ( prev ) =>
@@ -265,7 +270,7 @@ const SiteSelectionModal = ( {
 																	{
 																		siteUrl: site.siteUrl,
 																		siteName: site.siteName,
-																		publicKey: site.publicKey,
+																		apiKey: site.apiKey,
 																		githubRepo: site.githubRepo,
 																	},
 																],
@@ -275,6 +280,12 @@ const SiteSelectionModal = ( {
 												aria-pressed={ selectedSiteInfo.includes( site.siteUrl ) }
 												onClick={ ( event ) => {
 													event.stopPropagation();
+
+													if ( applyingPlugins ) {
+														event.preventDefault();
+														return;
+													}
+
 													setSelectedSiteInfo( ( prev ) =>
 														prev.some( ( s ) => s.siteUrl === site.siteUrl )
 															? prev.filter( ( s ) => s.siteUrl !== site.siteUrl )
@@ -283,7 +294,7 @@ const SiteSelectionModal = ( {
 																{
 																	siteUrl: site.siteUrl,
 																	siteName: site.siteName,
-																	publicKey: site.publicKey,
+																	apiKey: site.apiKey,
 																	githubRepo: site.githubRepo,
 																},
 															],
@@ -304,6 +315,7 @@ const SiteSelectionModal = ( {
 														</div>
 													}
 													checked={ selectedSiteInfo.some( ( s ) => s.siteUrl === site.siteUrl ) }
+													disabled={ applyingPlugins }
 												/>
 											</div>
 										) ) }
@@ -322,7 +334,7 @@ const SiteSelectionModal = ( {
 					{ /* Action Buttons */ }
 					<HStack justify="flex-end" spacing={ 3 }>
 						<Button
-							isSecondary
+							variant="secondary"
 							onClick={ onBack }
 							disabled={ applyingPlugins }
 						>
@@ -330,14 +342,14 @@ const SiteSelectionModal = ( {
 							{ __( 'Back', 'oneupdate' ) }
 						</Button>
 						<Button
-							isSecondary
+							variant="secondary"
 							onClick={ onClose }
 							disabled={ applyingPlugins }
 						>
 							{ __( 'Cancel', 'oneupdate' ) }
 						</Button>
 						<Button
-							isPrimary
+							variant="primary"
 							onClick={ onInstall }
 							disabled={ selectedPlugins.length === 0 || selectedSiteInfo.length === 0 || applyingPlugins }
 							isBusy={ applyingPlugins }
@@ -354,11 +366,10 @@ const SiteSelectionModal = ( {
 	);
 };
 
-const ApplyPluginsModal = ( { history, setShowApplyPluginsModal, setCurrentNotice } ) => {
+const ApplyPluginsModal = ( { history, setShowApplyPluginsModal, setCurrentNotice, applyingPlugins, setApplyingPlugins } ) => {
 	const [ selectedPlugins, setSelectedPlugins ] = useState( [] );
 	const [ selectedSiteInfo, setSelectedSiteInfo ] = useState( [] );
 	const [ sharedSites, setSharedSites ] = useState( [] );
-	const [ applyingPlugins, setApplyingPlugins ] = useState( false );
 
 	// Modal state management
 	const [ currentStep, setCurrentStep ] = useState( 'plugins' ); // 'plugins' or 'sites'
@@ -518,6 +529,7 @@ const S3ZipUploader = () => {
 	const [ buttonTexts, setButtonTexts ] = useState( {} );
 	const [ selectedSitesForUpload, setSelectedSitesForUpload ] = useState( [] );
 	const [ sharedSites, setSharedSites ] = useState( [] );
+	const [ applyingPlugins, setApplyingPlugins ] = useState( false );
 
 	// Fetch shared sites data
 	const fetchSharedSitesData = useCallback( async () => {
@@ -586,7 +598,6 @@ const S3ZipUploader = () => {
 		}
 
 		setUploading( true );
-		setShowSiteSelectionModal( false );
 
 		try {
 			// First upload to S3
@@ -688,6 +699,7 @@ const S3ZipUploader = () => {
 			} );
 		} finally {
 			setUploading( false );
+			setShowSiteSelectionModal( false );
 		}
 	};
 
@@ -732,13 +744,13 @@ const S3ZipUploader = () => {
 					<CardHeader>
 						<h2>{ __( 'Upload Private Plugin', 'oneupdate' ) }</h2>
 						<Button
-							isPrimary
+							variant="primary"
 							onClick={ handleUploadPrivatePlugin }
 							disabled={ uploading || ! file }
 							style={ {
 								width: 'fit-content',
 							} }
-							className={ uploading ? 'is-busy' : '' }
+							isBusy={ uploading }
 						>
 							{ __( 'Upload & Install Plugin', 'oneupdate' ) }
 						</Button>
@@ -763,7 +775,10 @@ const S3ZipUploader = () => {
 									color: '#fff',
 									padding: '10px',
 									borderRadius: '4px',
+									opacity: uploading ? 0.6 : 1,
+									cursor: uploading ? 'not-allowed' : 'pointer',
 								} }
+								disabled={ uploading }
 							>
 								{ __( 'Choose plugin zip file', 'oneupdate' ) }
 							</FormFileUpload>
@@ -782,8 +797,10 @@ const S3ZipUploader = () => {
 				{ showSiteSelectionModal && (
 					<Modal
 						title={ __( 'Select Sites for Plugin Installation', 'oneupdate' ) }
-						onRequestClose={ () => setShowSiteSelectionModal( false ) }
-						shouldCloseOnClickOutside={ false }
+						onRequestClose={ () => {
+							setShowSiteSelectionModal( false );
+						} }
+						shouldCloseOnClickOutside={ uploading ? false : true }
 						className="oneupdate-site-selection-modal"
 						style={ { maxWidth: '600px', minWidth: '600px' } }
 					>
@@ -809,18 +826,19 @@ const S3ZipUploader = () => {
 															sharedSites.map( ( site ) => ( {
 																siteUrl: site.siteUrl,
 																siteName: site.siteName,
-																publicKey: site.publicKey,
+																apiKey: site.apiKey,
 																githubRepo: site.githubRepo,
 															} ) ),
 														);
 													}
 												} }
+												disabled={ uploading }
 												style={ { fontWeight: '500' } }
 											/>
 											<Button
 												variant="link"
 												onClick={ () => setSelectedSitesForUpload( [] ) }
-												disabled={ selectedSitesForUpload.length === 0 }
+												disabled={ selectedSitesForUpload.length === 0 || uploading }
 												style={ { fontWeight: '500', marginBottom: '8px' } }
 											>
 												{ __( 'Clear Selection', 'oneupdate' ) }
@@ -853,6 +871,11 @@ const S3ZipUploader = () => {
 														role="button"
 														tabIndex={ 0 }
 														onKeyDown={ ( e ) => {
+															if ( uploading ) {
+																e.preventDefault();
+																return;
+															}
+
 															if ( e.key === 'Enter' || e.key === ' ' ) {
 																e.preventDefault();
 																setSelectedSitesForUpload( ( prev ) =>
@@ -863,7 +886,7 @@ const S3ZipUploader = () => {
 																			{
 																				siteUrl: site.siteUrl,
 																				siteName: site.siteName,
-																				publicKey: site.publicKey,
+																				apiKey: site.apiKey,
 																				githubRepo: site.githubRepo,
 																			},
 																		],
@@ -873,6 +896,12 @@ const S3ZipUploader = () => {
 														aria-pressed={ selectedSitesForUpload.some( ( s ) => s.siteUrl === site.siteUrl ) }
 														onClick={ ( event ) => {
 															event.stopPropagation();
+
+															if ( uploading ) {
+																event.preventDefault();
+																return;
+															}
+
 															setSelectedSitesForUpload( ( prev ) =>
 																prev.some( ( s ) => s.siteUrl === site.siteUrl )
 																	? prev.filter( ( s ) => s.siteUrl !== site.siteUrl )
@@ -881,7 +910,7 @@ const S3ZipUploader = () => {
 																		{
 																			siteUrl: site.siteUrl,
 																			siteName: site.siteName,
-																			publicKey: site.publicKey,
+																			apiKey: site.apiKey,
 																			githubRepo: site.githubRepo,
 																		},
 																	],
@@ -901,6 +930,7 @@ const S3ZipUploader = () => {
 																</div>
 															}
 															checked={ selectedSitesForUpload.some( ( s ) => s.siteUrl === site.siteUrl ) }
+															disabled={ uploading }
 														/>
 													</div>
 												) ) }
@@ -917,7 +947,7 @@ const S3ZipUploader = () => {
 
 								<HStack justify="flex-end" spacing={ 3 }>
 									<Button
-										isSecondary
+										variant="secondary"
 										onClick={ () => {
 											setShowSiteSelectionModal( false );
 											setSelectedSitesForUpload( [] );
@@ -926,7 +956,7 @@ const S3ZipUploader = () => {
 										{ __( 'Cancel', 'oneupdate' ) }
 									</Button>
 									<Button
-										isPrimary
+										variant="primary"
 										onClick={ handleConfirmUpload }
 										disabled={ selectedSitesForUpload.length === 0 || uploading }
 										isBusy={ uploading }
@@ -948,7 +978,8 @@ const S3ZipUploader = () => {
 								variant="primary"
 								onClick={ () => setShowApplyPluginsModal( true ) }
 								style={ { marginTop: '20px' } }s
-								disabled={ filteredHistory.length === 0 || loadingHistory }
+								disabled={ filteredHistory.length === 0 || loadingHistory || applyingPlugins }
+								isBusy={ applyingPlugins }
 							>
 								{ __( 'Install Plugins', 'oneupdate' ) }
 							</Button>
@@ -1041,6 +1072,8 @@ const S3ZipUploader = () => {
 						history={ history }
 						setShowApplyPluginsModal={ setShowApplyPluginsModal }
 						setCurrentNotice={ setCurrentNotice }
+						applyingPlugins={ applyingPlugins }
+						setApplyingPlugins={ setApplyingPlugins }
 					/>
 				) }
 			</div>

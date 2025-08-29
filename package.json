@@ -1,7 +1,7 @@
 {
 	"name": "oneupdate",
-	"version": "1.0.0",
-	"description": "OneUpdate Plugin Loader",
+	"version": "1.0.1",
+	"description": "OneUpdate - Enterprise WordPress Plugin Manager Automate plugin updates across multiple WordPress sites with CI/CD integration. Creates pull requests for seamless development-to-production workflows.",
 	"private": true,
 	"author": "rtCamp",
 	"license": "GPL-2.0-or-later",
@@ -23,6 +23,7 @@
 	},
 	"devDependencies": {
 		"@babel/core": "7.21.8",
+		"@changesets/cli": "^2.29.6",
 		"@wordpress/babel-preset-default": "7.16.0",
 		"@wordpress/browserslist-config": "5.15.0",
 		"@wordpress/env": "10.28.0",
@@ -79,7 +80,10 @@
 		"pretest:php:coverage": "echo \"\\e[1m\\e[32mMake sure you have run npm run wp-env start -- --xdebug=coverage before using this command\\e[0m\" && wp-env run composer 'install --no-interaction'",
 		"test:php:coverage": "wp-env run tests-wordpress 'env WP_TESTS_DIR=/var/www/wordpress-develop/tests/phpunit WP_PHPUNIT__TESTS_CONFIG=/wordpress-phpunit/wp-tests-config.php /var/www/html/wp-content/plugins/$(basename \"$PWD\")/vendor/bin/phpunit -c /var/www/html/wp-content/plugins/$(basename \"$PWD\")/phpunit.xml.dist --coverage-html /var/www/html/wp-content/plugins/$(basename \"$PWD\")/coverage'",
 		"posttest:php:coverage": "echo \"\\e[1m\\e[32mIf you have run this command with xdbug coverage enabled, you can view the coverage report at /coverage path\\e[0m\"",
-		"wp-env": "wp-env"
+		"wp-env": "wp-env",
+		"changeset": "changeset",
+		"version": "changeset version",
+		"release": "changeset publish"
 	},
 	"lint-staged": {
 		"**/*.{js,jsx,ts,tsx}": [

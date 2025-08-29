@@ -53,9 +53,9 @@ function oneupdate_validate_api_key(): bool {
 	// check X-oneupdate-Plugins-Token header.
 	if ( isset( $_SERVER['HTTP_X_ONEUPDATE_PLUGINS_TOKEN'] ) && ! empty( $_SERVER['HTTP_X_ONEUPDATE_PLUGINS_TOKEN'] ) ) {
 		$token = sanitize_text_field( wp_unslash( $_SERVER['HTTP_X_ONEUPDATE_PLUGINS_TOKEN'] ) );
-		// Get the public key from options.
-		$public_key = get_option( 'oneupdate_child_site_public_key', 'default_public_key' );
-		if ( hash_equals( $token, $public_key ) ) {
+		// Get the api key from options.
+		$api_key = get_option( 'oneupdate_child_site_api_key', 'default_api_key' );
+		if ( hash_equals( $token, $api_key ) ) {
 			return true;
 		}
 	}

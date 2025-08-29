@@ -56,7 +56,7 @@ class Assets {
 				array(
 					'nonce'     => wp_create_nonce( 'wp_rest' ),
 					'restUrl'   => esc_url( home_url( '/wp-json' ) ),
-					'publicKey' => get_option( 'oneupdate_child_site_public_key', 'default_public_key' ),
+					'apiKey'    => get_option( 'oneupdate_child_site_api_key', 'default_api_key' ),
 					'restNonce' => wp_create_nonce( 'wp_rest' ),
 					'ajaxUrl'   => admin_url( 'admin-ajax.php' ),
 					'setupUrl'  => admin_url( 'admin.php?page=oneupdate-settings' ),
@@ -83,7 +83,7 @@ class Assets {
 				array(
 					'nonce'     => wp_create_nonce( 'wp_rest' ),
 					'restUrl'   => esc_url( home_url( '/wp-json' ) ),
-					'publicKey' => get_option( 'oneupdate_child_site_public_key', 'default_public_key' ),
+					'apiKey'    => get_option( 'oneupdate_child_site_api_key', 'default_api_key' ),
 					'restNonce' => wp_create_nonce( 'wp_rest' ),
 				)
 			);
@@ -111,7 +111,7 @@ class Assets {
 				array(
 					'nonce'     => wp_create_nonce( 'wp_rest' ),
 					'restUrl'   => esc_url( home_url( '/wp-json' ) ),
-					'publicKey' => get_option( 'oneupdate_child_site_public_key', 'default_public_key' ),
+					'apiKey'    => get_option( 'oneupdate_child_site_api_key', 'default_api_key' ),
 					'restNonce' => wp_create_nonce( 'wp_rest' ),
 					'ajaxUrl'   => admin_url( 'admin-ajax.php' ),
 					'setupUrl'  => admin_url( 'admin.php?page=oneupdate-settings' ),

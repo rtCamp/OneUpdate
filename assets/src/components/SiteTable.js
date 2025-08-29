@@ -28,7 +28,7 @@ const SiteTable = ( { sites, onEdit, onDelete, setFormData, setShowModal } ) => 
 				<h3>{ __( 'Brand Sites', 'oneupdate' ) }</h3>
 				<Button
 					style={ { width: 'fit-content' } }
-					isPrimary
+					variant="primary"
 					onClick={ () => setShowModal( true ) }
 				>
 					{ __( 'Add Brand Site', 'oneupdate' ) }
@@ -41,7 +41,7 @@ const SiteTable = ( { sites, onEdit, onDelete, setFormData, setShowModal } ) => 
 							<th>{ __( 'Site Name', 'oneupdate' ) }</th>
 							<th>{ __( 'Site URL', 'oneupdate' ) }</th>
 							<th>{ __( 'GitHub Repo', 'oneupdate' ) }</th>
-							<th>{ __( 'Public Key', 'oneupdate' ) }</th>
+							<th>{ __( 'API Key', 'oneupdate' ) }</th>
 							<th>{ __( 'Actions', 'oneupdate' ) }</th>
 						</tr>
 					</thead>
@@ -60,7 +60,7 @@ const SiteTable = ( { sites, onEdit, onDelete, setFormData, setShowModal } ) => 
 								<td>
 									{ site?.githubRepo }
 								</td>
-								<td><code>{ site.publicKey.substring( 0, 10 ) }...</code></td>
+								<td><code>{ site?.apiKey?.substring( 0, 10 ) }...</code></td>
 								<td>
 									<Button
 										variant="secondary"
@@ -101,12 +101,21 @@ const DeleteConfirmationModal = ( { onConfirm, onCancel } ) => (
 		title={ __( 'Delete Brand Site', 'oneupdate' ) }
 		onRequestClose={ onCancel }
 		isDismissible={ true }
+		shouldCloseOnClickOutside={ true }
 	>
 		<p>{ __( 'Are you sure you want to delete this Brand Site? This action cannot be undone.', 'oneupdate' ) }</p>
-		<Button variant="secondary" isDestructive onClick={ onConfirm }>
+		<Button
+			variant="secondary"
+			isDestructive
+			onClick={ onConfirm }
+		>
 			{ __( 'Delete', 'oneupdate' ) }
 		</Button>
-		<Button variant="secondary" isSecondary onClick={ onCancel } style={ { marginLeft: '10px' } }>
+		<Button
+			variant="secondary"
+			onClick={ onCancel }
+			style={ { marginLeft: '10px' } }
+		>
 			{ __( 'Cancel', 'oneupdate' ) }
 		</Button>
 	</Modal>

@@ -38,6 +38,7 @@ jobs:
           cp -r inc/ /tmp/oneupdate/
           cp oneupdate.php /tmp/oneupdate/
           cp README.md /tmp/oneupdate/
+          cp uninstall.php /tmp/oneupdate/
           cp -r vendor/ /tmp/oneupdate/
           
           # Create the zip file

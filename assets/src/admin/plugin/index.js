@@ -113,7 +113,7 @@ const OneUpdateSettingsPage = () => {
 				<CardBody>
 					<SiteTypeSelector value={ siteType } setSiteType={ setSiteType } />
 					<Button
-						isPrimary
+						variant="primary"
 						onClick={ () => handleSiteTypeChange( siteType ) }
 						disabled={ isSaving || ! siteType }
 						style={ { marginTop: '1.5rem' } }

@@ -226,6 +226,7 @@ const PluginGrid = () => {
 	const [ noticeMessage, setNoticeMessage ] = useState( '' );
 	const [ pluginType, setPluginType ] = useState( 'add_update' );
 	const [ showPluginTypeModal, setShowPluginTypeModal ] = useState( false );
+	const [ isApplyingPlugins, setIsApplyingPlugins ] = useState( false );
 
 	const fetchPlugins = useCallback( async () => {
 		if ( ! searchQuery.trim() ) {
@@ -358,7 +359,10 @@ const PluginGrid = () => {
 							<div className="error-content">
 								<h3>{ __( 'Unable to load plugins', 'oneupdate' ) }</h3>
 								<p>{ error }</p>
-								<Button variant="primary" onClick={ handleRetry }>
+								<Button
+									variant="primary"
+									onClick={ handleRetry }
+								>
 									{ __( 'Try Again', 'oneupdate' ) }
 								</Button>
 							</div>
@@ -374,7 +378,10 @@ const PluginGrid = () => {
 									{ __( 'No plugins found for', 'oneupdate' ) } &quot;<strong>{ searchQuery }</strong>&quot;.
 									{ __( 'Try different keywords or check your spelling.', 'oneupdate' ) }
 								</p>
-								<Button variant="secondary" onClick={ () => setSearchInput( '' ) }>
+								<Button
+									variant="secondary"
+									onClick={ () => setSearchInput( '' ) }
+								>
 									{ __( 'Clear Search', 'oneupdate' ) }
 								</Button>
 							</div>
@@ -402,9 +409,10 @@ const PluginGrid = () => {
 										</span>
 										<Button
 											variant="primary"
-											disabled={ selectedCount === 0 }
+											disabled={ selectedCount === 0 || isApplyingPlugins }
 											aria-label={ __( 'Install Selected Plugins', 'oneupdate' ) }
 											onClick={ () => setShowApplyModal( true ) }
+											isBusy={ isApplyingPlugins }
 										>
 											{ __( 'Install Selected Plugins', 'oneupdate' ) }
 										</Button>
@@ -430,6 +438,8 @@ const PluginGrid = () => {
 									setIsNoticeVisible={ setIsNoticeVisible }
 									setSelectedPlugin={ setSelectedPlugin }
 									pluginType={ pluginType }
+									isApplyingPlugins={ isApplyingPlugins }
+									setIsApplyingPlugins={ setIsApplyingPlugins }
 								/>
 							) }
 
@@ -518,10 +528,9 @@ const PluginTypeSelectionModal = ( { pluginType, setPluginType, setShowPluginTyp
 	);
 };
 
-const ApplyPluginsModal = ( { sharedSites, selectedPlugin, setShowApplyModal, setNoticeMessage, setIsNoticeVisible, setSelectedPlugin, pluginType } ) => {
+const ApplyPluginsModal = ( { sharedSites, selectedPlugin, setShowApplyModal, setNoticeMessage, setIsNoticeVisible, setSelectedPlugin, pluginType, isApplyingPlugins, setIsApplyingPlugins } ) => {
 	const [ selectedSite, setSelectedSite ] = useState( [] );
 	const [ selectedSiteInfo, setSelectedSiteInfo ] = useState( [] );
-	const [ isApplyingPlugins, setIsApplyingPlugins ] = useState( false );
 
 	const handleSiteSelection = ( siteUrl ) => {
 		// Deselect if already selected else add to selected sites list
@@ -615,7 +624,7 @@ const ApplyPluginsModal = ( { sharedSites, selectedPlugin, setShowApplyModal, se
 		<Modal
 			title={ __( 'Install Selected Plugins', 'oneupdate' ) }
 			onRequestClose={ () => setShowApplyModal( false ) }
-			shouldCloseOnClickOutside={ true }
+			shouldCloseOnClickOutside={ isApplyingPlugins ? false : true }
 			className="oneupdate-apply-plugins-modal"
 			style={ { maxWidth: '600px', minWidth: '600px' } }
 		>
@@ -643,12 +652,13 @@ const ApplyPluginsModal = ( { sharedSites, selectedPlugin, setShowApplyModal, se
 												setSelectedSite( sharedSites.map( ( site ) => site.siteUrl ) );
 											}
 										} }
+										disabled={ isApplyingPlugins }
 										style={ { fontWeight: '500' } }
 									/>
 									<Button
 										variant="link"
 										onClick={ () => setSelectedSite( [] ) }
-										disabled={ selectedSite.length === 0 }
+										disabled={ selectedSite.length === 0 || isApplyingPlugins }
 										style={ { fontWeight: '500', marginBottom: '8px' } }
 									>
 										{ __( 'Clear Selection', 'oneupdate' ) }
@@ -676,11 +686,22 @@ const ApplyPluginsModal = ( { sharedSites, selectedPlugin, setShowApplyModal, se
 												} }
 												onClick={ ( event ) => {
 													event.stopPropagation();
+
+													if ( isApplyingPlugins ) {
+														event.preventDefault();
+														return;
+													}
+
 													handleSiteSelection( site.siteUrl );
 												} }
 												role="button"
 												tabIndex={ 0 }
 												onKeyDown={ ( e ) => {
+													if ( isApplyingPlugins ) {
+														e.preventDefault();
+														return;
+													}
+
 													if ( e.key === 'Enter' || e.key === ' ' ) {
 														e.preventDefault();
 														handleSiteSelection( site.siteUrl );
@@ -702,6 +723,7 @@ const ApplyPluginsModal = ( { sharedSites, selectedPlugin, setShowApplyModal, se
 													}
 													checked={ selectedSite.includes( site?.siteUrl ) }
 													onChange={ () => handleSiteSelection( site.siteUrl ) }
+													disabled={ isApplyingPlugins }
 												/>
 											</div>
 										) ) }
@@ -720,14 +742,14 @@ const ApplyPluginsModal = ( { sharedSites, selectedPlugin, setShowApplyModal, se
 					{ /* Action Buttons */ }
 					<HStack justify="flex-end" spacing={ 3 }>
 						<Button
-							isSecondary
+							variant="secondary"
 							onClick={ () => setShowApplyModal( false ) }
 							disabled={ isApplyingPlugins }
 						>
 							{ __( 'Cancel', 'oneupdate' ) }
 						</Button>
 						<Button
-							isPrimary
+							variant="primary"
 							onClick={ () => {
 								handleApplyPlugins();
 							} }

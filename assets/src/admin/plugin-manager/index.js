@@ -130,7 +130,7 @@ const PluginManager = () => {
 				method: 'GET',
 				headers: {
 					'Content-Type': 'application/json',
-					'X-OneUpdate-Plugins-Token': site.publicKey || '',
+					'X-OneUpdate-Plugins-Token': site.apiKey || '',
 				},
 				'cache-control': 'no-cache, no-store, must-revalidate',
 			} );
@@ -430,7 +430,9 @@ const PluginManager = () => {
 					updateFilter === 'all' || ( updateFilter === 'available' && plugin.update_available_sites > 0 );
 
 			const matchesSite =
-				siteFilter === 'all' || ( siteFilter !== 'all' && Object.keys( plugin.sites ).includes( siteFilter ) );
+				siteFilter === 'all' ||
+				( siteFilter === 'common-plugins' && Object.keys( plugin.sites ).length === allAvailableSites.length ) ||
+				( siteFilter !== 'all' && Object.keys( plugin.sites ).includes( siteFilter ) );
 
 			return matchesSearch && matchesStatus && matchesType && matchesUpdate && matchesSite;
 		} );
@@ -592,8 +594,8 @@ const PluginManager = () => {
 			return;
 		}
 
-		// set latest version for 'update' action.
-		if ( action === 'update' && plugin.plugin_info.is_public ) {
+		// set latest version for 'change-version' action.
+		if ( action === 'change-version' && plugin.plugin_info.is_public ) {
 			const getPluginVersions = getAvailableVersions( plugin );
 			if ( getPluginVersions.length > 0 ) {
 				setSelectedVersion( getPluginVersions[ 0 ].value );
@@ -676,51 +678,65 @@ const PluginManager = () => {
 			const githubActions = extractGitHubActionUrls();
 
 			// Create formatted message with GitHub Actions links
+			const pluginName = selectedPlugin.plugin_info.name || selectedPlugin.plugin_info.plugin_slug;
+			let actionVerb = '';
+			switch ( currentAction ) {
+				case 'activate':
+					actionVerb = __( 'Activated', 'oneupdate' );
+					break;
+				case 'deactivate':
+					actionVerb = __( 'Deactivated', 'oneupdate' );
+					break;
+				case 'update':
+					actionVerb = __( 'Updated', 'oneupdate' );
+					break;
+				case 'install':
+					actionVerb = __( 'Installed', 'oneupdate' );
+					break;
+				case 'remove':
+					actionVerb = __( 'Removed', 'oneupdate' );
+					break;
+				case 'change-version':
+					actionVerb = __( 'Version change', 'oneupdate' );
+					break;
+				default:
+					actionVerb = __( 'Executed', 'oneupdate' );
+			}
 			const siteNames = selectedSites.map( ( siteUrl ) => {
 				const site = allAvailableSites.find( ( s ) => s.siteUrl === siteUrl );
 				return site ? site.siteName : ( siteUrl );
 			} );
 			const siteNamesString = siteNames.length > 0 ? siteNames.join( ', ' ) : __( 'selected sites', 'oneupdate' );
-			const pluginName = selectedPlugin.plugin_info.name || selectedPlugin.plugin_info.plugin_slug;
-			let actionVerb = '';
-			switch ( currentAction ) {
-				case 'activate':
-					actionVerb = __( 'activated', 'oneupdate' );
-					break;
-				case 'deactivate':
-					actionVerb = __( 'deactivated', 'oneupdate' );
-					break;
-				case 'update':
-					actionVerb = __( 'updated', 'oneupdate' );
-					break;
-				case 'install':
-					actionVerb = __( 'installed', 'oneupdate' );
-					break;
-				case 'remove':
-					actionVerb = __( 'removed', 'oneupdate' );
-					break;
-				case 'change-version':
-					actionVerb = __( 'version change PR raised', 'oneupdate' );
-					break;
-				default:
-					actionVerb = __( 'executed', 'oneupdate' );
-			}
-			let noticeMessage = sprintf(
+			let noticeMessage = '';
+
+			if ( 'change-version' === currentAction || 'install' === currentAction || 'update' === currentAction || 'remove' === currentAction ) {
+				noticeMessage = sprintf(
 				/* translators: %s is the plugin name, %s is the action verb, %s is the site names */
-				__( '%1$s %2$s successfully on %3$s.', 'oneupdate' ),
-				pluginName,
-				actionVerb,
-				siteNamesString,
-			);
-
-			if ( githubActions.length > 0 ) {
-				const actionLinks = githubActions.map( ( action ) => {
-					return `${ action.run_url } `;
-				} );
-
-				noticeMessage += `\n\n${ [ ...actionLinks ].join( '\n' ) }\n`;
+					__( '%1$s %2$s PR raised successfully.', 'oneupdate' ),
+					pluginName,
+					actionVerb,
+				);
+				noticeMessage += '\n\n';
+			} else {
+				noticeMessage = sprintf(
+				/* translators: %s is the plugin name, %s is the action verb, %s is the site names */
+					__( '%1$s %2$s successfully on %3$s.', 'oneupdate' ),
+					pluginName,
+					actionVerb,
+					siteNamesString,
+				);
 			}
 
+			// add site name and its respective action link to message.
+			for ( const action of githubActions ) {
+				const site = allAvailableSites.find( ( s ) => s.siteUrl === action.site );
+				const siteName = site ? site.siteName : action.site;
+				noticeMessage += `${ siteName }\n${ action.run_url }`;
+				// add \n\n if not last item
+				if ( action !== githubActions?.[ githubActions.length - 1 ] ) {
+					noticeMessage += '\n\n';
+				}
+			}
 			// set global notice
 			setGlobalNotice( {
 				status: 'success',
@@ -949,7 +965,7 @@ const PluginManager = () => {
 					<>
 						{ showBackButton && (
 							<Button
-								isSecondary
+								variant="secondary"
 								icon={ arrowLeft }
 								onClick={ () => {
 									setShowAddPluginModal( false );
@@ -1026,7 +1042,7 @@ const PluginManager = () => {
 				<>
 					{ showBackButton && (
 						<Button
-							isSecondary
+							variant="secondary"
 							icon={ arrowLeft }
 							onClick={ () => {
 								setShowAddPluginModal( true );
@@ -1053,7 +1069,7 @@ const PluginManager = () => {
 				<>
 					{ showBackButton && (
 						<Button
-							isSecondary
+							variant="secondary"
 							icon={ arrowLeft }
 							onClick={ () => {
 								setShowAddPluginModal( true );
@@ -1180,7 +1196,7 @@ const PluginManager = () => {
 								<Flex gap={ 3 }>
 									<FlexItem>
 										<Button
-											isSecondary
+											variant="secondary"
 											onClick={ handleUpdateAll }
 											disabled={ updatesAvailable === 0 || isBulkUpdateProcess }
 											icon={ loop }
@@ -1191,9 +1207,10 @@ const PluginManager = () => {
 									</FlexItem>
 									<FlexItem>
 										<Button
-											isPrimary
+											variant="primary"
 											onClick={ handleAddPlugin }
 											icon={ plus }
+											disabled={ isBulkUpdateProcess }
 										>
 											{ __( 'Add Plugin', 'oneupdate' ) }
 										</Button>
@@ -1269,6 +1286,7 @@ const PluginManager = () => {
 											style={ {
 												fontSize: '14px',
 											} }
+											disabled={ isBulkUpdateProcess }
 										/>
 									</div>
 									<SelectControl
@@ -1280,6 +1298,7 @@ const PluginManager = () => {
 											{ label: __( 'Active', 'oneupdate' ), value: 'active' },
 											{ label: __( 'Inactive', 'oneupdate' ), value: 'inactive' },
 										] }
+										disabled={ isBulkUpdateProcess }
 									/>
 									<SelectControl
 										label={ __( 'Type', 'oneupdate' ) }
@@ -1290,6 +1309,7 @@ const PluginManager = () => {
 											{ label: __( 'Public', 'oneupdate' ), value: 'public' },
 											{ label: __( 'Private', 'oneupdate' ), value: 'private' },
 										] }
+										disabled={ isBulkUpdateProcess }
 									/>
 									<SelectControl
 										label={ __( 'Updates', 'oneupdate' ) }
@@ -1299,6 +1319,7 @@ const PluginManager = () => {
 											{ label: __( 'All Updates', 'oneupdate' ), value: 'all' },
 											{ label: __( 'Updates Available', 'oneupdate' ), value: 'available' },
 										] }
+										disabled={ isBulkUpdateProcess }
 									/>
 									{ /* Site specific filter */ }
 									<SelectControl
@@ -1307,11 +1328,13 @@ const PluginManager = () => {
 										onChange={ setSiteFilter }
 										options={ [
 											{ label: __( 'All Sites', 'oneupdate' ), value: 'all' },
+											{ label: __( 'Common plugins', 'oneupdate' ), value: 'common-plugins' },
 											...allAvailableSites.map( ( site ) => ( {
 												label: site.siteName,
 												value: site.siteUrl,
 											} ) ),
 										] }
+										disabled={ isBulkUpdateProcess }
 									/>
 								</Grid>
 							</CardBody>
@@ -1468,89 +1491,99 @@ const PluginManager = () => {
 											icon="ellipsis"
 											label={ __( 'Plugin Actions', 'oneupdate' ) }
 											popoverProps={ { position: 'bottom left' } }
+											className="oneupdate-plugin-action-dropdown"
+											disabled={ isBulkUpdateProcess }
+											style={
+												{
+													pointerEvents: isBulkUpdateProcess ? 'none' : 'auto',
+													opacity: isBulkUpdateProcess ? 0.6 : 1,
+												}
+											}
 										>
-											{ ( { onClose } ) => (
-												<>
-													<MenuGroup>
-														{ /* Change Version - only show for public plugins */ }
-														{ plugin.plugin_info.is_public && (
+											{ ( { onClose } ) => {
+												return (
+													<>
+														<MenuGroup>
+															{ /* Change Version - only show for public plugins */ }
+															{ plugin.plugin_info.is_public && (
+																<MenuItem
+																	icon="admin-tools"
+																	onClick={ () => {
+																		handlePluginAction( plugin, 'change-version' );
+																		onClose();
+																	} }
+																>
+																	{ __( 'Change version/update', 'oneupdate' ) }
+																</MenuItem>
+															) }
+
+															{ /* Activate Plugin - only show if plugin is inactive on some sites */ }
+															{ plugin.active_sites < plugin.total_sites && (
+																<MenuItem
+																	icon="yes-alt"
+																	onClick={ () => {
+																		handlePluginAction( plugin, 'activate' );
+																		onClose();
+																	} }
+																>
+																	{ __( 'Activate on sites', 'oneupdate' ) }
+																</MenuItem>
+															) }
+
+															{ /* Deactivate Plugin - only show if plugin is active on some sites */ }
+															{ plugin.active_sites > 0 && (
+																<MenuItem
+																	icon="dismiss"
+																	onClick={ () => {
+																		handlePluginAction( plugin, 'deactivate' );
+																		onClose();
+																	} }
+																>
+																	{ __( 'Deactivate on sites', 'oneupdate' ) }
+																</MenuItem>
+															) }
+
+														</MenuGroup>
+
+														<MenuGroup>
+															{ /* Add menu item called install on sites which only shows for public plugin and sites on which current plugin is not present */ }
+															{ plugin.plugin_info.is_public && getAvailableSitesForAction( plugin, 'install' ).length !== 0 && (
+																<MenuItem
+																	icon="admin-plugins"
+																	onClick={ () => {
+																		handlePluginAction( plugin, 'install' );
+																		onClose();
+																	} }
+																>
+																	{ __( 'Install on sites', 'oneupdate' ) }
+																</MenuItem>
+															) }
 															<MenuItem
-																icon="admin-tools"
+																icon="trash"
 																onClick={ () => {
-																	handlePluginAction( plugin, 'change-version' );
+																	handlePluginAction( plugin, 'remove' );
+																	onClose();
+																} }
+																isDestructive
+															>
+																{ __( 'Uninstall from sites', 'oneupdate' ) }
+															</MenuItem>
+														</MenuGroup>
+														<MenuGroup>
+															<MenuItem
+																icon="info"
+																onClick={ () => {
+																	setSelectedPlugin( plugin );
+																	setShowPluginModal( true );
 																	onClose();
 																} }
 															>
-																{ __( 'Change version/update', 'oneupdate' ) }
+																{ __( 'Plugin Details', 'oneupdate' ) }
 															</MenuItem>
-														) }
-
-														{ /* Activate Plugin - only show if plugin is inactive on some sites */ }
-														{ plugin.active_sites < plugin.total_sites && (
-															<MenuItem
-																icon="yes-alt"
-																onClick={ () => {
-																	handlePluginAction( plugin, 'activate' );
-																	onClose();
-																} }
-															>
-																{ __( 'Activate on sites', 'oneupdate' ) }
-															</MenuItem>
-														) }
-
-														{ /* Deactivate Plugin - only show if plugin is active on some sites */ }
-														{ plugin.active_sites > 0 && (
-															<MenuItem
-																icon="dismiss"
-																onClick={ () => {
-																	handlePluginAction( plugin, 'deactivate' );
-																	onClose();
-																} }
-															>
-																{ __( 'Deactivate on sites', 'oneupdate' ) }
-															</MenuItem>
-														) }
-
-													</MenuGroup>
-
-													<MenuGroup>
-														{ /* Add menu item called install on sites which only shows for public plugin and sites on which current plugin is not present */ }
-														{ plugin.plugin_info.is_public && getAvailableSitesForAction( plugin, 'install' ).length !== 0 && (
-															<MenuItem
-																icon="admin-plugins"
-																onClick={ () => {
-																	handlePluginAction( plugin, 'install' );
-																	onClose();
-																} }
-															>
-																{ __( 'Install on sites', 'oneupdate' ) }
-															</MenuItem>
-														) }
-														<MenuItem
-															icon="trash"
-															onClick={ () => {
-																handlePluginAction( plugin, 'remove' );
-																onClose();
-															} }
-															isDestructive
-														>
-															{ __( 'Uninstall from sites', 'oneupdate' ) }
-														</MenuItem>
-													</MenuGroup>
-													<MenuGroup>
-														<MenuItem
-															icon="info"
-															onClick={ () => {
-																setSelectedPlugin( plugin );
-																setShowPluginModal( true );
-																onClose();
-															} }
-														>
-															{ __( 'Plugin Details', 'oneupdate' ) }
-														</MenuItem>
-													</MenuGroup>
-												</>
-											) }
+														</MenuGroup>
+													</>
+												);
+											} }
 										</DropdownMenu>
 									</div>
 								</div>
@@ -1708,6 +1741,7 @@ const PluginManager = () => {
 							title={ getActionInfo( currentAction ).title }
 							onRequestClose={ () => setShowSiteSelectionModal( false ) }
 							style={ { maxWidth: '600px', minWidth: '600px' } }
+							shouldCloseOnClickOutside={ actionLoading ? false : true }
 						>
 							<div style={ { paddingTop: '24px' } }>
 								<VStack spacing={ 4 }>
@@ -1734,6 +1768,7 @@ const PluginManager = () => {
 														...getAvailableVersions( selectedPlugin, selectedVersion ),
 													] }
 													help={ __( 'Choose from the latest 5 stable versions available', 'oneupdate' ) }
+													disabled={ actionLoading }
 												/>
 											) : (
 												<Notice status="warning" isDismissible={ false }>
@@ -1755,11 +1790,12 @@ const PluginManager = () => {
 												checked={ selectedSites.length === getAvailableSitesForAction( selectedPlugin, currentAction ).length }
 												onChange={ handleSelectAllSites }
 												style={ { fontWeight: '500' } }
+												disabled={ actionLoading }
 											/>
 											<Button
 												variant="link"
 												onClick={ () => setSelectedSites( [] ) }
-												disabled={ selectedSites.length === 0 }
+												disabled={ selectedSites.length === 0 || actionLoading }
 												style={ { fontWeight: '500', marginBottom: '8px' } }
 											>
 												{ __( 'Clear Selection', 'oneupdate' ) }
@@ -1800,8 +1836,18 @@ const PluginManager = () => {
 															style={ { padding: '8px', border: '1px solid #f0f0f1', borderRadius: '4px', cursor: 'pointer' } }
 															role="button"
 															tabIndex={ 0 }
-															onClick={ () => handleSiteToggle( siteUrl, ! selectedSites.includes( siteUrl ) ) }
+															onClick={ () => {
+																if ( actionLoading ) {
+																	return;
+																}
+
+																handleSiteToggle( siteUrl, ! selectedSites.includes( siteUrl ) );
+															} }
 															onKeyDown={ ( e ) => {
+																if ( actionLoading ) {
+																	e.preventDefault();
+																	return;
+																}
 																if ( e.key === 'Enter' || e.key === ' ' ) {
 																	e.preventDefault();
 																	handleSiteToggle( siteUrl, ! selectedSites.includes( siteUrl ) );
@@ -1832,6 +1878,7 @@ const PluginManager = () => {
 																	</div>
 																}
 																checked={ selectedSites.includes( siteUrl ) }
+																disabled={ actionLoading }
 															/>
 														</div>
 													) ) }
@@ -1842,11 +1889,15 @@ const PluginManager = () => {
 
 									{ /* Action Buttons */ }
 									<HStack justify="flex-end" spacing={ 3 }>
-										<Button isSecondary onClick={ () => setShowSiteSelectionModal( false ) } disabled={ actionLoading }>
+										<Button
+											variant="secondary"
+											onClick={ () => setShowSiteSelectionModal( false ) }
+											disabled={ actionLoading }
+										>
 											{ __( 'Cancel', 'oneupdate' ) }
 										</Button>
 										<Button
-											isPrimary
+											variant="primary"
 											onClick={ executeAction }
 											disabled={
 												selectedSites.length === 0 ||
@@ -1854,10 +1905,7 @@ const PluginManager = () => {
 												( currentAction === 'change-version' && ! selectedVersion )
 											}
 											isBusy={ actionLoading }
-											style={ {
-												background: currentAction === 'remove' ? '#d63638' : undefined,
-												borderColor: currentAction === 'remove' ? '#d63638' : undefined,
-											} }
+											isDestructive={ currentAction === 'remove' }
 										>
 											<Dashicon icon={ getActionInfo( currentAction ).icon } style={ { marginRight: '8px' } } />
 											{ actionLoading
@@ -1876,6 +1924,7 @@ const PluginManager = () => {
 							title={ decodeEntities( selectedPlugin.plugin_info.name ) }
 							onRequestClose={ () => setShowPluginModal( false ) }
 							style={ { maxWidth: '800px', minWidth: '800px' } }
+							shouldCloseOnClickOutside={ true }
 						>
 							<div style={ { paddingTop: '24px' } }>
 								{ /* Plugin Header */ }
@@ -2156,7 +2205,7 @@ const PluginManager = () => {
 
 								<div style={ { textAlign: 'right', marginTop: '32px' } }>
 									<Button
-										isPrimary
+										variant="primary"
 										onClick={ () => setShowPluginModal( false ) }
 									>
 										{ __( 'Close', 'oneupdate' ) }
@@ -2176,6 +2225,7 @@ const PluginManager = () => {
 							) }
 							onRequestClose={ () => setShowSitesModal( false ) }
 							style={ { maxWidth: '400px', minWidth: '400px' } }
+							shouldCloseOnClickOutside={ true }
 						>
 							<div style={ { padding: '8px' } }>
 								<p style={ { marginBottom: '1rem', color: '#50575e', fontSize: '14px' } }>
@@ -2256,7 +2306,7 @@ const PluginManager = () => {
 
 								<div style={ { textAlign: 'right', marginTop: '24px' } }>
 									<Button
-										isPrimary
+										variant="primary"
 										onClick={ () => setShowSitesModal( false ) }
 									>
 										{ __( 'Close', 'oneupdate' ) }

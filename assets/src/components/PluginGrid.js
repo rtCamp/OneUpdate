@@ -7,7 +7,7 @@ import { Button, CheckboxControl, Modal, Spinner, TextControl, Notice } from '@w
 import PluginCard from './PluginCard';
 
 const API_NAMESPACE = OneUpdatePlugins.restUrl + '/oneupdate/v1';
-const PUBLIC_KEY = OneUpdatePlugins.publicKey;
+const API_KEY = OneUpdatePlugins.apiKey;
 
 const PluginGrid = () => {
 	const [ page, setPage ] = useState( 1 );
@@ -83,7 +83,7 @@ const PluginGrid = () => {
 				method: 'GET',
 				headers: {
 					'Content-Type': 'application/json',
-					'X-ONEUPDATE-TOKEN': PUBLIC_KEY,
+					'X-ONEUPDATE-TOKEN': API_KEY,
 				},
 			},
 		);
@@ -142,7 +142,10 @@ const PluginGrid = () => {
 						}
 					} }
 				/>
-				<Button variant="primary" onClick={ handleSearchSubmit }>
+				<Button
+					variant="primary"
+					onClick={ handleSearchSubmit }
+				>
 					{ __( 'Search', 'oneupdate' ) }
 				</Button>
 			</div>
@@ -161,7 +164,10 @@ const PluginGrid = () => {
 					<div className="error-content">
 						<h3>{ __( 'Unable to load plugins', 'oneupdate' ) }</h3>
 						<p>{ error }</p>
-						<Button variant="primary" onClick={ handleRetry }>
+						<Button
+							variant="primary"
+							onClick={ handleRetry }
+						>
 							{ __( 'Try Again', 'oneupdate' ) }
 						</Button>
 					</div>
@@ -174,7 +180,10 @@ const PluginGrid = () => {
 					<div className="empty-content">
 						<h3>{ __( 'No plugins found', 'oneupdate' ) }</h3>
 						<p>{ __( 'Unable to find any plugins to display.', 'oneupdate' ) }</p>
-						<Button variant="secondary" onClick={ handleRetry }>
+						<Button
+							variant="secondary"
+							onClick={ handleRetry }
+						>
 							{ __( 'Refresh', 'oneupdate' ) }
 						</Button>
 					</div>
@@ -288,7 +297,7 @@ const ApplyPluginsModal = ( { sharedSites, selectedPlugin, setShowApplyModal, se
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json',
-						'X-ONEUPDATE-TOKEN': PUBLIC_KEY,
+						'X-ONEUPDATE-TOKEN': API_KEY,
 					},
 					body: JSON.stringify( {
 						sites: selectedSiteInfo,
