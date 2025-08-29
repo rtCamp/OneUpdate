@@ -2,7 +2,7 @@
 /**
  * Plugin Name: OneUpdate
  * Version: 1.0.1
- * Description: A plugin to load OneUpdate common plugins.
+ * Description: OneUpdate - Enterprise WordPress Plugin Manager Automate plugin updates across multiple WordPress sites with CI/CD integration. Creates pull requests for seamless development-to-production workflows.
  * Author: Utsav Patel, rtCamp
  * Author URI: https://rtcamp.com
  * Text Domain: oneupdate
