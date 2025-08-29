@@ -1860,10 +1860,7 @@ const PluginManager = () => {
 												( currentAction === 'change-version' && ! selectedVersion )
 											}
 											isBusy={ actionLoading }
-											style={ {
-												background: currentAction === 'remove' ? '#d63638' : undefined,
-												borderColor: currentAction === 'remove' ? '#d63638' : undefined,
-											} }
+											isDestructive={ currentAction === 'remove' }
 										>
 											<Dashicon icon={ getActionInfo( currentAction ).icon } style={ { marginRight: '8px' } } />
 											{ actionLoading

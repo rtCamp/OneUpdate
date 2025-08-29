@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-08-29T05:50:39+00:00\n"
+"POT-Creation-Date: 2025-08-29T06:06:31+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: oneupdate\n"
@@ -244,7 +244,7 @@ msgstr ""
 
 #: assets/build/js/plugin-manager.js:1
 #: assets/build/js/plugin-manager.js:6
-#: assets/src/admin/plugin-manager/index.js:2005
+#: assets/src/admin/plugin-manager/index.js:2002
 #: assets/src/components/PluginCard.js:118
 #: assets/src/components/PluginsSharing.js:144
 msgid "Version"
@@ -681,7 +681,7 @@ msgstr ""
 #: assets/build/js/plugin-manager.js:7
 #: assets/src/admin/plugin-manager/index.js:1280
 #: assets/src/admin/plugin-manager/index.js:1825
-#: assets/src/admin/plugin-manager/index.js:2238
+#: assets/src/admin/plugin-manager/index.js:2235
 #: assets/src/components/S3ZipUploader.js:1026
 msgid "Active"
 msgstr ""
@@ -855,7 +855,7 @@ msgstr ""
 #: assets/build/js/plugin-manager.js:3
 #: assets/build/js/plugin-manager.js:6
 #: assets/src/admin/plugin-manager/index.js:985
-#: assets/src/admin/plugin-manager/index.js:1953
+#: assets/src/admin/plugin-manager/index.js:1950
 msgid "Public Plugin"
 msgstr ""
 
@@ -872,7 +872,7 @@ msgstr ""
 #: assets/build/js/plugin-manager.js:3
 #: assets/build/js/plugin-manager.js:6
 #: assets/src/admin/plugin-manager/index.js:1010
-#: assets/src/admin/plugin-manager/index.js:1954
+#: assets/src/admin/plugin-manager/index.js:1951
 msgid "Private Plugin"
 msgstr ""
 
@@ -916,7 +916,7 @@ msgstr ""
 #: assets/build/js/plugin-manager.js:3
 #: assets/build/js/plugin-manager.js:7
 #: assets/src/admin/plugin-manager/index.js:1281
-#: assets/src/admin/plugin-manager/index.js:2239
+#: assets/src/admin/plugin-manager/index.js:2236
 msgid "Inactive"
 msgstr ""
 
@@ -1071,7 +1071,7 @@ msgstr ""
 #: assets/build/js/plugin-manager.js:5
 #: assets/build/js/plugin-manager.js:7
 #: assets/src/admin/plugin-manager/index.js:1830
-#: assets/src/admin/plugin-manager/index.js:2253
+#: assets/src/admin/plugin-manager/index.js:2250
 msgid "Update Available"
 msgstr ""
 
@@ -1128,91 +1128,91 @@ msgid "%1$s %2$s PR raised successfully."
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:6
-#: assets/src/admin/plugin-manager/index.js:1870
+#: assets/src/admin/plugin-manager/index.js:1867
 msgid "Processing…"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:6
-#: assets/src/admin/plugin-manager/index.js:1981
+#: assets/src/admin/plugin-manager/index.js:1978
 msgid "Description"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:6
-#: assets/src/admin/plugin-manager/index.js:1999
+#: assets/src/admin/plugin-manager/index.js:1996
 msgid "Author"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:6
-#: assets/src/admin/plugin-manager/index.js:2011
+#: assets/src/admin/plugin-manager/index.js:2008
 msgid "Sites"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:6
-#: assets/src/admin/plugin-manager/index.js:2020
+#: assets/src/admin/plugin-manager/index.js:2017
 msgid "Downloads"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:6
-#: assets/src/admin/plugin-manager/index.js:2030
+#: assets/src/admin/plugin-manager/index.js:2027
 msgid "Requires WordPress"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:6
-#: assets/src/admin/plugin-manager/index.js:2038
+#: assets/src/admin/plugin-manager/index.js:2035
 msgid "Tested up to"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:6
-#: assets/src/admin/plugin-manager/index.js:2046
+#: assets/src/admin/plugin-manager/index.js:2043
 msgid "Requires PHP"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:6
-#: assets/src/admin/plugin-manager/index.js:2054
+#: assets/src/admin/plugin-manager/index.js:2051
 msgid "Last Updated"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:6
-#: assets/src/admin/plugin-manager/index.js:2067
+#: assets/src/admin/plugin-manager/index.js:2064
 msgid "Tags"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:6
-#: assets/src/admin/plugin-manager/index.js:2094
+#: assets/src/admin/plugin-manager/index.js:2091
 msgid "Plugin URI"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:6
-#: assets/src/admin/plugin-manager/index.js:2111
+#: assets/src/admin/plugin-manager/index.js:2108
 msgid "Installation"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:6
-#: assets/src/admin/plugin-manager/index.js:2128
+#: assets/src/admin/plugin-manager/index.js:2125
 msgid "FAQ"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:6
-#: assets/src/admin/plugin-manager/index.js:2145
+#: assets/src/admin/plugin-manager/index.js:2142
 msgid "Changelog"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:6
 #: assets/build/js/plugin-manager.js:7
-#: assets/src/admin/plugin-manager/index.js:2169
-#: assets/src/admin/plugin-manager/index.js:2270
+#: assets/src/admin/plugin-manager/index.js:2166
+#: assets/src/admin/plugin-manager/index.js:2267
 msgid "Close"
 msgstr ""
 
 #. translators: %s is the plugin name
 #: assets/build/js/plugin-manager.js:7
-#: assets/src/admin/plugin-manager/index.js:2181
+#: assets/src/admin/plugin-manager/index.js:2178
 #, js-format
 msgid "%s - Sites"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:7
-#: assets/src/admin/plugin-manager/index.js:2190
+#: assets/src/admin/plugin-manager/index.js:2187
 msgid "Plugin status across all sites"
 msgstr ""
 
