@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-08-28T12:44:02+00:00\n"
+"POT-Creation-Date: 2025-08-29T05:50:39+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: oneupdate\n"
@@ -187,7 +187,7 @@ msgstr ""
 
 #: inc/classes/settings/class-shared-sites.php:91
 #: assets/build/js/plugin-manager.js:3
-#: assets/src/admin/plugin-manager/index.js:1175
+#: assets/src/admin/plugin-manager/index.js:1173
 msgid "OneUpdate - Plugin Manager"
 msgstr ""
 
@@ -244,7 +244,7 @@ msgstr ""
 
 #: assets/build/js/plugin-manager.js:1
 #: assets/build/js/plugin-manager.js:6
-#: assets/src/admin/plugin-manager/index.js:2007
+#: assets/src/admin/plugin-manager/index.js:2005
 #: assets/src/components/PluginCard.js:118
 #: assets/src/components/PluginsSharing.js:144
 msgid "Version"
@@ -267,7 +267,7 @@ msgstr ""
 
 #: assets/build/js/plugin-manager.js:1
 #: assets/build/js/plugin-manager.js:3
-#: assets/src/admin/plugin-manager/index.js:1267
+#: assets/src/admin/plugin-manager/index.js:1265
 #: assets/src/components/PluginsSharing.js:198
 msgid "Search Plugins"
 msgstr ""
@@ -302,7 +302,7 @@ msgstr ""
 
 #: assets/build/js/plugin-manager.js:1
 #: assets/build/js/plugin-manager.js:5
-#: assets/src/admin/plugin-manager/index.js:1697
+#: assets/src/admin/plugin-manager/index.js:1695
 #: assets/src/components/PluginGrid.js:181
 #: assets/src/components/PluginsSharing.js:375
 msgid "No plugins found"
@@ -408,7 +408,7 @@ msgstr ""
 #: assets/build/js/plugin-manager.js:1
 #: assets/build/js/plugin-manager.js:5
 #: assets/build/js/settings.js:1
-#: assets/src/admin/plugin-manager/index.js:1854
+#: assets/src/admin/plugin-manager/index.js:1852
 #: assets/src/components/PluginsSharing.js:513
 #: assets/src/components/PluginsSharing.js:733
 #: assets/src/components/S3ZipUploader.js:156
@@ -425,7 +425,7 @@ msgstr ""
 
 #: assets/build/js/plugin-manager.js:1
 #: assets/build/js/plugin-manager.js:5
-#: assets/src/admin/plugin-manager/index.js:1758
+#: assets/src/admin/plugin-manager/index.js:1756
 #: assets/src/components/PluginsSharing.js:643
 #: assets/src/components/S3ZipUploader.js:221
 #: assets/src/components/S3ZipUploader.js:804
@@ -434,7 +434,7 @@ msgstr ""
 
 #: assets/build/js/plugin-manager.js:1
 #: assets/build/js/plugin-manager.js:5
-#: assets/src/admin/plugin-manager/index.js:1769
+#: assets/src/admin/plugin-manager/index.js:1767
 #: assets/src/components/PluginsSharing.js:660
 #: assets/src/components/S3ZipUploader.js:77
 #: assets/src/components/S3ZipUploader.js:232
@@ -528,9 +528,9 @@ msgstr ""
 
 #: assets/build/js/plugin-manager.js:1
 #: assets/build/js/plugin-manager.js:3
-#: assets/src/admin/plugin-manager/index.js:963
-#: assets/src/admin/plugin-manager/index.js:1041
-#: assets/src/admin/plugin-manager/index.js:1068
+#: assets/src/admin/plugin-manager/index.js:961
+#: assets/src/admin/plugin-manager/index.js:1039
+#: assets/src/admin/plugin-manager/index.js:1066
 #: assets/src/components/S3ZipUploader.js:330
 msgid "Back"
 msgstr ""
@@ -655,7 +655,7 @@ msgstr ""
 
 #: assets/build/js/plugin-manager.js:1
 #: assets/build/js/plugin-manager.js:3
-#: assets/src/admin/plugin-manager/index.js:1277
+#: assets/src/admin/plugin-manager/index.js:1275
 #: assets/src/components/S3ZipUploader.js:971
 msgid "Status"
 msgstr ""
@@ -679,9 +679,9 @@ msgstr ""
 #: assets/build/js/plugin-manager.js:3
 #: assets/build/js/plugin-manager.js:5
 #: assets/build/js/plugin-manager.js:7
-#: assets/src/admin/plugin-manager/index.js:1282
-#: assets/src/admin/plugin-manager/index.js:1827
-#: assets/src/admin/plugin-manager/index.js:2240
+#: assets/src/admin/plugin-manager/index.js:1280
+#: assets/src/admin/plugin-manager/index.js:1825
+#: assets/src/admin/plugin-manager/index.js:2238
 #: assets/src/components/S3ZipUploader.js:1026
 msgid "Active"
 msgstr ""
@@ -746,332 +746,332 @@ msgid "No sites available for installation."
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:3
-#: assets/src/admin/plugin-manager/index.js:898
+#: assets/src/admin/plugin-manager/index.js:896
 msgid "Activate Plugin"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:3
-#: assets/src/admin/plugin-manager/index.js:899
+#: assets/src/admin/plugin-manager/index.js:897
 msgid "Select sites where you want to activate this plugin."
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:3
-#: assets/src/admin/plugin-manager/index.js:900
+#: assets/src/admin/plugin-manager/index.js:898
 msgid "Activate on Selected Sites"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:3
-#: assets/src/admin/plugin-manager/index.js:905
+#: assets/src/admin/plugin-manager/index.js:903
 msgid "Deactivate Plugin"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:3
-#: assets/src/admin/plugin-manager/index.js:906
+#: assets/src/admin/plugin-manager/index.js:904
 msgid "Select sites where you want to deactivate this plugin."
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:3
-#: assets/src/admin/plugin-manager/index.js:907
+#: assets/src/admin/plugin-manager/index.js:905
 msgid "Deactivate on Selected Sites"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:3
-#: assets/src/admin/plugin-manager/index.js:912
+#: assets/src/admin/plugin-manager/index.js:910
 msgid "Update Plugin"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:3
-#: assets/src/admin/plugin-manager/index.js:913
+#: assets/src/admin/plugin-manager/index.js:911
 msgid "Select sites where you want to update this plugin."
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:3
-#: assets/src/admin/plugin-manager/index.js:914
+#: assets/src/admin/plugin-manager/index.js:912
 msgid "Update on Selected Sites"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:3
-#: assets/src/admin/plugin-manager/index.js:919
+#: assets/src/admin/plugin-manager/index.js:917
 msgid "Change Plugin Version"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:3
-#: assets/src/admin/plugin-manager/index.js:920
+#: assets/src/admin/plugin-manager/index.js:918
 msgid "Choose plugin version and select sites where you want to change/update version."
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:3
-#: assets/src/admin/plugin-manager/index.js:921
+#: assets/src/admin/plugin-manager/index.js:919
 msgid "Change Version on Selected Sites"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:3
-#: assets/src/admin/plugin-manager/index.js:926
+#: assets/src/admin/plugin-manager/index.js:924
 msgid "Remove Plugin"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:3
-#: assets/src/admin/plugin-manager/index.js:927
+#: assets/src/admin/plugin-manager/index.js:925
 msgid "Select sites where you want to remove this plugin."
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:3
-#: assets/src/admin/plugin-manager/index.js:928
+#: assets/src/admin/plugin-manager/index.js:926
 msgid "Remove from Selected Sites"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:3
-#: assets/src/admin/plugin-manager/index.js:933
+#: assets/src/admin/plugin-manager/index.js:931
 msgid "Plugin Action"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:3
-#: assets/src/admin/plugin-manager/index.js:934
+#: assets/src/admin/plugin-manager/index.js:932
 msgid "Select sites for this action."
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:3
-#: assets/src/admin/plugin-manager/index.js:935
+#: assets/src/admin/plugin-manager/index.js:933
 msgid "Execute Action"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:3
-#: assets/src/admin/plugin-manager/index.js:1090
+#: assets/src/admin/plugin-manager/index.js:1088
 #: assets/src/components/PluginGrid.js:157
 msgid "Loading plugins…"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:3
-#: assets/src/admin/plugin-manager/index.js:968
-#: assets/src/admin/plugin-manager/index.js:1200
+#: assets/src/admin/plugin-manager/index.js:966
+#: assets/src/admin/plugin-manager/index.js:1198
 msgid "Add Plugin"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:3
-#: assets/src/admin/plugin-manager/index.js:971
+#: assets/src/admin/plugin-manager/index.js:969
 msgid "Choose how you want to add a plugin to your sites."
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:3
 #: assets/build/js/plugin-manager.js:6
-#: assets/src/admin/plugin-manager/index.js:987
-#: assets/src/admin/plugin-manager/index.js:1955
+#: assets/src/admin/plugin-manager/index.js:985
+#: assets/src/admin/plugin-manager/index.js:1953
 msgid "Public Plugin"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:3
-#: assets/src/admin/plugin-manager/index.js:988
+#: assets/src/admin/plugin-manager/index.js:986
 msgid "Add a plugin from the WordPress.org repository."
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:3
-#: assets/src/admin/plugin-manager/index.js:996
+#: assets/src/admin/plugin-manager/index.js:994
 msgid "Invalid S3 credentials. Please check your settings."
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:3
 #: assets/build/js/plugin-manager.js:6
-#: assets/src/admin/plugin-manager/index.js:1012
-#: assets/src/admin/plugin-manager/index.js:1956
+#: assets/src/admin/plugin-manager/index.js:1010
+#: assets/src/admin/plugin-manager/index.js:1954
 msgid "Private Plugin"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:3
-#: assets/src/admin/plugin-manager/index.js:1013
+#: assets/src/admin/plugin-manager/index.js:1011
 msgid "Upload a custom plugin from your computer."
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:3
-#: assets/src/admin/plugin-manager/index.js:1178
+#: assets/src/admin/plugin-manager/index.js:1176
 msgid "Manage plugins across all your WordPress sites"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:3
-#: assets/src/admin/plugin-manager/index.js:804
-#: assets/src/admin/plugin-manager/index.js:812
-#: assets/src/admin/plugin-manager/index.js:868
+#: assets/src/admin/plugin-manager/index.js:802
+#: assets/src/admin/plugin-manager/index.js:810
+#: assets/src/admin/plugin-manager/index.js:866
 msgid "Failed to update plugins."
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:3
-#: assets/src/admin/plugin-manager/index.js:838
+#: assets/src/admin/plugin-manager/index.js:836
 msgid "Plugins update's PR raised successfully."
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:3
-#: assets/src/admin/plugin-manager/index.js:1191
+#: assets/src/admin/plugin-manager/index.js:1189
 msgid "Update All"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:3
-#: assets/src/admin/plugin-manager/index.js:1270
+#: assets/src/admin/plugin-manager/index.js:1268
 msgid "Search by name or description…"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:3
-#: assets/src/admin/plugin-manager/index.js:1281
+#: assets/src/admin/plugin-manager/index.js:1279
 msgid "All Status"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:3
 #: assets/build/js/plugin-manager.js:7
-#: assets/src/admin/plugin-manager/index.js:1283
-#: assets/src/admin/plugin-manager/index.js:2241
+#: assets/src/admin/plugin-manager/index.js:1281
+#: assets/src/admin/plugin-manager/index.js:2239
 msgid "Inactive"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:3
-#: assets/src/admin/plugin-manager/index.js:1287
+#: assets/src/admin/plugin-manager/index.js:1285
 msgid "Type"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:3
-#: assets/src/admin/plugin-manager/index.js:1291
+#: assets/src/admin/plugin-manager/index.js:1289
 msgid "All Types"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:3
 #: assets/build/js/plugin-manager.js:4
-#: assets/src/admin/plugin-manager/index.js:1292
-#: assets/src/admin/plugin-manager/index.js:1463
+#: assets/src/admin/plugin-manager/index.js:1290
+#: assets/src/admin/plugin-manager/index.js:1461
 msgid "Public"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:3
 #: assets/build/js/plugin-manager.js:4
-#: assets/src/admin/plugin-manager/index.js:1293
-#: assets/src/admin/plugin-manager/index.js:1464
+#: assets/src/admin/plugin-manager/index.js:1291
+#: assets/src/admin/plugin-manager/index.js:1462
 msgid "Private"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:3
-#: assets/src/admin/plugin-manager/index.js:1297
+#: assets/src/admin/plugin-manager/index.js:1295
 msgid "Updates"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:3
-#: assets/src/admin/plugin-manager/index.js:1301
+#: assets/src/admin/plugin-manager/index.js:1299
 msgid "All Updates"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:3
-#: assets/src/admin/plugin-manager/index.js:1302
+#: assets/src/admin/plugin-manager/index.js:1300
 msgid "Updates Available"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:3
-#: assets/src/admin/plugin-manager/index.js:1307
+#: assets/src/admin/plugin-manager/index.js:1305
 msgid "Filter By Site"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:3
-#: assets/src/admin/plugin-manager/index.js:1311
+#: assets/src/admin/plugin-manager/index.js:1309
 msgid "All Sites"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:3
-#: assets/src/admin/plugin-manager/index.js:1312
+#: assets/src/admin/plugin-manager/index.js:1310
 msgid "Common plugins"
 msgstr ""
 
 #. translators: %1$d is the number of filtered plugins, %2$d is the total number of plugins
 #: assets/build/js/plugin-manager.js:4
-#: assets/src/admin/plugin-manager/index.js:1328
+#: assets/src/admin/plugin-manager/index.js:1326
 #, js-format
 msgid "Showing %1$d of %2$d plugins"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:4
-#: assets/src/admin/plugin-manager/index.js:1472
+#: assets/src/admin/plugin-manager/index.js:1470
 msgid "Plugin Actions"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:4
-#: assets/src/admin/plugin-manager/index.js:1487
+#: assets/src/admin/plugin-manager/index.js:1485
 msgid "Change version/update"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:4
-#: assets/src/admin/plugin-manager/index.js:1500
+#: assets/src/admin/plugin-manager/index.js:1498
 msgid "Activate on sites"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:4
-#: assets/src/admin/plugin-manager/index.js:1513
+#: assets/src/admin/plugin-manager/index.js:1511
 msgid "Deactivate on sites"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:4
-#: assets/src/admin/plugin-manager/index.js:1529
+#: assets/src/admin/plugin-manager/index.js:1527
 msgid "Install on sites"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:4
-#: assets/src/admin/plugin-manager/index.js:1540
+#: assets/src/admin/plugin-manager/index.js:1538
 msgid "Uninstall from sites"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:4
-#: assets/src/admin/plugin-manager/index.js:1552
+#: assets/src/admin/plugin-manager/index.js:1550
 msgid "Plugin Details"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:4
-#: assets/src/admin/plugin-manager/index.js:1664
+#: assets/src/admin/plugin-manager/index.js:1662
 msgid "1 site needs update"
 msgstr ""
 
 #. translators: %d is the number of sites needing updates
 #: assets/build/js/plugin-manager.js:5
-#: assets/src/admin/plugin-manager/index.js:1667
+#: assets/src/admin/plugin-manager/index.js:1665
 #, js-format
 msgid "%d sites need updates"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:5
-#: assets/src/admin/plugin-manager/index.js:1700
+#: assets/src/admin/plugin-manager/index.js:1698
 msgid "No plugins found matching your filters. Try adjusting your search criteria."
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:5
-#: assets/src/admin/plugin-manager/index.js:1733
+#: assets/src/admin/plugin-manager/index.js:1731
 msgid "Select Version"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:5
-#: assets/src/admin/plugin-manager/index.js:1737
+#: assets/src/admin/plugin-manager/index.js:1735
 msgid "Select a version…"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:5
-#: assets/src/admin/plugin-manager/index.js:1740
+#: assets/src/admin/plugin-manager/index.js:1738
 msgid "Choose from the latest 5 stable versions available"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:5
-#: assets/src/admin/plugin-manager/index.js:1745
+#: assets/src/admin/plugin-manager/index.js:1743
 msgid "No stable versions available for this plugin."
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:5
-#: assets/src/admin/plugin-manager/index.js:1786
+#: assets/src/admin/plugin-manager/index.js:1784
 msgid "No sites available for activation. Plugin is already active on all sites."
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:5
-#: assets/src/admin/plugin-manager/index.js:1791
+#: assets/src/admin/plugin-manager/index.js:1789
 msgid "No sites available for deactivation. Plugin is not active on any sites."
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:5
-#: assets/src/admin/plugin-manager/index.js:1796
+#: assets/src/admin/plugin-manager/index.js:1794
 msgid "No sites have updates available for this plugin."
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:5
 #: assets/build/js/plugin-manager.js:7
-#: assets/src/admin/plugin-manager/index.js:1832
-#: assets/src/admin/plugin-manager/index.js:2255
+#: assets/src/admin/plugin-manager/index.js:1830
+#: assets/src/admin/plugin-manager/index.js:2253
 msgid "Update Available"
 msgstr ""
 
@@ -1087,137 +1087,132 @@ msgstr ""
 
 #: assets/build/js/plugin-manager.js:5
 #: assets/src/admin/plugin-manager/index.js:685
-msgid "selected sites"
+msgid "Activated"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:5
-#: assets/src/admin/plugin-manager/index.js:690
-msgid "activated"
+#: assets/src/admin/plugin-manager/index.js:688
+msgid "Deactivated"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:5
-#: assets/src/admin/plugin-manager/index.js:693
-msgid "deactivated"
+#: assets/src/admin/plugin-manager/index.js:691
+msgid "Updated"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:5
-#: assets/src/admin/plugin-manager/index.js:696
-msgid "updated"
+#: assets/src/admin/plugin-manager/index.js:694
+msgid "Installed"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:5
-#: assets/src/admin/plugin-manager/index.js:699
-msgid "installed"
+#: assets/src/admin/plugin-manager/index.js:697
+msgid "Removed"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:5
-#: assets/src/admin/plugin-manager/index.js:702
-msgid "removed"
+#: assets/src/admin/plugin-manager/index.js:700
+msgid "Version change"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:5
-#: assets/src/admin/plugin-manager/index.js:705
-msgid "version change PR raised"
-msgstr ""
-
-#: assets/build/js/plugin-manager.js:5
-#: assets/src/admin/plugin-manager/index.js:708
-msgid "executed"
+#: assets/src/admin/plugin-manager/index.js:703
+msgid "Executed"
 msgstr ""
 
 #. translators: %s is the plugin name, %s is the action verb, %s is the site names
 #: assets/build/js/plugin-manager.js:6
-#: assets/src/admin/plugin-manager/index.js:712
+#: assets/src/admin/plugin-manager/index.js:707
 #, js-format
-msgid "%1$s %2$s successfully on %3$s."
+msgid "%1$s %2$s PR raised successfully."
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:6
-#: assets/src/admin/plugin-manager/index.js:1872
+#: assets/src/admin/plugin-manager/index.js:1870
 msgid "Processing…"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:6
-#: assets/src/admin/plugin-manager/index.js:1983
+#: assets/src/admin/plugin-manager/index.js:1981
 msgid "Description"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:6
-#: assets/src/admin/plugin-manager/index.js:2001
+#: assets/src/admin/plugin-manager/index.js:1999
 msgid "Author"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:6
-#: assets/src/admin/plugin-manager/index.js:2013
+#: assets/src/admin/plugin-manager/index.js:2011
 msgid "Sites"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:6
-#: assets/src/admin/plugin-manager/index.js:2022
+#: assets/src/admin/plugin-manager/index.js:2020
 msgid "Downloads"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:6
-#: assets/src/admin/plugin-manager/index.js:2032
+#: assets/src/admin/plugin-manager/index.js:2030
 msgid "Requires WordPress"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:6
-#: assets/src/admin/plugin-manager/index.js:2040
+#: assets/src/admin/plugin-manager/index.js:2038
 msgid "Tested up to"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:6
-#: assets/src/admin/plugin-manager/index.js:2048
+#: assets/src/admin/plugin-manager/index.js:2046
 msgid "Requires PHP"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:6
-#: assets/src/admin/plugin-manager/index.js:2056
+#: assets/src/admin/plugin-manager/index.js:2054
 msgid "Last Updated"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:6
-#: assets/src/admin/plugin-manager/index.js:2069
+#: assets/src/admin/plugin-manager/index.js:2067
 msgid "Tags"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:6
-#: assets/src/admin/plugin-manager/index.js:2096
+#: assets/src/admin/plugin-manager/index.js:2094
 msgid "Plugin URI"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:6
-#: assets/src/admin/plugin-manager/index.js:2113
+#: assets/src/admin/plugin-manager/index.js:2111
 msgid "Installation"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:6
-#: assets/src/admin/plugin-manager/index.js:2130
+#: assets/src/admin/plugin-manager/index.js:2128
 msgid "FAQ"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:6
-#: assets/src/admin/plugin-manager/index.js:2147
+#: assets/src/admin/plugin-manager/index.js:2145
 msgid "Changelog"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:6
 #: assets/build/js/plugin-manager.js:7
-#: assets/src/admin/plugin-manager/index.js:2171
-#: assets/src/admin/plugin-manager/index.js:2272
+#: assets/src/admin/plugin-manager/index.js:2169
+#: assets/src/admin/plugin-manager/index.js:2270
 msgid "Close"
 msgstr ""
 
 #. translators: %s is the plugin name
 #: assets/build/js/plugin-manager.js:7
-#: assets/src/admin/plugin-manager/index.js:2183
+#: assets/src/admin/plugin-manager/index.js:2181
 #, js-format
 msgid "%s - Sites"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:7
-#: assets/src/admin/plugin-manager/index.js:2192
+#: assets/src/admin/plugin-manager/index.js:2190
 msgid "Plugin status across all sites"
 msgstr ""
 

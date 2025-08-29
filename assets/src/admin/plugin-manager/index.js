@@ -594,8 +594,8 @@ const PluginManager = () => {
 			return;
 		}
 
-		// set latest version for 'update' action.
-		if ( action === 'update' && plugin.plugin_info.is_public ) {
+		// set latest version for 'change-version' action.
+		if ( action === 'change-version' && plugin.plugin_info.is_public ) {
 			const getPluginVersions = getAvailableVersions( plugin );
 			if ( getPluginVersions.length > 0 ) {
 				setSelectedVersion( getPluginVersions[ 0 ].value );
@@ -678,51 +678,49 @@ const PluginManager = () => {
 			const githubActions = extractGitHubActionUrls();
 
 			// Create formatted message with GitHub Actions links
-			const siteNames = selectedSites.map( ( siteUrl ) => {
-				const site = allAvailableSites.find( ( s ) => s.siteUrl === siteUrl );
-				return site ? site.siteName : ( siteUrl );
-			} );
-			const siteNamesString = siteNames.length > 0 ? siteNames.join( ', ' ) : __( 'selected sites', 'oneupdate' );
 			const pluginName = selectedPlugin.plugin_info.name || selectedPlugin.plugin_info.plugin_slug;
 			let actionVerb = '';
 			switch ( currentAction ) {
 				case 'activate':
-					actionVerb = __( 'activated', 'oneupdate' );
+					actionVerb = __( 'Activated', 'oneupdate' );
 					break;
 				case 'deactivate':
-					actionVerb = __( 'deactivated', 'oneupdate' );
+					actionVerb = __( 'Deactivated', 'oneupdate' );
 					break;
 				case 'update':
-					actionVerb = __( 'updated', 'oneupdate' );
+					actionVerb = __( 'Updated', 'oneupdate' );
 					break;
 				case 'install':
-					actionVerb = __( 'installed', 'oneupdate' );
+					actionVerb = __( 'Installed', 'oneupdate' );
 					break;
 				case 'remove':
-					actionVerb = __( 'removed', 'oneupdate' );
+					actionVerb = __( 'Removed', 'oneupdate' );
 					break;
 				case 'change-version':
-					actionVerb = __( 'version change PR raised', 'oneupdate' );
+					actionVerb = __( 'Version change', 'oneupdate' );
 					break;
 				default:
-					actionVerb = __( 'executed', 'oneupdate' );
+					actionVerb = __( 'Executed', 'oneupdate' );
 			}
 			let noticeMessage = sprintf(
 				/* translators: %s is the plugin name, %s is the action verb, %s is the site names */
-				__( '%1$s %2$s successfully on %3$s.', 'oneupdate' ),
+				__( '%1$s %2$s PR raised successfully.', 'oneupdate' ),
 				pluginName,
 				actionVerb,
-				siteNamesString,
 			);
 
-			if ( githubActions.length > 0 ) {
-				const actionLinks = githubActions.map( ( action ) => {
-					return `${ action.run_url } `;
-				} );
+			noticeMessage += '\n\n';
 
-				noticeMessage += `\n\n${ [ ...actionLinks ].join( '\n' ) }\n`;
+			// add site name and its respective action link to message.
+			for ( const action of githubActions ) {
+				const site = allAvailableSites.find( ( s ) => s.siteUrl === action.site );
+				const siteName = site ? site.siteName : action.site;
+				noticeMessage += `${ siteName }\n${ action.run_url }`;
+				// add \n\n if not last item
+				if ( action !== githubActions?.[ githubActions.length - 1 ] ) {
+					noticeMessage += '\n\n';
+				}
 			}
-
 			// set global notice
 			setGlobalNotice( {
 				status: 'success',
