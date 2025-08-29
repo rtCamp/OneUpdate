@@ -750,6 +750,7 @@ const S3ZipUploader = () => {
 							style={ {
 								width: 'fit-content',
 							} }
+							isBusy={ uploading }
 						>
 							{ __( 'Upload & Install Plugin', 'oneupdate' ) }
 						</Button>

@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-08-29T09:39:46+00:00\n"
+"POT-Creation-Date: 2025-08-29T11:13:45+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: oneupdate\n"
@@ -413,7 +413,7 @@ msgstr ""
 #: assets/src/components/PluginsSharing.js:746
 #: assets/src/components/S3ZipUploader.js:156
 #: assets/src/components/S3ZipUploader.js:349
-#: assets/src/components/S3ZipUploader.js:955
+#: assets/src/components/S3ZipUploader.js:956
 #: assets/src/components/SiteTable.js:119
 msgid "Cancel"
 msgstr ""
@@ -428,7 +428,7 @@ msgstr ""
 #: assets/src/admin/plugin-manager/index.js:1789
 #: assets/src/components/PluginsSharing.js:643
 #: assets/src/components/S3ZipUploader.js:221
-#: assets/src/components/S3ZipUploader.js:818
+#: assets/src/components/S3ZipUploader.js:819
 msgid "Select All Sites"
 msgstr ""
 
@@ -438,7 +438,7 @@ msgstr ""
 #: assets/src/components/PluginsSharing.js:661
 #: assets/src/components/S3ZipUploader.js:77
 #: assets/src/components/S3ZipUploader.js:233
-#: assets/src/components/S3ZipUploader.js:843
+#: assets/src/components/S3ZipUploader.js:844
 msgid "Clear Selection"
 msgstr ""
 
@@ -470,14 +470,14 @@ msgstr ""
 #: assets/build/js/plugin-manager.js:1
 #: assets/src/components/PluginsSharing.js:758
 #: assets/src/components/S3ZipUploader.js:359
-#: assets/src/components/S3ZipUploader.js:964
+#: assets/src/components/S3ZipUploader.js:965
 msgid "Installing…"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:1
 #: assets/src/components/PluginsSharing.js:759
 #: assets/src/components/S3ZipUploader.js:360
-#: assets/src/components/S3ZipUploader.js:982
+#: assets/src/components/S3ZipUploader.js:983
 msgid "Install Plugins"
 msgstr ""
 
@@ -558,7 +558,7 @@ msgstr ""
 #: assets/build/js/plugin-manager.js:1
 #: assets/src/components/S3ZipUploader.js:564
 #: assets/src/components/S3ZipUploader.js:717
-#: assets/src/components/S3ZipUploader.js:1019
+#: assets/src/components/S3ZipUploader.js:1020
 msgid "Copy URL"
 msgstr ""
 
@@ -573,33 +573,33 @@ msgid "Please select a ZIP file."
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:1
-#: assets/src/components/S3ZipUploader.js:754
+#: assets/src/components/S3ZipUploader.js:755
 msgid "Upload & Install Plugin"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:1
-#: assets/src/components/S3ZipUploader.js:767
-#: assets/src/components/S3ZipUploader.js:782
+#: assets/src/components/S3ZipUploader.js:768
+#: assets/src/components/S3ZipUploader.js:783
 msgid "Choose plugin zip file"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:1
-#: assets/src/components/S3ZipUploader.js:787
+#: assets/src/components/S3ZipUploader.js:788
 msgid "Selected file:"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:1
-#: assets/src/components/S3ZipUploader.js:798
+#: assets/src/components/S3ZipUploader.js:799
 msgid "Select Sites for Plugin Installation"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:1
-#: assets/src/components/S3ZipUploader.js:810
+#: assets/src/components/S3ZipUploader.js:811
 msgid "Select the sites where you want to install this plugin."
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:1
-#: assets/src/components/S3ZipUploader.js:941
+#: assets/src/components/S3ZipUploader.js:942
 msgid "No sites available. Please add sites first."
 msgstr ""
 
@@ -629,39 +629,39 @@ msgid "Please select at least one site."
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:1
-#: assets/src/components/S3ZipUploader.js:964
+#: assets/src/components/S3ZipUploader.js:965
 msgid "Install Plugin"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:1
-#: assets/src/components/S3ZipUploader.js:974
+#: assets/src/components/S3ZipUploader.js:975
 msgid "Upload History"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:1
-#: assets/src/components/S3ZipUploader.js:995
+#: assets/src/components/S3ZipUploader.js:996
 msgid "File Name"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:1
-#: assets/src/components/S3ZipUploader.js:996
+#: assets/src/components/S3ZipUploader.js:997
 msgid "Upload Time"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:1
-#: assets/src/components/S3ZipUploader.js:997
+#: assets/src/components/S3ZipUploader.js:998
 msgid "Action"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:1
 #: assets/build/js/plugin-manager.js:3
 #: assets/src/admin/plugin-manager/index.js:1293
-#: assets/src/components/S3ZipUploader.js:998
+#: assets/src/components/S3ZipUploader.js:999
 msgid "Status"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:1
-#: assets/src/components/S3ZipUploader.js:1005
+#: assets/src/components/S3ZipUploader.js:1006
 msgid "No uploads yet."
 msgstr ""
 
@@ -671,7 +671,7 @@ msgid "Copied URL"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:1
-#: assets/src/components/S3ZipUploader.js:1041
+#: assets/src/components/S3ZipUploader.js:1042
 msgid "Expired"
 msgstr ""
 
@@ -682,7 +682,7 @@ msgstr ""
 #: assets/src/admin/plugin-manager/index.js:1298
 #: assets/src/admin/plugin-manager/index.js:1869
 #: assets/src/admin/plugin-manager/index.js:2280
-#: assets/src/components/S3ZipUploader.js:1053
+#: assets/src/components/S3ZipUploader.js:1054
 msgid "Active"
 msgstr ""
 
