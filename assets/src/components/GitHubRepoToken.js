@@ -70,7 +70,7 @@ const GitHubRepoToken = ( { setNotice, fetchAllAvailableGitHubRepos } ) => {
 		if ( data?.success ) {
 			setNotice( {
 				type: 'success',
-				message: __( 'GitHub token set successfully.', 'oneupdate' ),
+				message: __( 'GitHub token saved successfully.', 'oneupdate' ),
 			} );
 			await fetchAllAvailableGitHubRepos();
 		} else {

@@ -199,7 +199,7 @@ const SiteSelectionModal = ( {
 		<Modal
 			title={ __( 'Select Sites for Installation', 'oneupdate' ) }
 			onRequestClose={ onClose }
-			shouldCloseOnClickOutside={ true }
+			shouldCloseOnClickOutside={ applyingPlugins ? false : true }
 			className="oneupdate-site-selection-modal"
 			style={ { maxWidth: '600px', minWidth: '600px' } }
 		>
@@ -222,11 +222,12 @@ const SiteSelectionModal = ( {
 										checked={ selectedSiteInfo.length === sharedSites.length && sharedSites.length > 0 }
 										onChange={ handleSelectAllSites }
 										style={ { fontWeight: '500' } }
+										disabled={ applyingPlugins }
 									/>
 									<Button
 										variant="link"
 										onClick={ () => setSelectedSiteInfo( [] ) }
-										disabled={ selectedSiteInfo.length === 0 }
+										disabled={ selectedSiteInfo.length === 0 || applyingPlugins }
 										style={ { fontWeight: '500', marginBottom: '8px' } }
 									>
 										{ __( 'Clear Selection', 'oneupdate' ) }
@@ -255,6 +256,10 @@ const SiteSelectionModal = ( {
 												role="button"
 												tabIndex={ 0 }
 												onKeyDown={ ( e ) => {
+													if ( applyingPlugins ) {
+														e.preventDefault();
+														return;
+													}
 													if ( e.key === 'Enter' || e.key === ' ' ) {
 														e.preventDefault();
 														setSelectedSiteInfo( ( prev ) =>
@@ -275,6 +280,12 @@ const SiteSelectionModal = ( {
 												aria-pressed={ selectedSiteInfo.includes( site.siteUrl ) }
 												onClick={ ( event ) => {
 													event.stopPropagation();
+
+													if ( applyingPlugins ) {
+														event.preventDefault();
+														return;
+													}
+
 													setSelectedSiteInfo( ( prev ) =>
 														prev.some( ( s ) => s.siteUrl === site.siteUrl )
 															? prev.filter( ( s ) => s.siteUrl !== site.siteUrl )
@@ -304,6 +315,7 @@ const SiteSelectionModal = ( {
 														</div>
 													}
 													checked={ selectedSiteInfo.some( ( s ) => s.siteUrl === site.siteUrl ) }
+													disabled={ applyingPlugins }
 												/>
 											</div>
 										) ) }
@@ -586,7 +598,6 @@ const S3ZipUploader = () => {
 		}
 
 		setUploading( true );
-		setShowSiteSelectionModal( false );
 
 		try {
 			// First upload to S3
@@ -688,6 +699,7 @@ const S3ZipUploader = () => {
 			} );
 		} finally {
 			setUploading( false );
+			setShowSiteSelectionModal( false );
 		}
 	};
 
@@ -738,7 +750,6 @@ const S3ZipUploader = () => {
 							style={ {
 								width: 'fit-content',
 							} }
-							className={ uploading ? 'is-busy' : '' }
 						>
 							{ __( 'Upload & Install Plugin', 'oneupdate' ) }
 						</Button>
@@ -763,7 +774,10 @@ const S3ZipUploader = () => {
 									color: '#fff',
 									padding: '10px',
 									borderRadius: '4px',
+									opacity: uploading ? 0.6 : 1,
+									cursor: uploading ? 'not-allowed' : 'pointer',
 								} }
+								disabled={ uploading }
 							>
 								{ __( 'Choose plugin zip file', 'oneupdate' ) }
 							</FormFileUpload>
@@ -785,7 +799,7 @@ const S3ZipUploader = () => {
 						onRequestClose={ () => {
 							setShowSiteSelectionModal( false );
 						} }
-						shouldCloseOnClickOutside={ true }
+						shouldCloseOnClickOutside={ uploading ? false : true }
 						className="oneupdate-site-selection-modal"
 						style={ { maxWidth: '600px', minWidth: '600px' } }
 					>
@@ -817,12 +831,13 @@ const S3ZipUploader = () => {
 														);
 													}
 												} }
+												disabled={ uploading }
 												style={ { fontWeight: '500' } }
 											/>
 											<Button
 												variant="link"
 												onClick={ () => setSelectedSitesForUpload( [] ) }
-												disabled={ selectedSitesForUpload.length === 0 }
+												disabled={ selectedSitesForUpload.length === 0 || uploading }
 												style={ { fontWeight: '500', marginBottom: '8px' } }
 											>
 												{ __( 'Clear Selection', 'oneupdate' ) }
@@ -855,6 +870,11 @@ const S3ZipUploader = () => {
 														role="button"
 														tabIndex={ 0 }
 														onKeyDown={ ( e ) => {
+															if ( uploading ) {
+																e.preventDefault();
+																return;
+															}
+
 															if ( e.key === 'Enter' || e.key === ' ' ) {
 																e.preventDefault();
 																setSelectedSitesForUpload( ( prev ) =>
@@ -875,6 +895,12 @@ const S3ZipUploader = () => {
 														aria-pressed={ selectedSitesForUpload.some( ( s ) => s.siteUrl === site.siteUrl ) }
 														onClick={ ( event ) => {
 															event.stopPropagation();
+
+															if ( uploading ) {
+																event.preventDefault();
+																return;
+															}
+
 															setSelectedSitesForUpload( ( prev ) =>
 																prev.some( ( s ) => s.siteUrl === site.siteUrl )
 																	? prev.filter( ( s ) => s.siteUrl !== site.siteUrl )
@@ -903,6 +929,7 @@ const S3ZipUploader = () => {
 																</div>
 															}
 															checked={ selectedSitesForUpload.some( ( s ) => s.siteUrl === site.siteUrl ) }
+															disabled={ uploading }
 														/>
 													</div>
 												) ) }

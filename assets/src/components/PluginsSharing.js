@@ -621,7 +621,7 @@ const ApplyPluginsModal = ( { sharedSites, selectedPlugin, setShowApplyModal, se
 		<Modal
 			title={ __( 'Install Selected Plugins', 'oneupdate' ) }
 			onRequestClose={ () => setShowApplyModal( false ) }
-			shouldCloseOnClickOutside={ true }
+			shouldCloseOnClickOutside={ isApplyingPlugins ? false : true }
 			className="oneupdate-apply-plugins-modal"
 			style={ { maxWidth: '600px', minWidth: '600px' } }
 		>
@@ -649,12 +649,13 @@ const ApplyPluginsModal = ( { sharedSites, selectedPlugin, setShowApplyModal, se
 												setSelectedSite( sharedSites.map( ( site ) => site.siteUrl ) );
 											}
 										} }
+										disabled={ isApplyingPlugins }
 										style={ { fontWeight: '500' } }
 									/>
 									<Button
 										variant="link"
 										onClick={ () => setSelectedSite( [] ) }
-										disabled={ selectedSite.length === 0 }
+										disabled={ selectedSite.length === 0 || isApplyingPlugins }
 										style={ { fontWeight: '500', marginBottom: '8px' } }
 									>
 										{ __( 'Clear Selection', 'oneupdate' ) }
@@ -682,11 +683,22 @@ const ApplyPluginsModal = ( { sharedSites, selectedPlugin, setShowApplyModal, se
 												} }
 												onClick={ ( event ) => {
 													event.stopPropagation();
+
+													if ( isApplyingPlugins ) {
+														event.preventDefault();
+														return;
+													}
+
 													handleSiteSelection( site.siteUrl );
 												} }
 												role="button"
 												tabIndex={ 0 }
 												onKeyDown={ ( e ) => {
+													if ( isApplyingPlugins ) {
+														e.preventDefault();
+														return;
+													}
+
 													if ( e.key === 'Enter' || e.key === ' ' ) {
 														e.preventDefault();
 														handleSiteSelection( site.siteUrl );
@@ -708,6 +720,7 @@ const ApplyPluginsModal = ( { sharedSites, selectedPlugin, setShowApplyModal, se
 													}
 													checked={ selectedSite.includes( site?.siteUrl ) }
 													onChange={ () => handleSiteSelection( site.siteUrl ) }
+													disabled={ isApplyingPlugins }
 												/>
 											</div>
 										) ) }
