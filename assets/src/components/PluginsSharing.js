@@ -226,6 +226,7 @@ const PluginGrid = () => {
 	const [ noticeMessage, setNoticeMessage ] = useState( '' );
 	const [ pluginType, setPluginType ] = useState( 'add_update' );
 	const [ showPluginTypeModal, setShowPluginTypeModal ] = useState( false );
+	const [ isApplyingPlugins, setIsApplyingPlugins ] = useState( false );
 
 	const fetchPlugins = useCallback( async () => {
 		if ( ! searchQuery.trim() ) {
@@ -408,9 +409,10 @@ const PluginGrid = () => {
 										</span>
 										<Button
 											variant="primary"
-											disabled={ selectedCount === 0 }
+											disabled={ selectedCount === 0 || isApplyingPlugins }
 											aria-label={ __( 'Install Selected Plugins', 'oneupdate' ) }
 											onClick={ () => setShowApplyModal( true ) }
+											isBusy={ isApplyingPlugins }
 										>
 											{ __( 'Install Selected Plugins', 'oneupdate' ) }
 										</Button>
@@ -436,6 +438,8 @@ const PluginGrid = () => {
 									setIsNoticeVisible={ setIsNoticeVisible }
 									setSelectedPlugin={ setSelectedPlugin }
 									pluginType={ pluginType }
+									isApplyingPlugins={ isApplyingPlugins }
+									setIsApplyingPlugins={ setIsApplyingPlugins }
 								/>
 							) }
 
@@ -524,10 +528,9 @@ const PluginTypeSelectionModal = ( { pluginType, setPluginType, setShowPluginTyp
 	);
 };
 
-const ApplyPluginsModal = ( { sharedSites, selectedPlugin, setShowApplyModal, setNoticeMessage, setIsNoticeVisible, setSelectedPlugin, pluginType } ) => {
+const ApplyPluginsModal = ( { sharedSites, selectedPlugin, setShowApplyModal, setNoticeMessage, setIsNoticeVisible, setSelectedPlugin, pluginType, isApplyingPlugins, setIsApplyingPlugins } ) => {
 	const [ selectedSite, setSelectedSite ] = useState( [] );
 	const [ selectedSiteInfo, setSelectedSiteInfo ] = useState( [] );
-	const [ isApplyingPlugins, setIsApplyingPlugins ] = useState( false );
 
 	const handleSiteSelection = ( siteUrl ) => {
 		// Deselect if already selected else add to selected sites list
