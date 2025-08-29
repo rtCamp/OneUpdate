@@ -366,11 +366,10 @@ const SiteSelectionModal = ( {
 	);
 };
 
-const ApplyPluginsModal = ( { history, setShowApplyPluginsModal, setCurrentNotice } ) => {
+const ApplyPluginsModal = ( { history, setShowApplyPluginsModal, setCurrentNotice, applyingPlugins, setApplyingPlugins } ) => {
 	const [ selectedPlugins, setSelectedPlugins ] = useState( [] );
 	const [ selectedSiteInfo, setSelectedSiteInfo ] = useState( [] );
 	const [ sharedSites, setSharedSites ] = useState( [] );
-	const [ applyingPlugins, setApplyingPlugins ] = useState( false );
 
 	// Modal state management
 	const [ currentStep, setCurrentStep ] = useState( 'plugins' ); // 'plugins' or 'sites'
@@ -530,6 +529,7 @@ const S3ZipUploader = () => {
 	const [ buttonTexts, setButtonTexts ] = useState( {} );
 	const [ selectedSitesForUpload, setSelectedSitesForUpload ] = useState( [] );
 	const [ sharedSites, setSharedSites ] = useState( [] );
+	const [ applyingPlugins, setApplyingPlugins ] = useState( false );
 
 	// Fetch shared sites data
 	const fetchSharedSitesData = useCallback( async () => {
@@ -978,7 +978,8 @@ const S3ZipUploader = () => {
 								variant="primary"
 								onClick={ () => setShowApplyPluginsModal( true ) }
 								style={ { marginTop: '20px' } }s
-								disabled={ filteredHistory.length === 0 || loadingHistory }
+								disabled={ filteredHistory.length === 0 || loadingHistory || applyingPlugins }
+								isBusy={ applyingPlugins }
 							>
 								{ __( 'Install Plugins', 'oneupdate' ) }
 							</Button>
@@ -1071,6 +1072,8 @@ const S3ZipUploader = () => {
 						history={ history }
 						setShowApplyPluginsModal={ setShowApplyPluginsModal }
 						setCurrentNotice={ setCurrentNotice }
+						applyingPlugins={ applyingPlugins }
+						setApplyingPlugins={ setApplyingPlugins }
 					/>
 				) }
 			</div>
