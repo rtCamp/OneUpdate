@@ -33,7 +33,7 @@ const GitHubPullRequests = () => {
 	const [ notice, setNotice ] = useState( null );
 	const [ selectedRepo, setSelectedRepo ] = useState( Object.keys( REPOS )?.[ 0 ] || '' );
 	const [ statusFilter, setStatusFilter ] = useState( 'all' );
-	const [ searchQuery, setSearchQuery ] = useState( '' );
+	const [ searchQuery, setSearchQuery ] = useState( '[OneUpdate]' );
 	const [ page, setPage ] = useState( 1 );
 	const [ totalPages, setTotalPages ] = useState( 1 );
 	const [ selectedPR, setSelectedPR ] = useState( null );
@@ -165,9 +165,7 @@ const GitHubPullRequests = () => {
 	const openDetailModal = ( pr ) => {
 		setSelectedPR( pr );
 		setIsDetailModalOpen( true );
-		if ( pr.state !== 'open' ) {
-			fetchPRDetails( pr.number );
-		}
+		fetchPRDetails( pr.number );
 	};
 
 	const closeModals = () => {
@@ -353,17 +351,20 @@ const GitHubPullRequests = () => {
 							{ pullRequests.map( ( pr ) => (
 								<tr key={ pr.id }>
 									<td>
+										<span
+											style={ { textDecoration: 'none', fontWeight: 'bold' } }
+										>
+											#{ pr.number }
+										</span>
+									</td>
+									<td>
 										<a
 											href={ pr.html_url }
 											target="_blank"
 											rel="noopener noreferrer"
-											style={ { textDecoration: 'none', fontWeight: 'bold' } }
 										>
-											#{ pr.number }
+											<strong>{ decodeEntities( pr.title ) }</strong>
 										</a>
-									</td>
-									<td>
-										<strong>{ decodeEntities( pr.title ) }</strong>
 									</td>
 									<td>
 										<div style={ { display: 'flex', alignItems: 'center', gap: '8px' } }>
@@ -452,129 +453,135 @@ const GitHubPullRequests = () => {
 					size="medium"
 					shouldCloseOnClickOutside={ true }
 				>
-					<div style={ { marginBottom: '20px' } }>
-						<div style={ { display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '16px' } }>
-							<div>
-								<p><strong>{ __( 'PR Number:', 'oneupdate' ) }</strong> #{ selectedPR.number }</p>
-								<p><strong>{ __( 'Title:', 'oneupdate' ) }</strong> { decodeEntities( selectedPR.title ) }</p>
-								<p><strong>{ __( 'Author:', 'oneupdate' ) }</strong> { selectedPR.user.login }</p>
-								<p><strong>{ __( 'Status:', 'oneupdate' ) }</strong> { getPRStatusBadge( selectedPR ) }</p>
-							</div>
-							<div>
-								<p><strong>{ __( 'Created:', 'oneupdate' ) }</strong> { formatDate( selectedPR.created_at ) }</p>
-								<p><strong>{ __( 'Updated:', 'oneupdate' ) }</strong> { formatDate( selectedPR.updated_at ) }</p>
-								<p><strong>{ __( 'Branch:', 'oneupdate' ) }</strong> { selectedPR.pr_branch } → { selectedPR.base_branch }</p>
-								<p>
-									<strong>{ __( 'GitHub URL:', 'oneupdate' ) }</strong>{ ' ' }
-									<a href={ selectedPR.html_url } target="_blank" rel="noopener noreferrer">
-										{ __( 'View on GitHub', 'oneupdate' ) }
-									</a>
-								</p>
-							</div>
-						</div>
-
-						{ /* Labels */ }
-						{ selectedPR.labels.length > 0 && (
-							<div style={ { marginTop: '16px' } }>
-								<strong>{ __( 'Labels:', 'oneupdate' ) }</strong>
-								<div style={ { display: 'flex', flexWrap: 'wrap', gap: '4px', marginTop: '8px' } }>
-									{ selectedPR.labels.map( ( label ) => (
-										<span
-											key={ label.id }
-											style={ {
-												display: 'inline-block',
-												padding: '4px 8px',
-												borderRadius: '4px',
-												fontSize: '12px',
-												backgroundColor: `#1c1c1c`,
-												color: '#fff',
-											} }
-										>
-											{ label.name }
-										</span>
-									) ) }
-								</div>
-							</div>
-						) }
-
-						{ /* Description */ }
-						{ selectedPR.body && (
-							<div style={ { marginTop: '16px' } }>
-								<strong>{ __( 'Description:', 'oneupdate' ) }</strong>
-								<div
-									style={ {
-										marginTop: '8px',
-										padding: '12px',
-										backgroundColor: '#f9f9f9',
-										border: '1px solid #ddd',
-										borderRadius: '4px',
-										maxHeight: '200px',
-										overflow: 'auto',
-									} }
-								>
-									<pre style={ { whiteSpace: 'pre-wrap', margin: 0, fontSize: '14px' } }>
-										{ decodeEntities( selectedPR.body ) }
-									</pre>
-								</div>
-							</div>
-						) }
-					</div>
-
 					{ /* Detailed PR Info */ }
 					{ detailsLoading && (
 						<div style={ { textAlign: 'center', margin: '20px 0' } }>
-							<Spinner />
-							<p>{ __( 'Loading extra details…', 'oneupdate' ) }</p>
+							<Spinner style={ { width: '40px', height: '40px' } } />
+							<p>{ __( 'Loading PR details…', 'oneupdate' ) }</p>
 						</div>
 					) }
 
-					{ prDetails && prDetails.merged_by && (
-						<div style={ { marginTop: '20px', borderTop: '1px solid #ddd', paddingTop: '20px' } }>
+					{ ! detailsLoading && prDetails && (
+						<>
+							<div style={ { marginBottom: '20px' } }>
+								<div style={ { display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '16px' } }>
+									<div>
+										<p><strong>{ __( 'PR Number:', 'oneupdate' ) }</strong> #{ prDetails.number }</p>
+										<p><strong>{ __( 'Title:', 'oneupdate' ) }</strong> { decodeEntities( prDetails.title ) }</p>
+										<p><strong>{ __( 'Author:', 'oneupdate' ) }</strong> { prDetails.user.login }</p>
+										<p><strong>{ __( 'Status:', 'oneupdate' ) }</strong> { getPRStatusBadge( prDetails ) }</p>
+									</div>
+									<div>
+										<p><strong>{ __( 'Created:', 'oneupdate' ) }</strong> { formatDate( prDetails.created_at ) }</p>
+										<p><strong>{ __( 'Updated:', 'oneupdate' ) }</strong> { formatDate( prDetails.updated_at ) }</p>
+										<p><strong>{ __( 'Branch:', 'oneupdate' ) }</strong> { prDetails.pr_branch } → { prDetails.base_branch }</p>
+										<p>
+											<strong>{ __( 'GitHub URL:', 'oneupdate' ) }</strong>{ ' ' }
+											<a href={ prDetails.html_url } target="_blank" rel="noopener noreferrer">
+												{ __( 'View on GitHub', 'oneupdate' ) }
+											</a>
+										</p>
+									</div>
+								</div>
 
+								{ /* Labels */ }
+								{ prDetails.labels.length > 0 && (
+									<div style={ { marginTop: '16px' } }>
+										<strong>{ __( 'Labels:', 'oneupdate' ) }</strong>
+										<div style={ { display: 'flex', flexWrap: 'wrap', gap: '4px', marginTop: '8px' } }>
+											{ prDetails.labels.map( ( label ) => (
+												<span
+													key={ label.id }
+													style={ {
+														display: 'inline-block',
+														padding: '4px 8px',
+														borderRadius: '4px',
+														fontSize: '12px',
+														backgroundColor: `#1c1c1c`,
+														color: '#fff',
+													} }
+												>
+													{ label.name }
+												</span>
+											) ) }
+										</div>
+									</div>
+								) }
+
+								{ /* Description */ }
+								{ prDetails.body && (
+									<div style={ { marginTop: '16px' } }>
+										<strong>{ __( 'Description:', 'oneupdate' ) }</strong>
+										<div
+											style={ {
+												marginTop: '8px',
+												padding: '12px',
+												backgroundColor: '#f9f9f9',
+												border: '1px solid #ddd',
+												borderRadius: '4px',
+												maxHeight: '200px',
+												overflow: 'auto',
+											} }
+										>
+											<pre style={ { whiteSpace: 'pre-wrap', margin: 0, fontSize: '14px' } }>
+												{ decodeEntities( prDetails.body ) }
+											</pre>
+										</div>
+									</div>
+								) }
+							</div>
+
+							{ /* Merged By Info */ }
 							{ prDetails.merged_by && (
-								<div style={ { marginTop: '10px' } }>
-									<strong>{ __( 'Merged By:', 'oneupdate' ) }</strong>
-									<img
-										src={ prDetails.merged_by.avatar_url }
-										alt={ prDetails.merged_by.login }
-										style={ {
-											width: '24px',
-											height: '24px',
-											borderRadius: '50%',
-											marginLeft: '8px',
-											verticalAlign: 'middle',
-										} }
-									/>
-									<span style={ { marginLeft: '8px', verticalAlign: 'middle' } }>{ prDetails.merged_by.login }</span>
+								<div style={ { marginTop: '20px', borderTop: '1px solid #ddd', paddingTop: '20px' } }>
+
+									{ prDetails.merged_by && (
+										<div style={ { marginTop: '10px' } }>
+											<strong>{ __( 'Merged By:', 'oneupdate' ) }</strong>
+											<img
+												src={ prDetails.merged_by.avatar_url }
+												alt={ prDetails.merged_by.login }
+												style={ {
+													width: '24px',
+													height: '24px',
+													borderRadius: '50%',
+													marginLeft: '8px',
+													verticalAlign: 'middle',
+												} }
+											/>
+											<span style={ { marginLeft: '8px', verticalAlign: 'middle' } }>{ prDetails.merged_by.login }</span>
+										</div>
+									) }
 								</div>
 							) }
-						</div>
+
+							{ /* Action Buttons */ }
+							{ prDetails.state === 'open' && (
+								<div style={ { marginTop: '20px', display: 'flex', gap: '10px', justifyContent: 'flex-end' } }>
+									<Button
+										variant="secondary"
+										isDestructive
+										onClick={ () => {
+											// take user to github to close
+											window.open( `${ prDetails.html_url }#:~:text=Close%20pull%20request`, '_blank' );
+										} }
+									>
+										{ __( 'Close PR', 'oneupdate' ) }
+									</Button>
+									<Button
+										variant="primary"
+										onClick={ () => {
+											// take user to github to merge
+											window.open( `${ prDetails.html_url }#:~:text=Merge%20pull%20request`, '_blank' );
+										} }
+									>
+										{ __( 'Merge PR', 'oneupdate' ) }
+									</Button>
+								</div>
+							) }
+						</>
 					) }
 
-					{ /* Action Buttons */ }
-					{ selectedPR.state === 'open' && (
-						<div style={ { marginTop: '20px', display: 'flex', gap: '10px', justifyContent: 'flex-end' } }>
-							<Button
-								variant="secondary"
-								isDestructive
-								onClick={ () => {
-									// take user to github to close
-									window.open( `${ selectedPR.html_url }#:~:text=Close%20pull%20request`, '_blank' );
-								} }
-							>
-								{ __( 'Close PR', 'oneupdate' ) }
-							</Button>
-							<Button
-								variant="primary"
-								onClick={ () => {
-									// take user to github to merge
-									window.open( `${ selectedPR.html_url }#:~:text=Merge%20pull%20request`, '_blank' );
-								} }
-							>
-								{ __( 'Merge PR', 'oneupdate' ) }
-							</Button>
-						</div>
-					) }
 				</Modal>
 			) }
 
