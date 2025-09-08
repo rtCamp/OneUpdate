@@ -85,7 +85,18 @@ const GitHubPullRequests = () => {
 			);
 
 			if ( ! response.ok ) {
-				throw new Error( 'Failed to fetch pull requests' );
+				if ( response?.statusText === 'Unprocessable Entity' ) {
+					setNotice( {
+						type: 'error',
+						message: __( 'Please enter valid character to search pull requests.' ),
+					} );
+				} else {
+					setNotice( {
+						type: 'error',
+						message: __( 'Failed to fetch pull requests.', 'oneupdate' ),
+					} );
+				}
+				return;
 			}
 
 			const data = await response.json();
@@ -97,7 +108,10 @@ const GitHubPullRequests = () => {
 				setTotalPages( Math.ceil( totalCount / PER_PAGE ) );
 				setCurrentPage( data?.pagination?.current_page || 1 );
 			} else {
-				throw new Error( data.message || 'Failed to fetch pull requests' );
+				setNotice( {
+					type: 'error',
+					message: __( 'Error fetching pull requests.', 'oneupdate' ),
+				} );
 			}
 		} catch ( error ) {
 			setNotice( {
