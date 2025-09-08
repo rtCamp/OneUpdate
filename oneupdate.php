@@ -123,5 +123,8 @@ register_deactivation_hook(
 	ONEUPDATE_PLUGIN_LOADER_PLUGIN_BASENAME,
 	function () {
 		wp_clear_scheduled_hook( 'oneupdate_s3_zip_cleanup_event' );
+
+		// remove oneupdate_s3_zip_history_cleanup_event event even though its removed but to make sure its completely removed from cron jobs.
+		wp_clear_scheduled_hook( 'oneupdate_s3_zip_history_cleanup_event' );
 	}
 );
