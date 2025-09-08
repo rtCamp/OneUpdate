@@ -5,6 +5,9 @@
  * @package oneupdate
  */
 
+use OneUpdate\Plugin_Configs\Constants;
+use OneUpdate\Utils;
+
 /**
  * Get plugin template.
  *
@@ -46,7 +49,7 @@ function oneupdate_features_template( $template, $variables = array(), $is_echo 
  */
 function oneupdate_validate_api_key(): bool {
 	// check if the request is from same site.
-	if ( 'governing-site' === get_option( 'oneupdate_site_type', '' ) ) {
+	if ( Utils::is_governing_site() ) {
 		return current_user_can( 'manage_options' ) ? true : false;
 	}
 
@@ -54,7 +57,7 @@ function oneupdate_validate_api_key(): bool {
 	if ( isset( $_SERVER['HTTP_X_ONEUPDATE_PLUGINS_TOKEN'] ) && ! empty( $_SERVER['HTTP_X_ONEUPDATE_PLUGINS_TOKEN'] ) ) {
 		$token = sanitize_text_field( wp_unslash( $_SERVER['HTTP_X_ONEUPDATE_PLUGINS_TOKEN'] ) );
 		// Get the api key from options.
-		$api_key = get_option( 'oneupdate_child_site_api_key', 'default_api_key' );
+		$api_key = get_option( Constants::ONEUPDATE_API_KEY, '' );
 		if ( hash_equals( $token, $api_key ) ) {
 			return true;
 		}

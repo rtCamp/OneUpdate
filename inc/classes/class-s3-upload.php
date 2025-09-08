@@ -9,7 +9,7 @@ namespace OneUpdate;
 
 use OneUpdate\Traits\Singleton;
 use Aws\Exception\AwsException;
-
+use OneUpdate\Plugin_Configs\Constants;
 use OneUpdate\REST\S3;
 
 /**
@@ -46,11 +46,11 @@ class S3_Upload {
 	 */
     // phpcs:disable -- its custom query to cleanup s3 bucket.
 	public function oneupdate_s3_zip_cleanup_event(): void {
-		$s3_credentials = get_option( 'oneupdate_s3_credentials' );
+		$s3_credentials = get_option( Constants::ONEUPDATE_S3_CREDENTIALS, array() );
 
 		global $wpdb;
-		$table_name = $wpdb->prefix . 'oneupdate_s3_zip_history';
-		$s3         = S3::get_s3_instance();
+		$table_name = $wpdb->prefix . Constants::ONEUPDATE_S3_ZIP_HISTORY_TABLE;
+		$s3         = Utils::get_s3_instance();
 
 		$one_hour_ago  = gmdate( 'Y-m-d H:i:s', current_time( 'timestamp', 1 ) - 3600 );
 		$expired_files = $wpdb->get_results(
@@ -96,7 +96,7 @@ class S3_Upload {
     // phpcs:disable -- its custom query to cleanup s3 zip history.
     public function oneupdate_s3_zip_history_cleanup_event(): void {
 		global $wpdb;
-		$table_name    = $wpdb->prefix . 'oneupdate_s3_zip_history';
+		$table_name    = $wpdb->prefix . Constants::ONEUPDATE_S3_ZIP_HISTORY_TABLE;
 		$one_week_ago  = date( 'Y-m-d H:i:s', strtotime( '-1 week' ) );
 		$batch_size    = 1000;
 		$sleep_seconds = 2;

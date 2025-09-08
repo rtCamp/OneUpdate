@@ -76,6 +76,7 @@ const scripts = {
 		'plugin-manager': path.resolve( process.cwd(), 'assets', 'src', 'admin/plugin-manager', 'index.js' ),
 		settings: path.resolve( process.cwd(), 'assets', 'src', 'admin/settings', 'index.js' ),
 		plugin: path.resolve( process.cwd(), 'assets', 'src', 'admin/plugin', 'index.js' ),
+		'pull-requests': path.resolve( process.cwd(), 'assets', 'src', 'admin/pull-requests', 'index.js' ),
 	},
 };
 

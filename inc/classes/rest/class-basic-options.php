@@ -7,6 +7,7 @@
 
 namespace OneUpdate\REST;
 
+use OneUpdate\Plugin_Configs\Constants;
 use OneUpdate\Traits\Singleton;
 use OneUpdate\Plugin_Configs\Secret_Key;
 use WP_REST_Server;
@@ -248,7 +249,7 @@ class Basic_Options {
 	 */
 	public function get_github_repos(): \WP_REST_Response|\WP_Error {
 
-		$github_token = get_option( 'oneupdate_gh_token', '' );
+		$github_token = get_option( Constants::ONEUPDATE_GH_TOKEN, '' );
 
 		if ( empty( $github_token ) ) {
 			return new \WP_Error( 'no_github_token', __( 'GitHub token not found.', 'oneupdate' ), array( 'status' => 404 ) );
@@ -328,7 +329,7 @@ class Basic_Options {
 	 */
 	public function get_site_type(): \WP_REST_Response|\WP_Error {
 
-		$site_type = get_option( 'oneupdate_site_type', '' );
+		$site_type = get_option( Constants::ONEUPDATE_SITE_TYPE, '' );
 
 		return rest_ensure_response(
 			array(
@@ -348,10 +349,10 @@ class Basic_Options {
 
 		$site_type = sanitize_text_field( $request->get_param( 'site_type' ) );
 
-		update_option( 'oneupdate_site_type', $site_type );
+		update_option( Constants::ONEUPDATE_SITE_TYPE, $site_type );
 
 		// set transient to indicating that site type has been set for infinite time.
-		set_transient( 'oneupdate_site_type_transient', true, 0 );
+		set_transient( Constants::ONEUPDATE_SITE_TYPE_TRANSIENT, true, 0 );
 
 		return rest_ensure_response(
 			array(
@@ -399,7 +400,7 @@ class Basic_Options {
 			);
 		}
 
-		update_option( 'oneupdate_gh_token', $github_token );
+		update_option( Constants::ONEUPDATE_GH_TOKEN, $github_token );
 
 		return rest_ensure_response(
 			array(
@@ -415,7 +416,7 @@ class Basic_Options {
 	 * @return \WP_REST_Response|\WP_Error
 	 */
 	public function get_s3_credentials(): \WP_REST_Response|\WP_Error {
-		$s3_credentials = get_option( 'oneupdate_s3_credentials' );
+		$s3_credentials = get_option( Constants::ONEUPDATE_S3_CREDENTIALS, array() );
 
 		return rest_ensure_response(
 			array(
@@ -450,7 +451,7 @@ class Basic_Options {
 		}
 
 		// Update S3 credentials in options.
-		update_option( 'oneupdate_s3_credentials', $s3_credentials );
+		update_option( Constants::ONEUPDATE_S3_CREDENTIALS, $s3_credentials );
 
 		return rest_ensure_response(
 			array(
@@ -466,7 +467,7 @@ class Basic_Options {
 	 * @return \WP_REST_Response|\WP_Error
 	 */
 	public function get_shared_sites(): \WP_REST_Response|\WP_Error {
-		$shared_sites = get_option( 'oneupdate_shared_sites', array() );
+		$shared_sites = get_option( Constants::ONEUPDATE_SHARED_SITES, array() );
 		return rest_ensure_response(
 			array(
 				'success'      => true,
@@ -506,7 +507,7 @@ class Basic_Options {
 			$gtihub_repos[] = $site['githubRepo'] ?? '';
 		}
 
-		update_option( 'oneupdate_shared_sites', $sites_data );
+		update_option( Constants::ONEUPDATE_SHARED_SITES, $sites_data );
 
 		return rest_ensure_response(
 			array(
@@ -522,7 +523,7 @@ class Basic_Options {
 	 * @return \WP_REST_Response|\WP_Error
 	 */
 	public function get_github_token(): \WP_REST_Response|\WP_Error {
-		$github_token = get_option( 'oneupdate_gh_token', '' );
+		$github_token = get_option( Constants::ONEUPDATE_GH_TOKEN, '' );
 
 		return rest_ensure_response(
 			array(

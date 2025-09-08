@@ -32,7 +32,7 @@ class DB {
 	 */
 	public static function create_oneupdate_s3_zip_history_table(): void {
 		global $wpdb;
-		$table_name      = $wpdb->prefix . 'oneupdate_s3_zip_history';
+		$table_name      = $wpdb->prefix . Constants::ONEUPDATE_S3_ZIP_HISTORY_TABLE;
 		$charset_collate = $wpdb->get_charset_collate();
 
 		$sql = "CREATE TABLE IF NOT EXISTS $table_name (

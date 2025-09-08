@@ -8,6 +8,7 @@
 namespace OneUpdate\Settings;
 
 use OneUpdate\Traits\Singleton;
+use OneUpdate\Utils;
 
 /**
  * Class Shared_Sites
@@ -60,6 +61,18 @@ class Shared_Sites {
 			array( $this, 'render_oneupdate_plugin_manager' )
 		);
 
+		// if governing site then add pull requests menu.
+		if ( Utils::is_governing_site() ) {
+			add_submenu_page(
+				'oneupdate',
+				__( 'Pull Requests', 'oneupdate' ),
+				__( 'Pull Requests', 'oneupdate' ),
+				'manage_options',
+				'oneupdate-pull-requests',
+				array( $this, 'render_oneupdate_pull_requests_page' )
+			);
+		}
+
 		// Add your other submenu page.
 		add_submenu_page(
 			'oneupdate',
@@ -71,7 +84,7 @@ class Shared_Sites {
 		);
 
 		// if site type is brand then remove the governing site menu.
-		if ( 'governing-site' !== get_option( 'oneupdate_site_type', '' ) ) {
+		if ( ! Utils::is_governing_site() ) {
 			remove_submenu_page( 'oneupdate', 'oneupdate' );
 		}
 	}
@@ -83,7 +96,7 @@ class Shared_Sites {
 	 */
 	public function render_oneupdate_plugin_manager(): void {
 		// Check if the user has permission to manage options.
-		if ( ! current_user_can( 'manage_options' ) || 'governing-site' !== get_option( 'oneupdate_site_type', '' ) ) {
+		if ( ! current_user_can( 'manage_options' ) || ! Utils::is_governing_site() ) {
 			wp_die( esc_html__( 'You do not have sufficient permissions to access this page.', 'oneupdate' ) );
 		}
 		?>
@@ -109,6 +122,24 @@ class Shared_Sites {
 		<div class="wrap">
 			<h1><?php esc_html_e( 'Settings', 'oneupdate' ); ?></h1>
 			<div id="oneupdate-settings-page"></div>
+		</div>
+		<?php
+	}
+
+	/**
+	 * Render pull requests page
+	 *
+	 * @return void
+	 */
+	public function render_oneupdate_pull_requests_page(): void {
+		// Check if the user has permission to manage options.
+		if ( ! current_user_can( 'manage_options' ) || ! Utils::is_governing_site() ) {
+			wp_die( esc_html__( 'You do not have sufficient permissions to access this page.', 'oneupdate' ) );
+		}
+		?>
+		<div class="wrap">
+			<h1 class="oneupdate-heading"><?php esc_html_e( 'OneUpdate - Pull Requests', 'oneupdate' ); ?></h1>
+			<div id="oneupdate-pull-requests"></div>
 		</div>
 		<?php
 	}

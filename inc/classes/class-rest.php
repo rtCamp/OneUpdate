@@ -7,7 +7,7 @@
 
 namespace OneUpdate;
 
-use OneUpdate\REST\{ Basic_Options, S3, Workflow };
+use OneUpdate\REST\{ Basic_Options, S3, Workflow, GitHub_Pull_Requests };
 use OneUpdate\Traits\Singleton;
 
 /**
@@ -36,6 +36,7 @@ class REST {
 		Basic_Options::get_instance();
 		Workflow::get_instance();
 		S3::get_instance();
+		GitHub_Pull_Requests::get_instance();
 
 		// fix cors headers for REST API requests.
 		add_filter( 'rest_pre_serve_request', array( $this, 'add_cors_headers' ), PHP_INT_MAX - 20, 4 );

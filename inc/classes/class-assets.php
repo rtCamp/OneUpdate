@@ -7,6 +7,7 @@
 
 namespace OneUpdate;
 
+use OneUpdate\Plugin_Configs\Constants;
 use OneUpdate\Traits\Singleton;
 
 /**
@@ -56,7 +57,7 @@ class Assets {
 				array(
 					'nonce'     => wp_create_nonce( 'wp_rest' ),
 					'restUrl'   => esc_url( home_url( '/wp-json' ) ),
-					'apiKey'    => get_option( 'oneupdate_child_site_api_key', 'default_api_key' ),
+					'apiKey'    => get_option( Constants::ONEUPDATE_API_KEY, '' ),
 					'restNonce' => wp_create_nonce( 'wp_rest' ),
 					'ajaxUrl'   => admin_url( 'admin-ajax.php' ),
 					'setupUrl'  => admin_url( 'admin.php?page=oneupdate-settings' ),
@@ -83,7 +84,7 @@ class Assets {
 				array(
 					'nonce'     => wp_create_nonce( 'wp_rest' ),
 					'restUrl'   => esc_url( home_url( '/wp-json' ) ),
-					'apiKey'    => get_option( 'oneupdate_child_site_api_key', 'default_api_key' ),
+					'apiKey'    => get_option( Constants::ONEUPDATE_API_KEY, '' ),
 					'restNonce' => wp_create_nonce( 'wp_rest' ),
 				)
 			);
@@ -111,7 +112,7 @@ class Assets {
 				array(
 					'nonce'     => wp_create_nonce( 'wp_rest' ),
 					'restUrl'   => esc_url( home_url( '/wp-json' ) ),
-					'apiKey'    => get_option( 'oneupdate_child_site_api_key', 'default_api_key' ),
+					'apiKey'    => get_option( Constants::ONEUPDATE_API_KEY, '' ),
 					'restNonce' => wp_create_nonce( 'wp_rest' ),
 					'ajaxUrl'   => admin_url( 'admin-ajax.php' ),
 					'setupUrl'  => admin_url( 'admin.php?page=oneupdate-settings' ),
@@ -119,6 +120,38 @@ class Assets {
 			);
 
 			wp_enqueue_script( 'oneupdate-setup-script' );
+
+		}
+
+		if ( strpos( $hook_suffix, 'oneupdate-pull-requests' ) !== false ) {
+			remove_all_actions( 'admin_notices' );
+			$this->register_script(
+				'oneupdate-pull-requests-script',
+				'js/pull-requests.js',
+			);
+
+			$site_name_gh_repo = array();
+			$oneupdate_sites   = $GLOBALS['oneupdate_sites'] ?? array();
+			if ( ! empty( $oneupdate_sites ) && is_array( $oneupdate_sites ) ) {
+				foreach ( $oneupdate_sites as $site ) {
+					if ( ! empty( $site['siteName'] ) && ! empty( $site['gh_repo'] ) && in_array( $site['gh_repo'], $site_name_gh_repo, true ) === false ) {
+						$site_name_gh_repo[ $site['gh_repo'] ] = $site['siteName'];
+					}
+				}
+			}
+
+			wp_localize_script(
+				'oneupdate-pull-requests-script',
+				'OneUpdatePullRequests',
+				array(
+					'restUrl'   => esc_url( home_url( '/wp-json' ) ),
+					'apiKey'    => get_option( Constants::ONEUPDATE_API_KEY, '' ),
+					'restNonce' => wp_create_nonce( 'wp_rest' ),
+					'repos'     => $site_name_gh_repo,
+				)
+			);
+
+			wp_enqueue_script( 'oneupdate-pull-requests-script' );
 
 		}
 
