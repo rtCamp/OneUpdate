@@ -514,7 +514,7 @@ const GitHubPullRequests = () => {
 						</div>
 					) }
 
-					{ prDetails && (
+					{ prDetails && prDetails.merged_by && (
 						<div style={ { marginTop: '20px', borderTop: '1px solid #ddd', paddingTop: '20px' } }>
 
 							{ prDetails.merged_by && (
