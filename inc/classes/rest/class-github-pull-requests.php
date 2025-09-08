@@ -332,7 +332,7 @@ class GitHub_Pull_Requests {
 
 		$total_pages = ceil( $total_count / $per_page );
 
-		return new \WP_REST_Response(
+		$response_data = new \WP_REST_Response(
 			array(
 				'success'       => true,
 				'pull_requests' => $pull_requests,
@@ -345,6 +345,11 @@ class GitHub_Pull_Requests {
 			),
 			200
 		);
+
+		$response_data->header( 'X-WP-Total', $total_count );
+		$response_data->header( 'X-WP-TotalPages', $total_pages );
+
+		return $response_data;
 	}
 
 	/**
@@ -406,7 +411,7 @@ class GitHub_Pull_Requests {
 		$total_count    = $search_results['total_count'] ?? 0;
 		$total_pages    = ceil( $total_count / $per_page );
 
-		return new \WP_REST_Response(
+		$response_data = new \WP_REST_Response(
 			array(
 				'success'       => true,
 				'pull_requests' => $pull_requests,
@@ -419,6 +424,11 @@ class GitHub_Pull_Requests {
 			),
 			200
 		);
+
+		$response_data->header( 'X-WP-Total', $total_count );
+		$response_data->header( 'X-WP-TotalPages', $total_pages );
+
+		return $response_data;
 	}
 
 	/**
