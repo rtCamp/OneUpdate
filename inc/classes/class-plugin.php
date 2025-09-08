@@ -38,6 +38,7 @@ class Plugin {
 		Settings::get_instance();
 		REST::get_instance();
 		Cache::get_instance();
+		S3_Upload::get_instance();
 	}
 
 	/**

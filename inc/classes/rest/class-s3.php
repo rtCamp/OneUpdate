@@ -9,7 +9,6 @@ namespace OneUpdate\REST;
 
 use OneUpdate\Traits\Singleton;
 use WP_REST_Server;
-use Aws\S3\S3Client;
 use Aws\Exception\AwsException;
 use OneUpdate\Plugin_Configs\Constants;
 use OneUpdate\Utils;

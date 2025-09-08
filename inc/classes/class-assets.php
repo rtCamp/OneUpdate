@@ -55,12 +55,9 @@ class Assets {
 				'oneupdate-settings-script',
 				'OneUpdateSettings',
 				array(
-					'nonce'     => wp_create_nonce( 'wp_rest' ),
 					'restUrl'   => esc_url( home_url( '/wp-json' ) ),
 					'apiKey'    => get_option( Constants::ONEUPDATE_API_KEY, '' ),
 					'restNonce' => wp_create_nonce( 'wp_rest' ),
-					'ajaxUrl'   => admin_url( 'admin-ajax.php' ),
-					'setupUrl'  => admin_url( 'admin.php?page=oneupdate-settings' ),
 				)
 			);
 
@@ -71,7 +68,6 @@ class Assets {
 		if ( strpos( $hook_suffix, 'toplevel_page_oneupdate' ) !== false ) {
 			// remove all admin notices.
 			remove_all_actions( 'admin_notices' );
-			setcookie( 'vip-go-cb', '1', time() + ( 86400 * 30 ), '/' ); // phpcs:ignore WordPressVIPMinimum.Functions.RestrictedFunctions.cookies_setcookie -- this is to avoid caching issue in vip environment.
 
 			$this->register_script(
 				'oneupdate-plugins-manager-script',
@@ -82,7 +78,6 @@ class Assets {
 				'oneupdate-plugins-manager-script',
 				'OneUpdatePlugins',
 				array(
-					'nonce'     => wp_create_nonce( 'wp_rest' ),
 					'restUrl'   => esc_url( home_url( '/wp-json' ) ),
 					'apiKey'    => get_option( Constants::ONEUPDATE_API_KEY, '' ),
 					'restNonce' => wp_create_nonce( 'wp_rest' ),
@@ -110,11 +105,9 @@ class Assets {
 				'oneupdate-setup-script',
 				'OneUpdateSettings',
 				array(
-					'nonce'     => wp_create_nonce( 'wp_rest' ),
 					'restUrl'   => esc_url( home_url( '/wp-json' ) ),
 					'apiKey'    => get_option( Constants::ONEUPDATE_API_KEY, '' ),
 					'restNonce' => wp_create_nonce( 'wp_rest' ),
-					'ajaxUrl'   => admin_url( 'admin-ajax.php' ),
 					'setupUrl'  => admin_url( 'admin.php?page=oneupdate-settings' ),
 				)
 			);

@@ -1,26 +1,31 @@
 # Copyright (C) 2025 Utsav Patel, rtCamp
-# This file is distributed under the same license as the OneUpdate plugin.
+# This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: OneUpdate 1.0.1\n"
+"Project-Id-Version: OneUpdate 1.0.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/OneUpdate\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-08-29T11:41:39+00:00\n"
+"POT-Creation-Date: 2025-09-08T05:27:49+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: oneupdate\n"
 
 #. Plugin Name of the plugin
 #: oneupdate.php
-#: inc/classes/settings/class-shared-sites.php:45
-#: oneupdate.php:44
+#: inc/classes/settings/class-shared-sites.php:46
+#: oneupdate.php:47
 #: assets/build/js/plugin.js:1
 #: assets/src/admin/plugin/index.js:111
 msgid "OneUpdate"
+msgstr ""
+
+#. Plugin URI of the plugin
+#: oneupdate.php
+msgid "https://github.com/rtCamp/OneUpdate/"
 msgstr ""
 
 #. Description of the plugin
@@ -42,15 +47,15 @@ msgstr ""
 msgid "No plugins found."
 msgstr ""
 
-#: inc/classes/class-hooks.php:139
-#: inc/classes/settings/class-shared-sites.php:66
-#: inc/classes/settings/class-shared-sites.php:67
-#: inc/classes/settings/class-shared-sites.php:110
+#: inc/classes/class-hooks.php:140
+#: inc/classes/settings/class-shared-sites.php:79
+#: inc/classes/settings/class-shared-sites.php:80
+#: inc/classes/settings/class-shared-sites.php:123
 msgid "Settings"
 msgstr ""
 
 #. translators: %s is the error message from AWS S3
-#: inc/classes/class-s3-upload.php:73
+#: inc/classes/class-s3-upload.php:71
 #, php-format
 msgid "Error deleting file from S3: %s"
 msgstr ""
@@ -59,157 +64,167 @@ msgstr ""
 msgid "Secret key regenerated successfully."
 msgstr ""
 
-#: inc/classes/rest/class-basic-options.php:239
+#: inc/classes/rest/class-basic-options.php:240
 msgid "Health check passed successfully."
 msgstr ""
 
-#: inc/classes/rest/class-basic-options.php:254
-#: inc/classes/rest/class-workflow.php:642
-#: inc/classes/rest/class-workflow.php:928
+#: inc/classes/rest/class-basic-options.php:255
+#: inc/classes/rest/class-workflow.php:643
+#: inc/classes/rest/class-workflow.php:929
 msgid "GitHub token not found."
 msgstr ""
 
-#: inc/classes/rest/class-basic-options.php:280
+#: inc/classes/rest/class-basic-options.php:281
 msgid "Failed to fetch GitHub repositories."
 msgstr ""
 
-#: inc/classes/rest/class-basic-options.php:312
+#: inc/classes/rest/class-basic-options.php:313
 msgid "No repositories found for rtCamp or wpcomvip."
 msgstr ""
 
-#: inc/classes/rest/class-basic-options.php:375
+#: inc/classes/rest/class-basic-options.php:376
 msgid "GitHub token is required."
 msgstr ""
 
-#: inc/classes/rest/class-basic-options.php:394
+#: inc/classes/rest/class-basic-options.php:395
 msgid "Invalid GitHub token provided."
 msgstr ""
 
-#: inc/classes/rest/class-basic-options.php:441
-#: inc/classes/rest/class-basic-options.php:448
+#: inc/classes/rest/class-basic-options.php:442
+#: inc/classes/rest/class-basic-options.php:449
 msgid "Invalid S3 credentials provided."
 msgstr ""
 
-#: inc/classes/rest/class-basic-options.php:495
+#: inc/classes/rest/class-basic-options.php:496
 msgid "Brand Site already exists."
 msgstr ""
 
-#: inc/classes/rest/class-basic-options.php:504
+#: inc/classes/rest/class-basic-options.php:505
 msgid "GitHub repository already exists in one of Brand sites."
 msgstr ""
 
-#: inc/classes/rest/class-workflow.php:280
+#: inc/classes/rest/class-workflow.php:281
 msgid "Transient rebuilt successfully."
 msgstr ""
 
-#: inc/classes/rest/class-workflow.php:298
+#: inc/classes/rest/class-workflow.php:299
 msgid "Invalid plugins provided."
 msgstr ""
 
-#: inc/classes/rest/class-workflow.php:307
+#: inc/classes/rest/class-workflow.php:308
 msgid "Invalid site provided."
 msgstr ""
 
-#: inc/classes/rest/class-workflow.php:337
+#: inc/classes/rest/class-workflow.php:338
 msgid "Bulk plugin update initiated successfully."
 msgstr ""
 
-#: inc/classes/rest/class-workflow.php:361
+#: inc/classes/rest/class-workflow.php:362
 msgid "Invalid action provided."
 msgstr ""
 
-#: inc/classes/rest/class-workflow.php:365
+#: inc/classes/rest/class-workflow.php:366
 msgid "Invalid plugin slug provided."
 msgstr ""
 
-#: inc/classes/rest/class-workflow.php:369
+#: inc/classes/rest/class-workflow.php:370
 msgid "Invalid sites provided."
 msgstr ""
 
 #. translators: %s is the site URL
-#: inc/classes/rest/class-workflow.php:407
-#: inc/classes/rest/class-workflow.php:434
+#: inc/classes/rest/class-workflow.php:408
+#: inc/classes/rest/class-workflow.php:435
 #, php-format
 msgid "Failed to execute plugin action on site %s."
 msgstr ""
 
-#: inc/classes/rest/class-workflow.php:440
+#: inc/classes/rest/class-workflow.php:441
 msgid "Unknown error occurred."
 msgstr ""
 
 #. translators: %s is the site URL
-#: inc/classes/rest/class-workflow.php:458
-#: inc/classes/rest/class-workflow.php:498
-#: inc/classes/rest/class-workflow.php:538
+#: inc/classes/rest/class-workflow.php:459
+#: inc/classes/rest/class-workflow.php:499
+#: inc/classes/rest/class-workflow.php:539
 #, php-format
 msgid "GitHub repository not found for site %s."
 msgstr ""
 
-#: inc/classes/rest/class-workflow.php:572
+#: inc/classes/rest/class-workflow.php:573
 msgid "Plugin action executed successfully."
 msgstr ""
 
-#: inc/classes/rest/class-workflow.php:592
+#: inc/classes/rest/class-workflow.php:593
 msgid "Invalid data provided."
 msgstr ""
 
-#: inc/classes/rest/class-workflow.php:606
-#: inc/classes/rest/class-workflow.php:847
+#: inc/classes/rest/class-workflow.php:607
+#: inc/classes/rest/class-workflow.php:848
 msgid "Invalid site data provided."
 msgstr ""
 
-#: inc/classes/rest/class-workflow.php:671
-#: inc/classes/rest/class-workflow.php:685
-#: inc/classes/rest/class-workflow.php:963
-#: inc/classes/rest/class-workflow.php:984
+#: inc/classes/rest/class-workflow.php:672
+#: inc/classes/rest/class-workflow.php:686
+#: inc/classes/rest/class-workflow.php:964
+#: inc/classes/rest/class-workflow.php:985
 msgid "Failed to trigger GitHub action for PR creation."
 msgstr ""
 
-#: inc/classes/rest/class-workflow.php:702
-#: inc/classes/rest/class-workflow.php:1008
+#: inc/classes/rest/class-workflow.php:703
+#: inc/classes/rest/class-workflow.php:1009
 msgid "GitHub Action workflow dispatched successfully"
 msgstr ""
 
-#: inc/classes/rest/class-workflow.php:740
+#: inc/classes/rest/class-workflow.php:741
 msgid "Invalid options provided."
 msgstr ""
 
-#: inc/classes/settings/class-shared-sites.php:44
-#: inc/classes/settings/class-shared-sites.php:56
+#: inc/classes/settings/class-shared-sites.php:45
 #: inc/classes/settings/class-shared-sites.php:57
+#: inc/classes/settings/class-shared-sites.php:58
 msgid "Plugin Manager"
 msgstr ""
 
-#: inc/classes/settings/class-shared-sites.php:87
-#: inc/classes/settings/class-shared-sites.php:105
+#: inc/classes/settings/class-shared-sites.php:68
+#: inc/classes/settings/class-shared-sites.php:69
+msgid "Pull Requests"
+msgstr ""
+
+#: inc/classes/settings/class-shared-sites.php:100
+#: inc/classes/settings/class-shared-sites.php:118
+#: inc/classes/settings/class-shared-sites.php:137
 msgid "You do not have sufficient permissions to access this page."
 msgstr ""
 
-#: inc/classes/settings/class-shared-sites.php:91
+#: inc/classes/settings/class-shared-sites.php:104
 #: assets/build/js/plugin-manager.js:3
 #: assets/src/admin/plugin-manager/index.js:1189
 msgid "OneUpdate - Plugin Manager"
 msgstr ""
 
+#: inc/classes/settings/class-shared-sites.php:141
+msgid "OneUpdate - Pull Requests"
+msgstr ""
+
 #. translators: %s is the plugin name.
-#: oneupdate.php:43
+#: oneupdate.php:46
 #, php-format
 msgid "You are running the %s plugin from the GitHub repository. Please build the assets and install composer dependencies to use the plugin."
 msgstr ""
 
 #. translators: %s is the command to run.
-#: oneupdate.php:52
+#: oneupdate.php:55
 #, php-format
 msgid "Run the following commands in the plugin directory: %s"
 msgstr ""
 
 #. translators: %s is the plugin name.
-#: oneupdate.php:60
+#: oneupdate.php:63
 #, php-format
 msgid "Please refer to the %s for more information."
 msgstr ""
 
-#: oneupdate.php:64
+#: oneupdate.php:67
 msgid "OneUpdate GitHub repository"
 msgstr ""
 
@@ -356,24 +371,32 @@ msgid "Install Selected Plugins"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:1
+#: assets/build/js/pull-requests.js:1
+#: assets/src/admin/pull-requests/index.js:415
 #: assets/src/components/PluginGrid.js:249
 #: assets/src/components/PluginsSharing.js:467
 msgid "Previous"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:1
+#: assets/build/js/pull-requests.js:1
+#: assets/src/admin/pull-requests/index.js:418
 #: assets/src/components/PluginGrid.js:252
 #: assets/src/components/PluginsSharing.js:470
 msgid "Page"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:1
+#: assets/build/js/pull-requests.js:1
+#: assets/src/admin/pull-requests/index.js:418
 #: assets/src/components/PluginGrid.js:252
 #: assets/src/components/PluginsSharing.js:470
 msgid "of"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:1
+#: assets/build/js/pull-requests.js:1
+#: assets/src/admin/pull-requests/index.js:426
 #: assets/src/components/PluginGrid.js:259
 #: assets/src/components/PluginsSharing.js:477
 #: assets/src/components/PluginsSharing.js:523
@@ -655,7 +678,10 @@ msgstr ""
 
 #: assets/build/js/plugin-manager.js:1
 #: assets/build/js/plugin-manager.js:3
+#: assets/build/js/pull-requests.js:1
 #: assets/src/admin/plugin-manager/index.js:1293
+#: assets/src/admin/pull-requests/index.js:303
+#: assets/src/admin/pull-requests/index.js:318
 #: assets/src/components/S3ZipUploader.js:1000
 msgid "Status"
 msgstr ""
@@ -909,7 +935,9 @@ msgid "Search by name or description…"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:3
+#: assets/build/js/pull-requests.js:1
 #: assets/src/admin/plugin-manager/index.js:1297
+#: assets/src/admin/pull-requests/index.js:53
 msgid "All Status"
 msgstr ""
 
@@ -1150,7 +1178,9 @@ msgid "Description"
 msgstr ""
 
 #: assets/build/js/plugin-manager.js:7
+#: assets/build/js/pull-requests.js:1
 #: assets/src/admin/plugin-manager/index.js:2041
+#: assets/src/admin/pull-requests/index.js:317
 msgid "Author"
 msgstr ""
 
@@ -1250,7 +1280,7 @@ msgstr ""
 
 #: assets/build/js/plugin.js:1
 #: assets/src/admin/plugin/index.js:19
-msgid "Governing site"
+msgid "Governing Site"
 msgstr ""
 
 #: assets/build/js/plugin.js:1
@@ -1271,6 +1301,189 @@ msgstr ""
 msgid "Select current site type"
 msgstr ""
 
+#: assets/build/js/pull-requests.js:1
+#: assets/src/admin/pull-requests/index.js:54
+msgid "Open"
+msgstr ""
+
+#: assets/build/js/pull-requests.js:1
+#: assets/src/admin/pull-requests/index.js:55
+msgid "Merged/Closed"
+msgstr ""
+
+#: assets/build/js/pull-requests.js:1
+#: assets/src/admin/pull-requests/index.js:105
+msgid "Error fetching pull requests."
+msgstr ""
+
+#: assets/build/js/pull-requests.js:1
+#: assets/src/admin/pull-requests/index.js:144
+msgid "Error fetching PR details."
+msgstr ""
+
+#: assets/build/js/pull-requests.js:1
+#: assets/src/admin/pull-requests/index.js:167
+msgid "N/A"
+msgstr ""
+
+#: assets/build/js/pull-requests.js:1
+#: assets/src/admin/pull-requests/index.js:284
+msgid "GitHub Pull Requests"
+msgstr ""
+
+#: assets/build/js/pull-requests.js:1
+#: assets/src/admin/pull-requests/index.js:290
+#: assets/src/components/PluginGrid.js:149
+msgid "Search"
+msgstr ""
+
+#: assets/build/js/pull-requests.js:1
+#: assets/src/admin/pull-requests/index.js:291
+msgid "Search by title, number…"
+msgstr ""
+
+#: assets/build/js/pull-requests.js:1
+#: assets/build/js/settings.js:1
+#: assets/src/admin/pull-requests/index.js:297
+#: assets/src/components/SiteTable.js:28
+msgid "Brand Sites"
+msgstr ""
+
+#: assets/build/js/pull-requests.js:1
+#: assets/src/admin/pull-requests/index.js:315
+msgid "PR #"
+msgstr ""
+
+#: assets/build/js/pull-requests.js:1
+#: assets/src/admin/pull-requests/index.js:316
+msgid "Title"
+msgstr ""
+
+#: assets/build/js/pull-requests.js:1
+#: assets/src/admin/pull-requests/index.js:319
+msgid "Created at"
+msgstr ""
+
+#: assets/build/js/pull-requests.js:1
+#: assets/src/admin/pull-requests/index.js:320
+msgid "Labels"
+msgstr ""
+
+#: assets/build/js/pull-requests.js:1
+#: assets/build/js/settings.js:1
+#: assets/src/admin/pull-requests/index.js:321
+#: assets/src/components/SiteTable.js:45
+msgid "Actions"
+msgstr ""
+
+#: assets/build/js/pull-requests.js:1
+#: assets/src/admin/pull-requests/index.js:335
+msgid "No pull requests found."
+msgstr ""
+
+#: assets/build/js/pull-requests.js:1
+#: assets/src/admin/pull-requests/index.js:390
+msgid "more"
+msgstr ""
+
+#: assets/build/js/pull-requests.js:1
+#: assets/src/admin/pull-requests/index.js:396
+msgid "No labels"
+msgstr ""
+
+#: assets/build/js/pull-requests.js:1
+#: assets/src/admin/pull-requests/index.js:207
+msgid "PR Actions"
+msgstr ""
+
+#: assets/build/js/pull-requests.js:1
+#: assets/src/admin/pull-requests/index.js:224
+#: assets/src/admin/pull-requests/index.js:259
+msgid "View PR Details"
+msgstr ""
+
+#: assets/build/js/pull-requests.js:1
+#: assets/src/admin/pull-requests/index.js:234
+#: assets/src/admin/pull-requests/index.js:560
+msgid "Merge PR"
+msgstr ""
+
+#: assets/build/js/pull-requests.js:1
+#: assets/src/admin/pull-requests/index.js:245
+#: assets/src/admin/pull-requests/index.js:551
+msgid "Close PR"
+msgstr ""
+
+#: assets/build/js/pull-requests.js:1
+#: assets/src/admin/pull-requests/index.js:436
+msgid "Pull Request Details"
+msgstr ""
+
+#: assets/build/js/pull-requests.js:1
+#: assets/src/admin/pull-requests/index.js:444
+msgid "PR Number:"
+msgstr ""
+
+#: assets/build/js/pull-requests.js:1
+#: assets/src/admin/pull-requests/index.js:445
+msgid "Title:"
+msgstr ""
+
+#: assets/build/js/pull-requests.js:1
+#: assets/src/admin/pull-requests/index.js:446
+msgid "Author:"
+msgstr ""
+
+#: assets/build/js/pull-requests.js:1
+#: assets/src/admin/pull-requests/index.js:447
+msgid "Status:"
+msgstr ""
+
+#: assets/build/js/pull-requests.js:1
+#: assets/src/admin/pull-requests/index.js:450
+msgid "Created:"
+msgstr ""
+
+#: assets/build/js/pull-requests.js:1
+#: assets/src/admin/pull-requests/index.js:451
+msgid "Updated:"
+msgstr ""
+
+#: assets/build/js/pull-requests.js:1
+#: assets/src/admin/pull-requests/index.js:452
+msgid "Branch:"
+msgstr ""
+
+#: assets/build/js/pull-requests.js:1
+#: assets/src/admin/pull-requests/index.js:454
+msgid "GitHub URL:"
+msgstr ""
+
+#: assets/build/js/pull-requests.js:1
+#: assets/src/admin/pull-requests/index.js:456
+msgid "View on GitHub"
+msgstr ""
+
+#: assets/build/js/pull-requests.js:1
+#: assets/src/admin/pull-requests/index.js:465
+msgid "Labels:"
+msgstr ""
+
+#: assets/build/js/pull-requests.js:1
+#: assets/src/admin/pull-requests/index.js:489
+msgid "Description:"
+msgstr ""
+
+#: assets/build/js/pull-requests.js:1
+#: assets/src/admin/pull-requests/index.js:513
+msgid "Loading extra details…"
+msgstr ""
+
+#: assets/build/js/pull-requests.js:1
+#: assets/src/admin/pull-requests/index.js:522
+msgid "Merged By:"
+msgstr ""
+
 #: assets/build/js/settings.js:1
 #: assets/src/components/SiteTable.js:101
 msgid "Delete Brand Site"
@@ -1285,11 +1498,6 @@ msgstr ""
 #: assets/src/components/SiteTable.js:81
 #: assets/src/components/SiteTable.js:112
 msgid "Delete"
-msgstr ""
-
-#: assets/build/js/settings.js:1
-#: assets/src/components/SiteTable.js:28
-msgid "Brand Sites"
 msgstr ""
 
 #: assets/build/js/settings.js:1
@@ -1317,11 +1525,6 @@ msgstr ""
 #: assets/src/components/SiteSettings.js:99
 #: assets/src/components/SiteTable.js:44
 msgid "API Key"
-msgstr ""
-
-#: assets/build/js/settings.js:1
-#: assets/src/components/SiteTable.js:45
-msgid "Actions"
 msgstr ""
 
 #: assets/build/js/settings.js:1
@@ -1663,10 +1866,6 @@ msgstr ""
 
 #: assets/src/components/PluginGrid.js:136
 msgid "Search plugins…"
-msgstr ""
-
-#: assets/src/components/PluginGrid.js:149
-msgid "Search"
 msgstr ""
 
 #: assets/src/components/PluginGrid.js:182

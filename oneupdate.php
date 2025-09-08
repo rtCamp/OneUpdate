@@ -1,6 +1,7 @@
 <?php
 /**
  * Plugin Name: OneUpdate
+ * Plugin URI: https://github.com/rtCamp/OneUpdate/
  * Version: 1.0.2
  * Description: OneUpdate - Enterprise WordPress Plugin Manager Automate plugin updates across multiple WordPress sites with CI/CD integration. Creates pull requests for seamless development-to-production workflows.
  * Author: Utsav Patel, rtCamp
@@ -10,6 +11,8 @@
  * Requires at least: 6.5.0
  * Requires PHP: 7.4
  * Tested up to: 6.8.2
+ * License: GPLv2 or later
+ * License URI: http://www.gnu.org/licenses/gpl-2.0.html
  *
  * @package OneUpdate
  */
@@ -18,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'ONEUPDATE_PLUGIN_LOADER_VERSION', '1.0.1' );
+define( 'ONEUPDATE_PLUGIN_LOADER_VERSION', '1.0.2' );
 define( 'ONEUPDATE_PLUGIN_LOADER_FEATURES_PATH', untrailingslashit( plugin_dir_path( __FILE__ ) ) );
 define( 'ONEUPDATE_PLUGIN_LOADER_RELATIVE_PATH', dirname( plugin_basename( __FILE__ ) ) );
 define( 'ONEUPDATE_PLUGIN_LOADER_FEATURES_URL', untrailingslashit( plugin_dir_url( __FILE__ ) ) );
@@ -103,12 +106,12 @@ register_activation_hook(
 		// create database tables.
 		DB::create_oneupdate_s3_zip_history_table();
 
+		// Schedule cron jobs - clear any existing schedules first.
+		wp_clear_scheduled_hook( 'oneupdate_s3_zip_cleanup_event' );
+
 		// Schedule cron jobs.
 		if ( ! wp_next_scheduled( 'oneupdate_s3_zip_cleanup_event' ) ) {
 			wp_schedule_event( time(), 'hourly', 'oneupdate_s3_zip_cleanup_event' );
-		}
-		if ( ! wp_next_scheduled( 'oneupdate_s3_zip_history_cleanup_event' ) ) {
-			wp_schedule_event( time(), 'weekly', 'oneupdate_s3_zip_history_cleanup_event' );
 		}
 	}
 );
@@ -120,6 +123,5 @@ register_deactivation_hook(
 	ONEUPDATE_PLUGIN_LOADER_PLUGIN_BASENAME,
 	function () {
 		wp_clear_scheduled_hook( 'oneupdate_s3_zip_cleanup_event' );
-		wp_clear_scheduled_hook( 'oneupdate_s3_zip_history_cleanup_event' );
 	}
 );

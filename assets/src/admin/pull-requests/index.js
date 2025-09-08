@@ -166,9 +166,7 @@ const GitHubPullRequests = () => {
 		if ( ! dateString ) {
 			return __( 'N/A', 'oneupdate' );
 		}
-		return new Date( dateString ).toLocaleDateString( undefined, {
-			year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit',
-		} );
+		return new Date( dateString ).toLocaleString();
 	};
 
 	const getPRStatusBadge = ( pr ) => {
@@ -316,9 +314,9 @@ const GitHubPullRequests = () => {
 							<tr>
 								<th style={ { width: '8%' } }>{ __( 'PR #', 'oneupdate' ) }</th>
 								<th style={ { width: '35%' } }>{ __( 'Title', 'oneupdate' ) }</th>
-								<th style={ { width: '15%' } }>{ __( 'Author', 'oneupdate' ) }</th>
-								<th style={ { width: '10%' } }>{ __( 'Status', 'oneupdate' ) }</th>
-								<th style={ { width: '10%' } }>{ __( 'Created at', 'oneupdate' ) }</th>
+								<th style={ { width: '12%' } }>{ __( 'Author', 'oneupdate' ) }</th>
+								<th style={ { width: '8%' } }>{ __( 'Status', 'oneupdate' ) }</th>
+								<th style={ { width: '15%' } }>{ __( 'Created at', 'oneupdate' ) }</th>
 								<th style={ { width: '15%' } }>{ __( 'Labels', 'oneupdate' ) }</th>
 								<th style={ { width: '7%' } }>{ __( 'Actions', 'oneupdate' ) }</th>
 							</tr>
