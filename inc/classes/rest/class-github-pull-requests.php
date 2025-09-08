@@ -260,8 +260,25 @@ class GitHub_Pull_Requests {
 	 */
 	private static function search_pull_requests( string $gh_owner, string $gh_repo, string $search_query, string $gh_token, int $per_page = 25, int $page = 1, string $pr_state = 'all' ): \WP_REST_Response {
 
-		// gh api endpoint to search pull requests.
-		$gh_api_endpoint = "https://api.github.com/search/issues?q={$search_query}+repo:{$gh_owner}/{$gh_repo}+type:pr&per_page={$per_page}&page={$page}";
+		// If we have a specific search query, use search API with state filter.
+		if ( ! empty( $search_query ) && 'all' !== $pr_state ) {
+			return self::search_pull_requests_with_query_and_state( $gh_owner, $gh_repo, $search_query, $gh_token, $per_page, $page, $pr_state );
+		}
+
+		// If no search query or state is 'all', use the original search approach.
+		if ( ! empty( $search_query ) ) {
+			$gh_api_endpoint = "https://api.github.com/search/issues?q={$search_query}+repo:{$gh_owner}/{$gh_repo}+type:pr";
+
+			// Add state to search query if not 'all'.
+			if ( 'all' !== $pr_state ) {
+				$gh_api_endpoint .= "+state:{$pr_state}";
+			}
+
+			$gh_api_endpoint .= "&per_page={$per_page}&page={$page}";
+		} else {
+			// Use pulls API for better state filtering when no search query.
+			$gh_api_endpoint = "https://api.github.com/repos/{$gh_owner}/{$gh_repo}/pulls?state={$pr_state}&per_page={$per_page}&page={$page}";
+		}
 
 		$response = wp_safe_remote_get(
 			$gh_api_endpoint,
@@ -295,36 +312,27 @@ class GitHub_Pull_Requests {
 					'success'       => false,
 					'message'       => "GitHub API returned status code {$status_code}.",
 					'response_body' => $body,
-					'response'      => $response,
 				),
 				$status_code
 			);
 		}
 
-		$search_results = json_decode( $body, true );
-		$pull_requests  = isset( $search_results['items'] ) ? self::format_github_pull_requests_info( $search_results['items'] ) : array();
+		$results = json_decode( $body, true );
 
-		$total_count = 0;
-		$total_pages = 1;
-
-		if ( isset( $headers['link'] ) ) {
-			$link_header = $headers['link'];
-
-			// Parse the Link header to get last page.
-			if ( preg_match( '/page=(\d+)>; rel="last"/', $link_header, $matches ) ) {
-				$total_pages = (int) $matches[1] ?? 1;
-				$total_count = $total_pages * $per_page; // Approximate.
-			}
+		// Handle different response formats.
+		if ( ! empty( $search_query ) ) {
+			// Search API response.
+			$pull_requests = isset( $results['items'] ) ? self::format_github_pull_requests_info( $results['items'] ) : array();
+			$total_count   = $results['total_count'] ?? 0;
+		} else {
+			// Pulls API response.
+			$pull_requests = self::format_github_pull_requests_info( $results );
+			$total_count   = self::get_total_count_from_headers( $headers, count( $pull_requests ) );
 		}
 
-		foreach ( $pull_requests as $key => $pr ) {
-			if ( 'all' !== $pr_state && $pr['state'] !== $pr_state ) {
-				unset( $pull_requests[ $key ] );
-			}
-		}
-		$pull_requests = array_values( $pull_requests ); // reindex array after unset.
+		$total_pages = ceil( $total_count / $per_page );
 
-		$search_response = new \WP_REST_Response(
+		return new \WP_REST_Response(
 			array(
 				'success'       => true,
 				'pull_requests' => $pull_requests,
@@ -337,11 +345,105 @@ class GitHub_Pull_Requests {
 			),
 			200
 		);
+	}
 
-		$search_response->header( 'X-WP-Total', $total_count );
-		$search_response->header( 'X-WP-TotalPages', $total_pages );
+	/**
+	 * Handle search with both query and state filters using multiple API calls if needed
+	 *
+	 * @param string $gh_owner GitHub owner.
+	 * @param string $gh_repo GitHub repo.
+	 * @param string $search_query Search query.
+	 * @param string $gh_token GitHub token.
+	 * @param int    $per_page Number of pull requests per page.
+	 * @param int    $page Page number.
+	 * @param string $pr_state State of pull requests to fetch.
+	 *
+	 * @return \WP_REST_Response
+	 */
+	private static function search_pull_requests_with_query_and_state( string $gh_owner, string $gh_repo, string $search_query, string $gh_token, int $per_page, int $page, string $pr_state ): \WP_REST_Response {
 
-		return $search_response;
+		// Use search API with state filter in query.
+		$gh_api_endpoint = "https://api.github.com/search/issues?q={$search_query}+repo:{$gh_owner}/{$gh_repo}+type:pr+state:{$pr_state}&per_page={$per_page}&page={$page}";
+
+		$response = wp_safe_remote_get(
+			$gh_api_endpoint,
+			array(
+				'headers' => array(
+					'Authorization' => "Bearer {$gh_token}",
+					'Accept'        => 'application/vnd.github.v3+json',
+					'User-Agent'    => 'OneUpdate Plugin Loader',
+				),
+				'timeout' => 15, // phpcs:ignore WordPressVIPMinimum.Performance.RemoteRequestTimeout.timeout_timeout -- this is to avoid timeout issues.
+			),
+		);
+
+		if ( is_wp_error( $response ) ) {
+			return new \WP_REST_Response(
+				array(
+					'success' => false,
+					'message' => $response->get_error_message(),
+				),
+				500
+			);
+		}
+
+		$status_code = wp_remote_retrieve_response_code( $response );
+		$body        = wp_remote_retrieve_body( $response );
+
+		if ( 200 !== $status_code ) {
+			return new \WP_REST_Response(
+				array(
+					'success'       => false,
+					'message'       => "GitHub API returned status code {$status_code}.",
+					'response_body' => $body,
+				),
+				$status_code
+			);
+		}
+
+		$search_results = json_decode( $body, true );
+		$pull_requests  = isset( $search_results['items'] ) ? self::format_github_pull_requests_info( $search_results['items'] ) : array();
+		$total_count    = $search_results['total_count'] ?? 0;
+		$total_pages    = ceil( $total_count / $per_page );
+
+		return new \WP_REST_Response(
+			array(
+				'success'       => true,
+				'pull_requests' => $pull_requests,
+				'pagination'    => array(
+					'current_page' => $page,
+					'per_page'     => $per_page,
+					'total_pages'  => $total_pages,
+					'total_count'  => $total_count,
+				),
+			),
+			200
+		);
+	}
+
+	/**
+	 * Extract total count from Link headers when using pulls API
+	 *
+	 * @param array $headers Response headers.
+	 * @param int   $current_count Current count of items fetched.
+	 *
+	 * @return int Total count of items.
+	 */
+	private static function get_total_count_from_headers( array $headers, int $current_count ): int {
+		if ( ! isset( $headers['link'] ) ) {
+			return $current_count;
+		}
+
+		$link_header = $headers['link'];
+
+		// Parse the Link header to get last page.
+		if ( preg_match( '/page=(\d+)>; rel="last"/', $link_header, $matches ) ) {
+			$last_page = (int) $matches[1];
+			// This is an approximation.
+			return $last_page * 25;
+		}
+
+		return $current_count;
 	}
 
 	/**
