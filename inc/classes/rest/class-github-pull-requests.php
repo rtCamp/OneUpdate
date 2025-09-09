@@ -135,7 +135,7 @@ class GitHub_Pull_Requests {
 			return new \WP_REST_Response(
 				array(
 					'success' => false,
-					'message' => 'GitHub token is not set. Please set it in the OneUpdate settings.',
+					'message' => __( 'GitHub token is not set. Please set it in the OneUpdate settings.', 'oneupdate' ),
 				),
 				400
 			);
@@ -178,7 +178,7 @@ class GitHub_Pull_Requests {
 				'headers' => array(
 					'Authorization' => "Bearer {$gh_token}",
 					'Accept'        => 'application/vnd.github.v3+json',
-					'User-Agent'    => 'OneUpdate Plugin Loader',
+					'User-Agent'    => __( 'OneUpdate Plugin Loader', 'oneupdate' ),
 				),
 				'timeout' => 15, // phpcs:ignore WordPressVIPMinimum.Performance.RemoteRequestTimeout.timeout_timeout -- this is to avoid timeout issues.
 			),
@@ -202,7 +202,12 @@ class GitHub_Pull_Requests {
 			return new \WP_REST_Response(
 				array(
 					'success' => false,
-					'message' => "GitHub API returned status code {$status_code}.",
+					'message' =>
+					sprintf(
+						/* translation: %s github response code */
+						'GitHub API returned status code %d.',
+						$status_code,
+					),
 				),
 				$status_code
 			);
@@ -286,7 +291,7 @@ class GitHub_Pull_Requests {
 				'headers' => array(
 					'Authorization' => "Bearer {$gh_token}",
 					'Accept'        => 'application/vnd.github.v3+json',
-					'User-Agent'    => 'OneUpdate Plugin Loader',
+					'User-Agent'    => __( 'OneUpdate Plugin Loader', 'oneupdate' ),
 				),
 				'timeout' => 15, // phpcs:ignore WordPressVIPMinimum.Performance.RemoteRequestTimeout.timeout_timeout -- this is to avoid timeout issues.
 			),
@@ -310,7 +315,12 @@ class GitHub_Pull_Requests {
 			return new \WP_REST_Response(
 				array(
 					'success'       => false,
-					'message'       => "GitHub API returned status code {$status_code}.",
+					'message'       =>
+						sprintf(
+						/* translation: %s github response code */
+							'GitHub API returned status code %d.',
+							$status_code,
+						),
 					'response_body' => $body,
 				),
 				$status_code
@@ -376,7 +386,7 @@ class GitHub_Pull_Requests {
 				'headers' => array(
 					'Authorization' => "Bearer {$gh_token}",
 					'Accept'        => 'application/vnd.github.v3+json',
-					'User-Agent'    => 'OneUpdate Plugin Loader',
+					'User-Agent'    => __( 'OneUpdate Plugin Loader', 'oneupdate' ),
 				),
 				'timeout' => 15, // phpcs:ignore WordPressVIPMinimum.Performance.RemoteRequestTimeout.timeout_timeout -- this is to avoid timeout issues.
 			),
@@ -399,7 +409,11 @@ class GitHub_Pull_Requests {
 			return new \WP_REST_Response(
 				array(
 					'success'       => false,
-					'message'       => "GitHub API returned status code {$status_code}.",
+					'message'       => sprintf(
+						/* translation: %s github response code */
+						'GitHub API returned status code %d.',
+						$status_code,
+					),
 					'response_body' => $body,
 				),
 				$status_code
@@ -477,7 +491,7 @@ class GitHub_Pull_Requests {
 				'headers' => array(
 					'Authorization' => "Bearer {$gh_token}",
 					'Accept'        => 'application/vnd.github.v3+json',
-					'User-Agent'    => 'OneUpdate Plugin Loader',
+					'User-Agent'    => __( 'OneUpdate Plugin Loader', 'oneupdate' ),
 				),
 				'timeout' => 15, // phpcs:ignore WordPressVIPMinimum.Performance.RemoteRequestTimeout.timeout_timeout -- this is to avoid timeout issues.
 			),
@@ -500,7 +514,11 @@ class GitHub_Pull_Requests {
 			return new \WP_REST_Response(
 				array(
 					'success'       => false,
-					'message'       => "GitHub API returned status code {$status_code}.",
+					'message'       => sprintf(
+						/* translation: %s github response code */
+						'GitHub API returned status code %d.',
+						$status_code,
+					),
 					'response_body' => $body,
 				),
 				$status_code

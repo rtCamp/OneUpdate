@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-09-08T10:15:19+00:00\n"
+"POT-Creation-Date: 2025-09-09T07:07:24+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: oneupdate\n"
@@ -101,6 +101,17 @@ msgstr ""
 
 #: inc/classes/rest/class-basic-options.php:505
 msgid "GitHub repository already exists in one of Brand sites."
+msgstr ""
+
+#: inc/classes/rest/class-github-pull-requests.php:138
+msgid "GitHub token is not set. Please set it in the OneUpdate settings."
+msgstr ""
+
+#: inc/classes/rest/class-github-pull-requests.php:181
+#: inc/classes/rest/class-github-pull-requests.php:294
+#: inc/classes/rest/class-github-pull-requests.php:389
+#: inc/classes/rest/class-github-pull-requests.php:494
+msgid "OneUpdate Plugin Loader"
 msgstr ""
 
 #: inc/classes/rest/class-workflow.php:281
@@ -372,7 +383,7 @@ msgstr ""
 
 #: assets/build/js/plugin-manager.js:1
 #: assets/build/js/pull-requests.js:1
-#: assets/src/admin/pull-requests/index.js:430
+#: assets/src/admin/pull-requests/index.js:407
 #: assets/src/components/PluginGrid.js:249
 #: assets/src/components/PluginsSharing.js:467
 msgid "Previous"
@@ -380,7 +391,7 @@ msgstr ""
 
 #: assets/build/js/plugin-manager.js:1
 #: assets/build/js/pull-requests.js:1
-#: assets/src/admin/pull-requests/index.js:433
+#: assets/src/admin/pull-requests/index.js:410
 #: assets/src/components/PluginGrid.js:252
 #: assets/src/components/PluginsSharing.js:470
 msgid "Page"
@@ -388,7 +399,7 @@ msgstr ""
 
 #: assets/build/js/plugin-manager.js:1
 #: assets/build/js/pull-requests.js:1
-#: assets/src/admin/pull-requests/index.js:433
+#: assets/src/admin/pull-requests/index.js:410
 #: assets/src/components/PluginGrid.js:252
 #: assets/src/components/PluginsSharing.js:470
 msgid "of"
@@ -396,7 +407,7 @@ msgstr ""
 
 #: assets/build/js/plugin-manager.js:1
 #: assets/build/js/pull-requests.js:1
-#: assets/src/admin/pull-requests/index.js:441
+#: assets/src/admin/pull-requests/index.js:418
 #: assets/src/components/PluginGrid.js:259
 #: assets/src/components/PluginsSharing.js:477
 #: assets/src/components/PluginsSharing.js:523
@@ -680,8 +691,8 @@ msgstr ""
 #: assets/build/js/plugin-manager.js:3
 #: assets/build/js/pull-requests.js:1
 #: assets/src/admin/plugin-manager/index.js:1293
-#: assets/src/admin/pull-requests/index.js:315
-#: assets/src/admin/pull-requests/index.js:330
+#: assets/src/admin/pull-requests/index.js:292
+#: assets/src/admin/pull-requests/index.js:307
 #: assets/src/components/S3ZipUploader.js:1000
 msgid "Status"
 msgstr ""
@@ -937,7 +948,7 @@ msgstr ""
 #: assets/build/js/plugin-manager.js:3
 #: assets/build/js/pull-requests.js:1
 #: assets/src/admin/plugin-manager/index.js:1297
-#: assets/src/admin/pull-requests/index.js:53
+#: assets/src/admin/pull-requests/index.js:51
 msgid "All Status"
 msgstr ""
 
@@ -1180,7 +1191,7 @@ msgstr ""
 #: assets/build/js/plugin-manager.js:7
 #: assets/build/js/pull-requests.js:1
 #: assets/src/admin/plugin-manager/index.js:2041
-#: assets/src/admin/pull-requests/index.js:329
+#: assets/src/admin/pull-requests/index.js:306
 msgid "Author"
 msgstr ""
 
@@ -1302,191 +1313,179 @@ msgid "Select current site type"
 msgstr ""
 
 #: assets/build/js/pull-requests.js:1
-#: assets/src/admin/pull-requests/index.js:54
+#: assets/src/admin/pull-requests/index.js:52
 msgid "Open"
 msgstr ""
 
 #: assets/build/js/pull-requests.js:1
-#: assets/src/admin/pull-requests/index.js:55
+#: assets/src/admin/pull-requests/index.js:53
 msgid "Merged/Closed"
 msgstr ""
 
 #: assets/build/js/pull-requests.js:1
-#: assets/src/admin/pull-requests/index.js:96
+#: assets/src/admin/pull-requests/index.js:94
 msgid "Failed to fetch pull requests."
 msgstr ""
 
 #: assets/build/js/pull-requests.js:1
-#: assets/src/admin/pull-requests/index.js:113
-#: assets/src/admin/pull-requests/index.js:119
+#: assets/src/admin/pull-requests/index.js:111
+#: assets/src/admin/pull-requests/index.js:117
 msgid "Error fetching pull requests."
 msgstr ""
 
 #: assets/build/js/pull-requests.js:1
-#: assets/src/admin/pull-requests/index.js:158
+#: assets/src/admin/pull-requests/index.js:156
 msgid "Error fetching PR details."
 msgstr ""
 
 #: assets/build/js/pull-requests.js:1
-#: assets/src/admin/pull-requests/index.js:179
+#: assets/src/admin/pull-requests/index.js:177
 msgid "N/A"
 msgstr ""
 
 #: assets/build/js/pull-requests.js:1
-#: assets/src/admin/pull-requests/index.js:296
+#: assets/src/admin/pull-requests/index.js:273
 msgid "GitHub Pull Requests"
 msgstr ""
 
 #: assets/build/js/pull-requests.js:1
-#: assets/src/admin/pull-requests/index.js:302
+#: assets/src/admin/pull-requests/index.js:279
 #: assets/src/components/PluginGrid.js:149
 msgid "Search"
 msgstr ""
 
 #: assets/build/js/pull-requests.js:1
-#: assets/src/admin/pull-requests/index.js:303
+#: assets/src/admin/pull-requests/index.js:280
 msgid "Search by title, number…"
 msgstr ""
 
 #: assets/build/js/pull-requests.js:1
 #: assets/build/js/settings.js:1
-#: assets/src/admin/pull-requests/index.js:309
+#: assets/src/admin/pull-requests/index.js:286
 #: assets/src/components/SiteTable.js:28
 msgid "Brand Sites"
 msgstr ""
 
 #: assets/build/js/pull-requests.js:1
-#: assets/src/admin/pull-requests/index.js:327
+#: assets/src/admin/pull-requests/index.js:304
 msgid "PR #"
 msgstr ""
 
 #: assets/build/js/pull-requests.js:1
-#: assets/src/admin/pull-requests/index.js:328
+#: assets/src/admin/pull-requests/index.js:305
 msgid "Title"
 msgstr ""
 
 #: assets/build/js/pull-requests.js:1
-#: assets/src/admin/pull-requests/index.js:331
+#: assets/src/admin/pull-requests/index.js:308
 msgid "Created at"
 msgstr ""
 
 #: assets/build/js/pull-requests.js:1
-#: assets/src/admin/pull-requests/index.js:332
+#: assets/src/admin/pull-requests/index.js:309
 msgid "Labels"
 msgstr ""
 
 #: assets/build/js/pull-requests.js:1
 #: assets/build/js/settings.js:1
-#: assets/src/admin/pull-requests/index.js:333
+#: assets/src/admin/pull-requests/index.js:310
 #: assets/src/components/SiteTable.js:45
 msgid "Actions"
 msgstr ""
 
 #: assets/build/js/pull-requests.js:1
-#: assets/src/admin/pull-requests/index.js:347
+#: assets/src/admin/pull-requests/index.js:324
 msgid "No pull requests found."
 msgstr ""
 
 #: assets/build/js/pull-requests.js:1
-#: assets/src/admin/pull-requests/index.js:405
+#: assets/src/admin/pull-requests/index.js:382
 msgid "more"
 msgstr ""
 
 #: assets/build/js/pull-requests.js:1
-#: assets/src/admin/pull-requests/index.js:411
+#: assets/src/admin/pull-requests/index.js:388
 msgid "No labels"
 msgstr ""
 
 #: assets/build/js/pull-requests.js:1
-#: assets/src/admin/pull-requests/index.js:219
+#: assets/src/admin/pull-requests/index.js:217
 msgid "PR Actions"
 msgstr ""
 
 #: assets/build/js/pull-requests.js:1
-#: assets/src/admin/pull-requests/index.js:236
-#: assets/src/admin/pull-requests/index.js:271
-msgid "View PR Details"
+#: assets/src/admin/pull-requests/index.js:234
+#: assets/src/admin/pull-requests/index.js:248
+msgid "View Details"
 msgstr ""
 
 #: assets/build/js/pull-requests.js:1
-#: assets/src/admin/pull-requests/index.js:246
-#: assets/src/admin/pull-requests/index.js:578
-msgid "Merge PR"
-msgstr ""
-
-#: assets/build/js/pull-requests.js:1
-#: assets/src/admin/pull-requests/index.js:257
-#: assets/src/admin/pull-requests/index.js:569
-msgid "Close PR"
-msgstr ""
-
-#: assets/build/js/pull-requests.js:1
-#: assets/src/admin/pull-requests/index.js:451
+#: assets/src/admin/pull-requests/index.js:428
 msgid "Pull Request Details"
 msgstr ""
 
 #: assets/build/js/pull-requests.js:1
-#: assets/src/admin/pull-requests/index.js:460
+#: assets/src/admin/pull-requests/index.js:437
 msgid "Loading PR details…"
 msgstr ""
 
 #: assets/build/js/pull-requests.js:1
-#: assets/src/admin/pull-requests/index.js:469
+#: assets/src/admin/pull-requests/index.js:446
 msgid "PR Number:"
 msgstr ""
 
 #: assets/build/js/pull-requests.js:1
-#: assets/src/admin/pull-requests/index.js:470
+#: assets/src/admin/pull-requests/index.js:447
 msgid "Title:"
 msgstr ""
 
 #: assets/build/js/pull-requests.js:1
-#: assets/src/admin/pull-requests/index.js:471
+#: assets/src/admin/pull-requests/index.js:448
 msgid "Author:"
 msgstr ""
 
 #: assets/build/js/pull-requests.js:1
-#: assets/src/admin/pull-requests/index.js:472
+#: assets/src/admin/pull-requests/index.js:449
 msgid "Status:"
 msgstr ""
 
 #: assets/build/js/pull-requests.js:1
-#: assets/src/admin/pull-requests/index.js:475
+#: assets/src/admin/pull-requests/index.js:452
 msgid "Created:"
 msgstr ""
 
 #: assets/build/js/pull-requests.js:1
-#: assets/src/admin/pull-requests/index.js:476
+#: assets/src/admin/pull-requests/index.js:453
 msgid "Updated:"
 msgstr ""
 
 #: assets/build/js/pull-requests.js:1
-#: assets/src/admin/pull-requests/index.js:477
+#: assets/src/admin/pull-requests/index.js:454
 msgid "Branch:"
 msgstr ""
 
 #: assets/build/js/pull-requests.js:1
-#: assets/src/admin/pull-requests/index.js:479
+#: assets/src/admin/pull-requests/index.js:456
 msgid "GitHub URL:"
 msgstr ""
 
 #: assets/build/js/pull-requests.js:1
-#: assets/src/admin/pull-requests/index.js:481
+#: assets/src/admin/pull-requests/index.js:458
 msgid "View on GitHub"
 msgstr ""
 
 #: assets/build/js/pull-requests.js:1
-#: assets/src/admin/pull-requests/index.js:490
+#: assets/src/admin/pull-requests/index.js:467
 msgid "Labels:"
 msgstr ""
 
 #: assets/build/js/pull-requests.js:1
-#: assets/src/admin/pull-requests/index.js:514
+#: assets/src/admin/pull-requests/index.js:491
 msgid "Description:"
 msgstr ""
 
 #: assets/build/js/pull-requests.js:1
-#: assets/src/admin/pull-requests/index.js:540
+#: assets/src/admin/pull-requests/index.js:517
 msgid "Merged By:"
 msgstr ""
 
