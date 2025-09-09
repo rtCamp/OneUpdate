@@ -17,8 +17,6 @@ import {
 } from '@wordpress/components';
 import { decodeEntities } from '@wordpress/html-entities';
 import { moreVertical } from '@wordpress/icons';
-import CloseIcon from '../../components/icons/Close';
-import MergeIcon from '../../components/icons/Merge';
 import ViewIcon from '../../components/icons/View';
 
 const API_NAMESPACE = OneUpdatePullRequests.restUrl + '/oneupdate/v1/github';
@@ -233,28 +231,7 @@ const GitHubPullRequests = () => {
 												onClose();
 											} }
 										>
-											{ __( 'View PR Details', 'oneupdate' ) }
-										</MenuItem>
-										<MenuItem
-											icon={ <MergeIcon /> }
-											onClick={ () => {
-												// take user to github to merge
-												window.open( `${ pr.html_url }#:~:text=Merge%20pull%20request`, '_blank' );
-												onClose();
-											} }
-										>
-											{ __( 'Merge PR', 'oneupdate' ) }
-										</MenuItem>
-										<MenuItem
-											isDestructive
-											icon={ <CloseIcon /> }
-											onClick={ () => {
-												// take user to github to close
-												window.open( `${ pr.html_url }#:~:text=Close%20pull%20request`, '_blank' );
-												onClose();
-											} }
-										>
-											{ __( 'Close PR', 'oneupdate' ) }
+											{ __( 'View Details', 'oneupdate' ) }
 										</MenuItem>
 									</>
 								) }
@@ -268,7 +245,7 @@ const GitHubPullRequests = () => {
 											onClose();
 										} }
 									>
-										{ __( 'View PR Details', 'oneupdate' ) }
+										{ __( 'View Details', 'oneupdate' ) }
 									</MenuItem>
 								</MenuGroup>
 							) }
@@ -552,31 +529,6 @@ const GitHubPullRequests = () => {
 											<span style={ { marginLeft: '8px', verticalAlign: 'middle' } }>{ prDetails.merged_by.login }</span>
 										</div>
 									) }
-								</div>
-							) }
-
-							{ /* Action Buttons */ }
-							{ prDetails.state === 'open' && (
-								<div style={ { marginTop: '20px', display: 'flex', gap: '10px', justifyContent: 'flex-end' } }>
-									<Button
-										variant="secondary"
-										isDestructive
-										onClick={ () => {
-											// take user to github to close
-											window.open( `${ prDetails.html_url }#:~:text=Close%20pull%20request`, '_blank' );
-										} }
-									>
-										{ __( 'Close PR', 'oneupdate' ) }
-									</Button>
-									<Button
-										variant="primary"
-										onClick={ () => {
-											// take user to github to merge
-											window.open( `${ prDetails.html_url }#:~:text=Merge%20pull%20request`, '_blank' );
-										} }
-									>
-										{ __( 'Merge PR', 'oneupdate' ) }
-									</Button>
 								</div>
 							) }
 						</>
