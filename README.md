@@ -1,6 +1,6 @@
 ![Banner](./assets/src/images/banner.png)
 
-# OneUpdate \- WordPress Plugin Management for Enterprise
+# OneUpdate \- Efficient WordPress Plugin Management for Enterprise Brand Site Networks
 
 **Contributors:** [rtCamp](https://profiles.wordpress.org/rtcamp), [up1512001](https://github.com/up1512001), [danish17](https://github.com/danish17), [AnuragVasanwala](https://github.com/AnuragVasanwala), [aviral-mittal](https://github.com/aviral-mittal), [rishavjeet](https://github.com/rishavjeet), [vishal4669](https://github.com/vishal4669), [SushantKakade](https://github.com/SushantKakade)
 
