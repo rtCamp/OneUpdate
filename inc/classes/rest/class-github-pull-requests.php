@@ -109,7 +109,7 @@ class GitHub_Pull_Requests {
 	 *
 	 * @return bool
 	 */
-	public static function permission_callback() {
+	public static function permission_callback(): bool {
 		return current_user_can( 'manage_options' );
 	}
 
@@ -141,7 +141,7 @@ class GitHub_Pull_Requests {
 			);
 		}
 
-		// if pr_number is not provided, get all pull requests.
+		// if pr_number & search query is not provided, get all pull requests.
 		if ( empty( $pr_number ) && empty( $search_query ) ) {
 			return self::get_all_pull_requests( $gh_owner, $gh_repo, $pr_state, $gh_token, $per_page, $page );
 		}
@@ -170,7 +170,7 @@ class GitHub_Pull_Requests {
 	private static function get_all_pull_requests( string $gh_owner, string $gh_repo, string $pr_state = 'open', string $gh_token, int $per_page = 25, int $page = 1 ): \WP_REST_Response {
 
 		// gh api endpoint to get pull requests.
-		$gh_api_endpoint = "https://api.github.com/repos/{$gh_owner}/{$gh_repo}/pulls?state={$pr_state}&per_page={$per_page}&page={$page}";
+		$gh_api_endpoint = "https://api.github.com/repos/{$gh_owner}/{$gh_repo}/pulls?state={$pr_state}&per_page={$per_page}&page={$page}&order=desc&sort=committer-date";
 
 		$response = wp_safe_remote_get(
 			$gh_api_endpoint,
@@ -286,7 +286,7 @@ class GitHub_Pull_Requests {
 		}
 
 		$response = wp_safe_remote_get(
-			$gh_api_endpoint,
+			$gh_api_endpoint . '&order=desc&sort=committer-date',
 			array(
 				'headers' => array(
 					'Authorization' => "Bearer {$gh_token}",
@@ -378,7 +378,7 @@ class GitHub_Pull_Requests {
 	private static function search_pull_requests_with_query_and_state( string $gh_owner, string $gh_repo, string $search_query, string $gh_token, int $per_page, int $page, string $pr_state ): \WP_REST_Response {
 
 		// Use search API with state filter in query.
-		$gh_api_endpoint = "https://api.github.com/search/issues?q={$search_query}+repo:{$gh_owner}/{$gh_repo}+type:pr+state:{$pr_state}&per_page={$per_page}&page={$page}";
+		$gh_api_endpoint = "https://api.github.com/search/issues?q={$search_query}+repo:{$gh_owner}/{$gh_repo}+type:pr+state:{$pr_state}&per_page={$per_page}&page={$page}&order=desc&sort=committer-date";
 
 		$response = wp_safe_remote_get(
 			$gh_api_endpoint,

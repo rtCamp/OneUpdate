@@ -763,7 +763,7 @@ class Workflow {
 				}
 			}
 			// update the active plugins options.
-			update_option( Constants::ONEUPDATE_ACTIVE_PLUGINS, $active_plugins );
+			update_option( Constants::ONEUPDATE_ACTIVE_PLUGINS, $active_plugins, false );
 
 		}
 		if ( 'activate' === $plugin_type ) {
@@ -780,7 +780,7 @@ class Workflow {
 			}
 		}
 
-		update_option( Constants::ONEUPDATE_PLUGINS_OPTIONS, $oneupdate_plugin_activate );
+		update_option( Constants::ONEUPDATE_PLUGINS_OPTIONS, $oneupdate_plugin_activate, false );
 
 		if ( ! empty( $plugins ) ) {
 			Cache::rebuild_transient_for_single_plugin(

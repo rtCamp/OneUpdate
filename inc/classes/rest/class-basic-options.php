@@ -349,7 +349,7 @@ class Basic_Options {
 
 		$site_type = sanitize_text_field( $request->get_param( 'site_type' ) );
 
-		update_option( Constants::ONEUPDATE_SITE_TYPE, $site_type );
+		update_option( Constants::ONEUPDATE_SITE_TYPE, $site_type, false );
 
 		// set transient to indicating that site type has been set for infinite time.
 		set_transient( Constants::ONEUPDATE_SITE_TYPE_TRANSIENT, true, 0 );
@@ -400,7 +400,7 @@ class Basic_Options {
 			);
 		}
 
-		update_option( Constants::ONEUPDATE_GH_TOKEN, $github_token );
+		update_option( Constants::ONEUPDATE_GH_TOKEN, $github_token, false );
 
 		return rest_ensure_response(
 			array(
@@ -451,7 +451,7 @@ class Basic_Options {
 		}
 
 		// Update S3 credentials in options.
-		update_option( Constants::ONEUPDATE_S3_CREDENTIALS, $s3_credentials );
+		update_option( Constants::ONEUPDATE_S3_CREDENTIALS, $s3_credentials, false );
 
 		return rest_ensure_response(
 			array(
@@ -507,7 +507,7 @@ class Basic_Options {
 			$gtihub_repos[] = $site['githubRepo'] ?? '';
 		}
 
-		update_option( Constants::ONEUPDATE_SHARED_SITES, $sites_data );
+		update_option( Constants::ONEUPDATE_SHARED_SITES, $sites_data, false );
 
 		return rest_ensure_response(
 			array(

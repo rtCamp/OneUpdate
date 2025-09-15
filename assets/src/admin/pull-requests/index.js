@@ -73,7 +73,7 @@ const GitHubPullRequests = () => {
 			}
 
 			const response = await fetch(
-				`${ API_NAMESPACE }/pull-requests/${ selectedRepo }?${ params.toString() }`,
+				`${ API_NAMESPACE }/pull-requests/${ selectedRepo }?${ params.toString() }&_=${ new Date().getTime() }`,
 				{
 					headers: {
 						'Content-Type': 'application/json',
@@ -130,7 +130,7 @@ const GitHubPullRequests = () => {
 		setDetailsLoading( true );
 		try {
 			const response = await fetch(
-				`${ API_NAMESPACE }/pull-requests/${ selectedRepo }?pr_number=${ prNumber }`,
+				`${ API_NAMESPACE }/pull-requests/${ selectedRepo }?pr_number=${ prNumber }&_=${ new Date().getTime() }`,
 				{
 					headers: {
 						'Content-Type': 'application/json',
