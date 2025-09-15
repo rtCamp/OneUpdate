@@ -82,5 +82,5 @@ class S3_Upload {
 			)
 		);
 	}
-    // phpcs:enable.-- its custom query to cleanup s3 bucket & history table.
+    // phpcs:enable -- its custom query to cleanup s3 bucket & history table.
 }

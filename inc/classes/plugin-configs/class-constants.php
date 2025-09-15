@@ -36,7 +36,7 @@ class Constants {
 	public const ONEUPDATE_SHARED_SITES = 'oneupdate_shared_sites';
 
 	/**
-	 * S3 creadentials.
+	 * S3 credentials.
 	 *
 	 * @var string
 	 */
