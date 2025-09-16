@@ -32,5 +32,10 @@
 	},
 	"require": {
 		"aws/aws-sdk-php": "^3.343"
+	},
+	"scripts": {
+		"pot": "wp i18n make-pot . languages/oneupdate.pot --domain=oneupdate --exclude=node_modules,vendor",
+		"phpcs": "vendor/bin/phpcs --standard=./phpcs.xml.dist",
+		"phpcs:fix": "vendor/bin/phpcbf --standard=./phpcs.xml.dist"
 	}
 }
