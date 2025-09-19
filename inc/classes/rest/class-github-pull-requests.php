@@ -164,7 +164,15 @@ class GitHub_Pull_Requests {
 	private static function get_all_pull_requests( string $gh_owner, string $gh_repo, string $pr_state = 'open', int $per_page = 25, int $page = 1 ): \WP_REST_Response {
 
 		// gh api endpoint to get pull requests.
-		$gh_api_endpoint = self::GH_API_BASE_URL . "/repos/{$gh_owner}/{$gh_repo}/pulls?state={$pr_state}&per_page={$per_page}&page={$page}&order=desc";
+		$gh_api_endpoint = self::GH_API_BASE_URL . "/repos/{$gh_owner}/{$gh_repo}/pulls";
+		$query_args      = array(
+			'state'    => $pr_state,
+			'per_page' => $per_page,
+			'page'     => $page,
+			'order'    => 'desc',
+		);
+
+		$gh_api_endpoint = Utils::add_query_args( $gh_api_endpoint, $query_args );
 
 		$response = self::gh_api_request( $gh_api_endpoint );
 
@@ -244,22 +252,42 @@ class GitHub_Pull_Requests {
 			return self::search_pull_requests_with_query_and_state( $gh_owner, $gh_repo, $search_query, $per_page, $page, $pr_state );
 		}
 
+		$query_args = array();
+
 		// If no search query or state is 'all', use the original search approach.
 		if ( ! empty( $search_query ) ) {
-			$gh_api_endpoint = self::GH_API_BASE_URL . "/search/issues?q={$search_query}+repo:{$gh_owner}/{$gh_repo}+type:pr";
+			$gh_api_endpoint = self::GH_API_BASE_URL . '/search/issues';
+			$query_args      = array_merge(
+				$query_args,
+				array(
+					'q' => $search_query . "+repo:{$gh_owner}/{$gh_repo}+type:pr",
+				),
+			);
 
 			// Add state to search query if not 'all'.
 			if ( 'all' !== $pr_state ) {
 				$gh_api_endpoint .= "+state:{$pr_state}";
 			}
-
-			$gh_api_endpoint .= "&per_page={$per_page}&page={$page}";
 		} else {
 			// Use pulls API for better state filtering when no search query.
-			$gh_api_endpoint = self::GH_API_BASE_URL . "/repos/{$gh_owner}/{$gh_repo}/pulls?state={$pr_state}&per_page={$per_page}&page={$page}";
+			$gh_api_endpoint = self::GH_API_BASE_URL . "/repos/{$gh_owner}/{$gh_repo}/pulls";
+			$query_args      = array_merge(
+				$query_args,
+				array(
+					'state' => $pr_state,
+				)
+			);
 		}
 
-		$gh_api_endpoint .= '&order=desc';
+		$query_args      = array_merge(
+			$query_args,
+			array(
+				'per_page' => $per_page,
+				'page'     => $page,
+				'order'    => 'desc',
+			),
+		);
+		$gh_api_endpoint = Utils::add_query_args( $gh_api_endpoint, $query_args );
 
 		$response = self::gh_api_request( $gh_api_endpoint );
 
@@ -343,7 +371,14 @@ class GitHub_Pull_Requests {
 	private static function search_pull_requests_with_query_and_state( string $gh_owner, string $gh_repo, string $search_query, int $per_page, int $page, string $pr_state ): \WP_REST_Response {
 
 		// Use search API with state filter in query.
-		$gh_api_endpoint = self::GH_API_BASE_URL . "/search/issues?q={$search_query}+repo:{$gh_owner}/{$gh_repo}+type:pr+state:{$pr_state}&per_page={$per_page}&page={$page}&order=desc";
+		$gh_api_endpoint = self::GH_API_BASE_URL . '/search/issues';
+		$query_args      = array(
+			'q'        => $search_query . "+repo:{$gh_owner}/{$gh_repo}+type:pr+state:{$pr_state}",
+			'per_page' => $per_page,
+			'page'     => $page,
+			'order'    => 'desc',
+		);
+		$gh_api_endpoint = Utils::add_query_args( $gh_api_endpoint, $query_args );
 
 		$response = self::gh_api_request( $gh_api_endpoint );
 
@@ -547,6 +582,7 @@ class GitHub_Pull_Requests {
 	 */
 	private static function gh_api_request( string $endpoint ): array|\WP_Error {
 		$gh_token = Utils::get_gh_token();
+
 		$response = wp_safe_remote_get(
 			$endpoint,
 			array(
@@ -561,6 +597,7 @@ class GitHub_Pull_Requests {
 				'timeout'     => 15, // phpcs:ignore WordPressVIPMinimum.Performance.RemoteRequestTimeout.timeout_timeout -- this is to avoid timeout issues.
 			),
 		);
+
 		return $response;
 	}
 }

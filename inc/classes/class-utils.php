@@ -122,4 +122,16 @@ class Utils {
 	public static function get_gh_token(): string {
 		return get_option( Constants::ONEUPDATE_GH_TOKEN, '' );
 	}
+
+	/**
+	 * Add query args to a URL.
+	 *
+	 * @param string $url The base URL.
+	 * @param array  $args The query args to add.
+	 *
+	 * @return string The URL with the added query args.
+	 */
+	public static function add_query_args( string $url, array $args ): string {
+		return add_query_arg( $args, $url );
+	}
 }
