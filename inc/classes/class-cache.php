@@ -34,7 +34,7 @@ class Cache {
 	public function setup_hooks(): void {
 
 		// if current site type is governing site then do not run the cache hooks.
-		if ( 'governing-site' === get_option( 'oneupdate_site_type', '' ) ) {
+		if ( Utils::is_governing_site() ) {
 			return;
 		}
 

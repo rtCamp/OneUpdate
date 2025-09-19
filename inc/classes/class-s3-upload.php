@@ -9,8 +9,7 @@ namespace OneUpdate;
 
 use OneUpdate\Traits\Singleton;
 use Aws\Exception\AwsException;
-
-use OneUpdate\REST\S3;
+use OneUpdate\Plugin_Configs\Constants;
 
 /**
  * Class S3_Upload
@@ -34,7 +33,6 @@ class S3_Upload {
 	 */
 	public function setup_hooks(): void {
 		add_action( 'oneupdate_s3_zip_cleanup_event', array( $this, 'oneupdate_s3_zip_cleanup_event' ) );
-		add_action( 'oneupdate_s3_zip_history_cleanup_event', array( $this, 'oneupdate_s3_zip_history_cleanup_event' ) );
 	}
 
 	/**
@@ -44,13 +42,13 @@ class S3_Upload {
 	 *
 	 * @throws \Exception If there is an error deleting files from S3.
 	 */
-    // phpcs:disable -- its custom query to cleanup s3 bucket.
+    // phpcs:disable -- its custom query to cleanup s3 bucket & history table.
 	public function oneupdate_s3_zip_cleanup_event(): void {
-		$s3_credentials = get_option( 'oneupdate_s3_credentials' );
+		$s3_credentials = get_option( Constants::ONEUPDATE_S3_CREDENTIALS, array() );
 
 		global $wpdb;
-		$table_name = $wpdb->prefix . 'oneupdate_s3_zip_history';
-		$s3         = S3::get_s3_instance();
+		$table_name = $wpdb->prefix . Constants::ONEUPDATE_S3_ZIP_HISTORY_TABLE;
+		$s3         = Utils::get_s3_instance();
 
 		$one_hour_ago  = gmdate( 'Y-m-d H:i:s', current_time( 'timestamp', 1 ) - 3600 );
 		$expired_files = $wpdb->get_results(
@@ -84,49 +82,5 @@ class S3_Upload {
 			)
 		);
 	}
-    // phpcs:enable.
-
-	/**
-	 * Handle S3 zip history cleanup event.
-	 *
-	 * @return void
-	 *
-	 * @throws \Exception If there is an error deleting files from S3.
-	 */
-    // phpcs:disable -- its custom query to cleanup s3 zip history.
-    public function oneupdate_s3_zip_history_cleanup_event(): void {
-		global $wpdb;
-		$table_name    = $wpdb->prefix . 'oneupdate_s3_zip_history';
-		$one_week_ago  = date( 'Y-m-d H:i:s', strtotime( '-1 week' ) );
-		$batch_size    = 1000;
-		$sleep_seconds = 2;
-
-		// Count total records to delete.
-		$total_records = $wpdb->get_var(
-			$wpdb->prepare( "SELECT COUNT(*) FROM $table_name WHERE upload_time <= %s", $one_week_ago )
-		);
-
-		if ( $total_records > 0 ) {
-			$offset = 0;
-			while ( $offset < $total_records ) {
-				$query_template = sprintf(
-					'DELETE FROM `%s` WHERE upload_time <= %%s LIMIT %%d',
-					esc_sql( $table_name )
-				);
-
-				$wpdb->query(
-					$wpdb->prepare(
-						$query_template,
-						$one_week_ago,
-						$batch_size
-					)
-				);
-				$offset += $batch_size;
-				if ( $offset < $total_records ) {
-					sleep( $sleep_seconds );
-				}
-			}
-		}
-	}
-    // phpcs:enable.
+    // phpcs:enable -- its custom query to cleanup s3 bucket & history table.
 }

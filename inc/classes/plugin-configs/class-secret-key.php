@@ -38,11 +38,11 @@ class Secret_Key {
 	 * @return void
 	 */
 	public function generate_secret_key(): void {
-		$secret_key = get_option( 'oneupdate_child_site_api_key' );
+		$secret_key = get_option( Constants::ONEUPDATE_API_KEY );
 		if ( empty( $secret_key ) ) {
 			$secret_key = wp_generate_password( 128, false, false );
 			// Store the secret key in the database.
-			update_option( 'oneupdate_child_site_api_key', $secret_key );
+			update_option( Constants::ONEUPDATE_API_KEY, $secret_key, false );
 		}
 	}
 
@@ -52,10 +52,10 @@ class Secret_Key {
 	 * @return \WP_REST_Response| \WP_Error
 	 */
 	public static function get_secret_key(): \WP_REST_Response|\WP_Error {
-		$secret_key = get_option( 'oneupdate_child_site_api_key' );
+		$secret_key = get_option( Constants::ONEUPDATE_API_KEY );
 		if ( empty( $secret_key ) ) {
 			self::regenerate_secret_key();
-			$secret_key = get_option( 'oneupdate_child_site_api_key' );
+			$secret_key = get_option( Constants::ONEUPDATE_API_KEY );
 		}
 		return rest_ensure_response(
 			array(
@@ -72,7 +72,7 @@ class Secret_Key {
 	public static function regenerate_secret_key(): \WP_REST_Response|\WP_Error {
 		$regenerated_key = wp_generate_password( 128, false, false );
 		// Update the option with the new key.
-		update_option( 'oneupdate_child_site_api_key', $regenerated_key );
+		update_option( Constants::ONEUPDATE_API_KEY, $regenerated_key, false );
 
 		return rest_ensure_response(
 			array(

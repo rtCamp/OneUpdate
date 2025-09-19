@@ -1,6 +1,6 @@
 {
 	"name": "rtcamp/oneupdate",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"description": "OneUpdate - Enterprise WordPress Plugin Manager Automate plugin updates across multiple WordPress sites with CI/CD integration. Creates pull requests for seamless development-to-production workflows.",
 	"type": "wordpress-plugin",
 	"autoload": {
@@ -32,5 +32,10 @@
 	},
 	"require": {
 		"aws/aws-sdk-php": "^3.343"
+	},
+	"scripts": {
+		"pot": "wp i18n make-pot . languages/oneupdate.pot --domain=oneupdate --exclude=node_modules,vendor",
+		"phpcs": "vendor/bin/phpcs --standard=./phpcs.xml.dist",
+		"phpcs:fix": "vendor/bin/phpcbf --standard=./phpcs.xml.dist"
 	}
 }

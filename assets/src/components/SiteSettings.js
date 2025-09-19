@@ -73,7 +73,7 @@ const SiteSettings = () => {
 	}, [ fetchApiKey ] );
 
 	if ( isLoading ) {
-		return <Spinner />;
+		return <Spinner style={ { width: '40px', height: '40px' } } />;
 	}
 
 	return (

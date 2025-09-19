@@ -45,7 +45,7 @@ class VIP_Plugin_Activation {
 		}
 
 		// get oneupdate_plugins_options option.
-		$oneupdate_plugins_options = get_option( 'oneupdate_plugins_options', array() );
+		$oneupdate_plugins_options = get_option( Constants::ONEUPDATE_PLUGINS_OPTIONS, array() );
 
 		// activate all plugins that are in the oneupdate_plugins_options.
 		if ( ! empty( $oneupdate_plugins_options ) ) {

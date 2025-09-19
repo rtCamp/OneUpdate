@@ -33,6 +33,7 @@ import { decodeEntities } from '@wordpress/html-entities';
 import { arrowLeft, plus, loop } from '@wordpress/icons';
 import PluginsSharing from '../../components/PluginsSharing';
 import S3ZipUploader from '../../components/S3ZipUploader';
+import { PurifyElement } from '../../js/utils';
 
 // Declare the OneUpdatePlugins variable
 const OneUpdatePlugins = window.OneUpdatePlugins || {};
@@ -289,11 +290,11 @@ const PluginManager = () => {
 						name: decodeEntities( sampleSitePlugin?.Name || pluginInfo.name || slug ),
 						description: decodeEntities(
 							sampleSitePlugin?.Description ||
-							pluginInfo.sections?.description?.replace( /<[^>]*>/g, '' ).substring( 0, 200 ) + '...' ||
+							PurifyElement( pluginInfo.sections?.description )?.substring( 0, 200 ) + '...' ||
 							pluginInfo.short_description ||
 							'No description available.',
 						),
-						author: decodeEntities( sampleSitePlugin?.Author || pluginInfo.author?.replace( /<[^>]*>/g, '' ) || 'Unknown' ),
+						author: decodeEntities( sampleSitePlugin?.Author || PurifyElement( pluginInfo.author ) || 'Unknown' ),
 						version: sharedPluginData.version || sampleSitePlugin?.Version || pluginInfo.version || '0.0.0',
 						plugin_uri: sampleSitePlugin?.PluginURI || pluginInfo.homepage || '',
 						is_public: sampleSitePlugin?.is_public !== undefined ? sampleSitePlugin.is_public : Boolean( pluginInfo.download_link ),

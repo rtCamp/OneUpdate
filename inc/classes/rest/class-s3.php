@@ -9,8 +9,9 @@ namespace OneUpdate\REST;
 
 use OneUpdate\Traits\Singleton;
 use WP_REST_Server;
-use Aws\S3\S3Client;
 use Aws\Exception\AwsException;
+use OneUpdate\Plugin_Configs\Constants;
+use OneUpdate\Utils;
 
 /**
  * Class S3
@@ -100,11 +101,11 @@ class S3 {
 	 * @return \WP_REST_Response| \WP_Error
 	 */
 	public function s3_health_check(): \WP_REST_Response|\WP_Error {
-		$s3_credentials = get_option( 'oneupdate_s3_credentials' );
+		$s3_credentials = get_option( Constants::ONEUPDATE_S3_CREDENTIALS, array() );
 		if ( empty( $s3_credentials ) || ! is_array( $s3_credentials ) ) {
 			return new \WP_REST_Response( array( 'message' => 'S3 credentials not set' ), 400 );
 		}
-		$s3 = self::get_s3_instance();
+		$s3 = Utils::get_s3_instance();
 		try {
 			// Attempt to list buckets to check connectivity.
 			$result = $s3->listBuckets();
@@ -149,8 +150,8 @@ class S3 {
 		if ( pathinfo( $file['name'], PATHINFO_EXTENSION ) !== 'zip' ) {
 			return new \WP_REST_Response( array( 'message' => 'Only ZIP files are allowed' ), 400 );
 		}
-		$s3_credentials = get_option( 'oneupdate_s3_credentials' );
-		$s3             = self::get_s3_instance();
+		$s3_credentials = get_option( Constants::ONEUPDATE_S3_CREDENTIALS, array() );
+		$s3             = Utils::get_s3_instance();
 
 		$s3_key = 'Uploads/' . uniqid() . '_' . basename( $file['name'] );
 		try {
@@ -175,7 +176,7 @@ class S3 {
 			)->getUri()->__toString();
 
 			global $wpdb;
-			$table_name    = $wpdb->prefix . 'oneupdate_s3_zip_history';
+			$table_name    = $wpdb->prefix . Constants::ONEUPDATE_S3_ZIP_HISTORY_TABLE;
 			$insert_result = $wpdb->insert( // phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery -- inserting private plugin data.
 				$table_name,
 				array(
@@ -210,61 +211,10 @@ class S3 {
 	 */
 	public function get_s3_upload_history(): \WP_REST_Response|\WP_Error {
 		global $wpdb;
-		$table_name = $wpdb->prefix . 'oneupdate_s3_zip_history';
+		$table_name = $wpdb->prefix . Constants::ONEUPDATE_S3_ZIP_HISTORY_TABLE;
 		$query      = "SELECT * FROM $table_name ORDER BY upload_time DESC";
 		$results    = $wpdb->get_results( $query ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared,WordPress.DB.DirectDatabaseQuery.NoCaching -- Static query with no variables, caching not suitable for dynamic upload history.
 
 		return new \WP_REST_Response( $results ? $results : array(), 200 );
-	}
-
-	/**
-	 * Get S3 instance.
-	 *
-	 * @return S3Client
-	 */
-	public static function get_s3_instance(): S3Client {
-		$s3_credentials = get_option( 'oneupdate_s3_credentials' );
-		if ( empty( $s3_credentials ) || ! is_array( $s3_credentials ) ) {
-			return new S3Client( array() ); // Return an empty S3Client.
-		}
-		$s3 = new S3Client(
-			array(
-				'version'                 => 'latest',
-				'region'                  => $s3_credentials['region'] ?? '',
-				'credentials'             => array(
-					'key'    => $s3_credentials['accessKey'] ?? '',
-					'secret' => $s3_credentials['secretKey'] ?? '',
-				),
-				'use_accelerate_endpoint' => true,
-			)
-		);
-
-		// first check if the bucket has getBucketAccelerateConfiguration.
-
-		try {
-			$accelerate_config = $s3->getBucketAccelerateConfiguration(
-				array(
-					'Bucket' => $s3_credentials['bucketName'] ?? '',
-				)
-			);
-			if ( ! empty( $accelerate_config['Status'] ) && 'Enabled' === $accelerate_config['Status'] ) {
-				return $s3;
-			}
-		} catch ( AwsException $e ) {
-			$s3 = new S3Client(
-				array(
-					'version'                 => 'latest',
-					'region'                  => $s3_credentials['region'] ?? '',
-					'endpoint'                => $s3_credentials['endpoint'] ?? '',
-					'credentials'             => array(
-						'key'    => $s3_credentials['accessKey'] ?? '',
-						'secret' => $s3_credentials['secretKey'] ?? '',
-					),
-					'use_path_style_endpoint' => true, // use path style endpoint.
-				)
-			);
-		}
-
-		return $s3;
 	}
 }

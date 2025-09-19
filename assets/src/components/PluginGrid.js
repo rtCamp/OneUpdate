@@ -153,7 +153,7 @@ const PluginGrid = () => {
 			{ /* Loading State */ }
 			{ loading && (
 				<div className="oneupdate-loading-container">
-					<Spinner />
+					<Spinner style={ { width: '40px', height: '40px' } } />
 					<p className="loading-text">{ __( 'Loading plugins…', 'oneupdate' ) }</p>
 				</div>
 			) }

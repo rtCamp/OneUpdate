@@ -9,6 +9,7 @@ namespace OneUpdate\REST;
 
 use OneUpdate\Traits\Singleton;
 use OneUpdate\Cache;
+use OneUpdate\Plugin_Configs\Constants;
 
 /**
  * Class Workflow
@@ -257,7 +258,7 @@ class Workflow {
 	 */
 	public function webhook_permission_callback(): bool {
 		$secret       = isset( $_GET['secret'] ) ? sanitize_text_field( wp_unslash( $_GET['secret'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- no need for nonce as its called from webhook like vip or github.
-		$valid_secret = get_option( 'oneupdate_child_site_api_key', 'default_api_key' );
+		$valid_secret = get_option( Constants::ONEUPDATE_API_KEY, '' );
 		return hash_equals( $secret, $valid_secret );
 	}
 
@@ -636,7 +637,7 @@ class Workflow {
 	 * @return array|\WP_Error
 	 */
 	private function trigger_github_action_for_private_plugin( string $repo, string $private_plugin, string $branch, string $site_name ): array|\WP_Error {
-		$github_token = get_option( 'oneupdate_gh_token', '' );
+		$github_token = get_option( Constants::ONEUPDATE_GH_TOKEN, '' );
 
 		if ( empty( $github_token ) ) {
 			return new \WP_Error( 'no_github_token', __( 'GitHub token not found.', 'oneupdate' ), array( 'status' => 404 ) );
@@ -714,7 +715,7 @@ class Workflow {
 	 * @return WP_REST_Response|\WP_Error
 	 */
 	public function get_oneupdate_plugins_options(): \WP_REST_Response|\WP_Error {
-		$options = get_option( 'oneupdate_plugins_options', array() );
+		$options = get_option( Constants::ONEUPDATE_PLUGINS_OPTIONS, array() );
 
 		return rest_ensure_response(
 			array(
@@ -745,12 +746,12 @@ class Workflow {
 		$plugin_type = $request_options['plugin_type'] ?? 'add_update';
 
 		// oneupdate_plugin_activate options.
-		$oneupdate_plugin_activate = get_option( 'oneupdate_plugins_options', array() );
+		$oneupdate_plugin_activate = get_option( Constants::ONEUPDATE_PLUGINS_OPTIONS, array() );
 
 		// if plugin type is deactivate/remove then remove the plugin from options.
 		if ( 'deactivate' === $plugin_type || 'remove' === $plugin_type ) {
 			// get active plugins options.
-			$active_plugins = get_option( 'active_plugins', array() );
+			$active_plugins = get_option( Constants::ONEUPDATE_ACTIVE_PLUGINS, array() );
 			// remove the plugins from active plugins options.
 			foreach ( $plugins as $plugin ) {
 				if ( in_array( $plugin, $active_plugins, true ) ) {
@@ -762,12 +763,12 @@ class Workflow {
 				}
 			}
 			// update the active plugins options.
-			update_option( 'active_plugins', $active_plugins );
+			update_option( Constants::ONEUPDATE_ACTIVE_PLUGINS, $active_plugins, false );
 
 		}
 		if ( 'activate' === $plugin_type ) {
 			// if plugin type is activate then activate the plugins.
-			$active_plugins = get_option( 'active_plugins', array() );
+			$active_plugins = get_option( Constants::ONEUPDATE_ACTIVE_PLUGINS, array() );
 			foreach ( $plugins as $plugin ) {
 				if ( ! in_array( $plugin, $active_plugins, true ) ) {
 					activate_plugin( $plugin, '', false, true );
@@ -779,7 +780,7 @@ class Workflow {
 			}
 		}
 
-		update_option( 'oneupdate_plugins_options', $oneupdate_plugin_activate );
+		update_option( Constants::ONEUPDATE_PLUGINS_OPTIONS, $oneupdate_plugin_activate, false );
 
 		if ( ! empty( $plugins ) ) {
 			Cache::rebuild_transient_for_single_plugin(
@@ -863,7 +864,7 @@ class Workflow {
 
 			// if current site is same as site_url then use current site token.
 			if ( empty( $token ) ) {
-				$token = get_option( 'oneupdate_child_site_api_key', 'default_api_key' );
+				$token = get_option( Constants::ONEUPDATE_API_KEY, '' );
 			}
 
 			// create comma separated string array of plugins.
@@ -922,7 +923,7 @@ class Workflow {
 	 * @return array|\WP_Error
 	 */
 	private function trigger_github_action_for_pr_creation( string $repo, string $branch, string $plugin_slug, string $version, string $plugin_type, string $site_name ): array|\WP_Error {
-		$github_token = get_option( 'oneupdate_gh_token' );
+		$github_token = get_option( Constants::ONEUPDATE_GH_TOKEN, '' );
 
 		if ( empty( $github_token ) ) {
 			return new \WP_Error( 'no_github_token', __( 'GitHub token not found.', 'oneupdate' ), array( 'status' => 404 ) );
@@ -1023,7 +1024,7 @@ class Workflow {
 	 * @return string|null The latest workflow run ID or null if not found.
 	 */
 	private function get_latest_workflow_run_id( string $repo, string $workflow_filename ): string|null {
-		$github_token = get_option( 'oneupdate_gh_token' );
+		$github_token = get_option( Constants::ONEUPDATE_GH_TOKEN, '' );
 
 		if ( empty( $github_token ) ) {
 			return null;

@@ -16,7 +16,7 @@ const SiteTypeSelector = ( { value, setSiteType } ) => (
 		options={ [
 			{ label: __( 'Select…', 'oneupdate' ), value: '' },
 			{ label: __( 'Brand Site', 'oneupdate' ), value: 'brand-site' },
-			{ label: __( 'Governing site', 'oneupdate' ), value: 'governing-site' },
+			{ label: __( 'Governing Site', 'oneupdate' ), value: 'governing-site' },
 		] }
 	/>
 );

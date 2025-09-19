@@ -7,6 +7,7 @@
 
 namespace OneUpdate;
 
+use OneUpdate\Plugin_Configs\Constants;
 use OneUpdate\Traits\Singleton;
 
 /**
@@ -59,7 +60,7 @@ class Hooks {
 		}
 
 		// get oneupdate_site_type_transient transient to check if site type is set.
-		$site_type_transient = get_transient( 'oneupdate_site_type_transient' );
+		$site_type_transient = get_transient( Constants::ONEUPDATE_SITE_TYPE_TRANSIENT );
 		if ( $site_type_transient ) {
 			// If site type is already set, do not show the modal.
 			return $classes;
@@ -85,7 +86,7 @@ class Hooks {
 		}
 
 		// get oneupdate_site_type_transient transient to check if site type is set.
-		$site_type_transient = get_transient( 'oneupdate_site_type_transient' );
+		$site_type_transient = get_transient( Constants::ONEUPDATE_SITE_TYPE_TRANSIENT );
 		if ( $site_type_transient ) {
 			// If site type is already set, do not show the modal.
 			return;
@@ -108,7 +109,7 @@ class Hooks {
 			return;
 		}
 
-		$sites = get_option( 'oneupdate_shared_sites', array() );
+		$sites = get_option( Constants::ONEUPDATE_SHARED_SITES, array() );
 
 		if ( ! empty( $sites ) && is_array( $sites ) ) {
 			$oneupdate_sites = array();
@@ -157,7 +158,7 @@ class Hooks {
 		}
 
 		// get oneupdate_shared_sites option.
-		$shared_sites = get_option( 'oneupdate_shared_sites', array() );
+		$shared_sites = get_option( Constants::ONEUPDATE_SHARED_SITES, array() );
 
 		// if shared_sites is empty or not an array, return the classes.
 		if ( empty( $shared_sites ) || ! is_array( $shared_sites ) ) {
@@ -165,6 +166,7 @@ class Hooks {
 
 			// remove plugin manager submenu.
 			remove_submenu_page( 'oneupdate', 'oneupdate' );
+			remove_submenu_page( 'oneupdate', 'oneupdate-pull-requests' );
 			return $classes;
 		}
 
