@@ -24,6 +24,14 @@ const NONCE = OneUpdatePullRequests.restNonce;
 const REPOS = OneUpdatePullRequests.repos;
 
 const PER_PAGE = 25;
+const PR_LABEL_STYLES = {
+	display: 'inline-block',
+	padding: '2px 6px',
+	borderRadius: '3px',
+	fontSize: '11px',
+	backgroundColor: `#1c1c1c`,
+	color: '#fff',
+};
 
 const GitHubPullRequests = () => {
 	const [ pullRequests, setPullRequests ] = useState( [] );
@@ -365,14 +373,7 @@ const GitHubPullRequests = () => {
 												{ pr.labels.slice( 0, 2 ).map( ( label ) => (
 													<span
 														key={ label.id }
-														style={ {
-															display: 'inline-block',
-															padding: '2px 6px',
-															borderRadius: '3px',
-															fontSize: '11px',
-															backgroundColor: `#1c1c1c`,
-															color: '#fff',
-														} }
+														style={ PR_LABEL_STYLES }
 													>
 														{ label.name }
 													</span>
@@ -469,14 +470,7 @@ const GitHubPullRequests = () => {
 											{ prDetails.labels.map( ( label ) => (
 												<span
 													key={ label.id }
-													style={ {
-														display: 'inline-block',
-														padding: '4px 8px',
-														borderRadius: '4px',
-														fontSize: '12px',
-														backgroundColor: `#1c1c1c`,
-														color: '#fff',
-													} }
+													style={ PR_LABEL_STYLES }
 												>
 													{ label.name }
 												</span>

@@ -190,7 +190,7 @@ class GitHub_Pull_Requests {
 		$headers       = $response['headers'] ?? array();
 
 		$pull_requests = self::format_github_pull_requests_info( $pull_requests );
-		$total_count   = self::get_total_count_from_headers( $headers, count( $pull_requests ) );
+		$total_count   = self::get_total_count_from_headers( $headers, count( $pull_requests ), $per_page );
 		$total_pages   = ceil( $total_count / $per_page );
 
 		$pull_requests_response = new \WP_REST_Response(
@@ -293,7 +293,7 @@ class GitHub_Pull_Requests {
 		} else {
 			// Pulls API response.
 			$pull_requests = self::format_github_pull_requests_info( $results );
-			$total_count   = self::get_total_count_from_headers( $headers, count( $pull_requests ) );
+			$total_count   = self::get_total_count_from_headers( $headers, count( $pull_requests ), $per_page );
 		}
 
 		$total_pages = ceil( $total_count / $per_page );
@@ -384,10 +384,11 @@ class GitHub_Pull_Requests {
 	 *
 	 * @param array|\WpOrg\Requests\Utility\CaseInsensitiveDictionary $headers Response headers.
 	 * @param int                                                     $current_count Current count of items fetched.
+	 * @param int                                                     $per_page Number of items per page. Default is 25.
 	 *
 	 * @return int Total count of items.
 	 */
-	private static function get_total_count_from_headers( array|\WpOrg\Requests\Utility\CaseInsensitiveDictionary $headers, int $current_count ): int {
+	private static function get_total_count_from_headers( array|\WpOrg\Requests\Utility\CaseInsensitiveDictionary $headers, int $current_count, int $per_page = 25 ): int {
 
 		// if headers is instance of CaseInsensitiveDictionary, convert to array.
 		if ( $headers instanceof \WpOrg\Requests\Utility\CaseInsensitiveDictionary ) {
@@ -404,7 +405,7 @@ class GitHub_Pull_Requests {
 		if ( preg_match( '/<[^>]*\/pulls\?[^>]*page=(\d+)[^>]*>;\s*rel=["\']last["\']/i', $link_header, $matches ) ) {
 			$last_page = (int) $matches[1];
 			// This is an approximation based on link header.
-			return $last_page * 25;
+			return $last_page * $per_page;
 		}
 		return $current_count;
 	}
