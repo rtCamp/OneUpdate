@@ -86,7 +86,7 @@ const GitHubPullRequests = () => {
 				if ( response?.statusText === 'Unprocessable Entity' ) {
 					setNotice( {
 						type: 'error',
-						message: __( 'Please enter valid character to search pull requests.' ),
+						message: __( 'Please enter valid character to search pull requests.', 'oneupdate' ),
 					} );
 				} else {
 					setNotice( {
@@ -407,7 +407,7 @@ const GitHubPullRequests = () => {
 								{ __( 'Previous', 'oneupdate' ) }
 							</Button>
 							<span style={ { alignSelf: 'center' } }>
-								{ __( 'Page', 'oneupdate' ) } { page } { __( 'of', 'oneupdate' ) } { totalPages === 0 ? currentPage : totalPages }
+								{ __( 'Page', 'oneupdate' ) } { page } { __( 'of', 'oneupdate' ) } { totalPages === 0 || totalPages < currentPage ? currentPage : totalPages }
 							</span>
 							<Button
 								variant="secondary"

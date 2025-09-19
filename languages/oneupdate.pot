@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-09-16T04:32:57+00:00\n"
+"POT-Creation-Date: 2025-09-19T06:54:36+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: oneupdate\n"
@@ -103,14 +103,7 @@ msgstr ""
 msgid "GitHub repository already exists in one of Brand sites."
 msgstr ""
 
-#: inc/classes/rest/class-github-pull-requests.php:138
-msgid "GitHub token is not set. Please set it in the OneUpdate settings."
-msgstr ""
-
-#: inc/classes/rest/class-github-pull-requests.php:181
-#: inc/classes/rest/class-github-pull-requests.php:294
-#: inc/classes/rest/class-github-pull-requests.php:389
-#: inc/classes/rest/class-github-pull-requests.php:494
+#: inc/classes/rest/class-github-pull-requests.php:556
 msgid "OneUpdate Plugin Loader"
 msgstr ""
 
@@ -1320,6 +1313,11 @@ msgstr ""
 #: assets/build/js/pull-requests.js:1
 #: assets/src/admin/pull-requests/index.js:53
 msgid "Merged/Closed"
+msgstr ""
+
+#: assets/build/js/pull-requests.js:1
+#: assets/src/admin/pull-requests/index.js:89
+msgid "Please enter valid character to search pull requests."
 msgstr ""
 
 #: assets/build/js/pull-requests.js:1

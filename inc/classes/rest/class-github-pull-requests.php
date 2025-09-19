@@ -7,8 +7,8 @@
 
 namespace OneUpdate\REST;
 
-use OneUpdate\Plugin_Configs\Constants;
 use OneUpdate\Traits\Singleton;
+use OneUpdate\Utils;
 use WP_REST_Server;
 
 /**
@@ -22,6 +22,13 @@ class GitHub_Pull_Requests {
 	 * @var string
 	 */
 	private const NAMESPACE = 'oneupdate/v1/github';
+
+	/**
+	 * GitHub API base URL.
+	 *
+	 * @var string
+	 */
+	private const GH_API_BASE_URL = 'https://api.github.com';
 
 	/**
 	 * Use Singleton trait.
@@ -43,7 +50,7 @@ class GitHub_Pull_Requests {
 	 * @return void
 	 */
 	public function setup_hooks(): void {
-		add_action( 'rest_api_init', array( $this, 'register_routes' ) );
+		add_action( 'rest_api_init', array( $this, 'register_routes' ), 99 );
 	}
 
 	/**
@@ -129,30 +136,18 @@ class GitHub_Pull_Requests {
 		$per_page     = filter_var( $request->get_param( 'per_page' ), FILTER_VALIDATE_INT ) ?? 25;
 		$search_query = sanitize_text_field( $request->get_param( 'search_query' ) ) ?? '';
 
-		$gh_token = get_option( Constants::ONEUPDATE_GH_TOKEN, '' );
-
-		if ( empty( $gh_token ) ) {
-			return new \WP_REST_Response(
-				array(
-					'success' => false,
-					'message' => __( 'GitHub token is not set. Please set it in the OneUpdate settings.', 'oneupdate' ),
-				),
-				400
-			);
-		}
-
 		// if pr_number & search query is not provided, get all pull requests.
 		if ( empty( $pr_number ) && empty( $search_query ) ) {
-			return self::get_all_pull_requests( $gh_owner, $gh_repo, $pr_state, $gh_token, $per_page, $page );
+			return self::get_all_pull_requests( $gh_owner, $gh_repo, $pr_state, $per_page, $page );
 		}
 
 		// if pr_number is not provided but search_query is provided, search pull requests.
 		if ( ! empty( $search_query ) ) {
-			return self::search_pull_requests( $gh_owner, $gh_repo, $search_query, $gh_token, $per_page, $page, $pr_state );
+			return self::search_pull_requests( $gh_owner, $gh_repo, $search_query, $per_page, $page, $pr_state );
 		}
 
 		// if pr_number is provided, get specific pull request.
-		return self::get_specific_pull_request( $gh_owner, $gh_repo, $pr_number, $gh_token );
+		return self::get_specific_pull_request( $gh_owner, $gh_repo, $pr_number );
 	}
 
 	/**
@@ -161,28 +156,17 @@ class GitHub_Pull_Requests {
 	 * @param string $gh_owner GitHub owner.
 	 * @param string $gh_repo GitHub repo.
 	 * @param string $pr_state State of pull requests to fetch. Default is 'open'.
-	 * @param string $gh_token GitHub token.
 	 * @param int    $per_page Number of pull requests per page. Default is 25.
 	 * @param int    $page Page number. Default is 1.
 	 *
 	 * @return \WP_REST_Response
 	 */
-	private static function get_all_pull_requests( string $gh_owner, string $gh_repo, string $pr_state = 'open', string $gh_token, int $per_page = 25, int $page = 1 ): \WP_REST_Response {
+	private static function get_all_pull_requests( string $gh_owner, string $gh_repo, string $pr_state = 'open', int $per_page = 25, int $page = 1 ): \WP_REST_Response {
 
 		// gh api endpoint to get pull requests.
-		$gh_api_endpoint = "https://api.github.com/repos/{$gh_owner}/{$gh_repo}/pulls?state={$pr_state}&per_page={$per_page}&page={$page}&order=desc&sort=committer-date";
+		$gh_api_endpoint = self::GH_API_BASE_URL . "/repos/{$gh_owner}/{$gh_repo}/pulls?state={$pr_state}&per_page={$per_page}&page={$page}&order=desc";
 
-		$response = wp_safe_remote_get(
-			$gh_api_endpoint,
-			array(
-				'headers' => array(
-					'Authorization' => "Bearer {$gh_token}",
-					'Accept'        => 'application/vnd.github.v3+json',
-					'User-Agent'    => __( 'OneUpdate Plugin Loader', 'oneupdate' ),
-				),
-				'timeout' => 15, // phpcs:ignore WordPressVIPMinimum.Performance.RemoteRequestTimeout.timeout_timeout -- this is to avoid timeout issues.
-			),
-		);
+		$response = self::gh_api_request( $gh_api_endpoint );
 
 		if ( is_wp_error( $response ) ) {
 			return new \WP_REST_Response(
@@ -213,22 +197,11 @@ class GitHub_Pull_Requests {
 			);
 		}
 
-		$total_count = 0;
-		$total_pages = 1;
-
-		if ( isset( $headers['link'] ) ) {
-			$link_header = $headers['link'];
-
-			// Parse the Link header to get last page.
-			if ( preg_match( '/page=(\d+)>; rel="last"/', $link_header, $matches ) ) {
-				$total_pages = (int) $matches[1] ?? 1;
-				$total_count = $total_pages * $per_page; // Approximate.
-			}
-		}
-
 		$pull_requests = json_decode( $body, true );
 
 		$pull_requests = self::format_github_pull_requests_info( $pull_requests );
+		$total_count   = self::get_total_count_from_headers( $headers, count( $pull_requests ) );
+		$total_pages   = ceil( $total_count / $per_page );
 
 		$pull_requests_response = new \WP_REST_Response(
 			array(
@@ -239,7 +212,9 @@ class GitHub_Pull_Requests {
 					'per_page'     => $per_page,
 					'total_pages'  => $total_pages,
 					'total_count'  => $total_count,
+					'headers'      => $headers,
 				),
+				'api'           => $gh_api_endpoint,
 			),
 			200
 		);
@@ -256,23 +231,22 @@ class GitHub_Pull_Requests {
 	 * @param string $gh_owner GitHub owner.
 	 * @param string $gh_repo GitHub repo.
 	 * @param string $search_query Search query.
-	 * @param string $gh_token GitHub token.
 	 * @param int    $per_page Number of pull requests per page. Default is 25.
 	 * @param int    $page Page number. Default is 1.
 	 * @param string $pr_state State of pull requests to fetch. Default is 'all'.
 	 *
 	 * @return \WP_REST_Response
 	 */
-	private static function search_pull_requests( string $gh_owner, string $gh_repo, string $search_query, string $gh_token, int $per_page = 25, int $page = 1, string $pr_state = 'all' ): \WP_REST_Response {
+	private static function search_pull_requests( string $gh_owner, string $gh_repo, string $search_query, int $per_page = 25, int $page = 1, string $pr_state = 'all' ): \WP_REST_Response {
 
 		// If we have a specific search query, use search API with state filter.
 		if ( ! empty( $search_query ) && 'all' !== $pr_state ) {
-			return self::search_pull_requests_with_query_and_state( $gh_owner, $gh_repo, $search_query, $gh_token, $per_page, $page, $pr_state );
+			return self::search_pull_requests_with_query_and_state( $gh_owner, $gh_repo, $search_query, $per_page, $page, $pr_state );
 		}
 
 		// If no search query or state is 'all', use the original search approach.
 		if ( ! empty( $search_query ) ) {
-			$gh_api_endpoint = "https://api.github.com/search/issues?q={$search_query}+repo:{$gh_owner}/{$gh_repo}+type:pr";
+			$gh_api_endpoint = self::GH_API_BASE_URL . "/search/issues?q={$search_query}+repo:{$gh_owner}/{$gh_repo}+type:pr";
 
 			// Add state to search query if not 'all'.
 			if ( 'all' !== $pr_state ) {
@@ -282,20 +256,12 @@ class GitHub_Pull_Requests {
 			$gh_api_endpoint .= "&per_page={$per_page}&page={$page}";
 		} else {
 			// Use pulls API for better state filtering when no search query.
-			$gh_api_endpoint = "https://api.github.com/repos/{$gh_owner}/{$gh_repo}/pulls?state={$pr_state}&per_page={$per_page}&page={$page}";
+			$gh_api_endpoint = self::GH_API_BASE_URL . "/repos/{$gh_owner}/{$gh_repo}/pulls?state={$pr_state}&per_page={$per_page}&page={$page}";
 		}
 
-		$response = wp_safe_remote_get(
-			$gh_api_endpoint . '&order=desc&sort=committer-date',
-			array(
-				'headers' => array(
-					'Authorization' => "Bearer {$gh_token}",
-					'Accept'        => 'application/vnd.github.v3+json',
-					'User-Agent'    => __( 'OneUpdate Plugin Loader', 'oneupdate' ),
-				),
-				'timeout' => 15, // phpcs:ignore WordPressVIPMinimum.Performance.RemoteRequestTimeout.timeout_timeout -- this is to avoid timeout issues.
-			),
-		);
+		$gh_api_endpoint .= '&order=desc';
+
+		$response = self::gh_api_request( $gh_api_endpoint );
 
 		if ( is_wp_error( $response ) ) {
 			return new \WP_REST_Response(
@@ -368,29 +334,18 @@ class GitHub_Pull_Requests {
 	 * @param string $gh_owner GitHub owner.
 	 * @param string $gh_repo GitHub repo.
 	 * @param string $search_query Search query.
-	 * @param string $gh_token GitHub token.
 	 * @param int    $per_page Number of pull requests per page.
 	 * @param int    $page Page number.
 	 * @param string $pr_state State of pull requests to fetch.
 	 *
 	 * @return \WP_REST_Response
 	 */
-	private static function search_pull_requests_with_query_and_state( string $gh_owner, string $gh_repo, string $search_query, string $gh_token, int $per_page, int $page, string $pr_state ): \WP_REST_Response {
+	private static function search_pull_requests_with_query_and_state( string $gh_owner, string $gh_repo, string $search_query, int $per_page, int $page, string $pr_state ): \WP_REST_Response {
 
 		// Use search API with state filter in query.
-		$gh_api_endpoint = "https://api.github.com/search/issues?q={$search_query}+repo:{$gh_owner}/{$gh_repo}+type:pr+state:{$pr_state}&per_page={$per_page}&page={$page}&order=desc&sort=committer-date";
+		$gh_api_endpoint = self::GH_API_BASE_URL . "/search/issues?q={$search_query}+repo:{$gh_owner}/{$gh_repo}+type:pr+state:{$pr_state}&per_page={$per_page}&page={$page}&order=desc";
 
-		$response = wp_safe_remote_get(
-			$gh_api_endpoint,
-			array(
-				'headers' => array(
-					'Authorization' => "Bearer {$gh_token}",
-					'Accept'        => 'application/vnd.github.v3+json',
-					'User-Agent'    => __( 'OneUpdate Plugin Loader', 'oneupdate' ),
-				),
-				'timeout' => 15, // phpcs:ignore WordPressVIPMinimum.Performance.RemoteRequestTimeout.timeout_timeout -- this is to avoid timeout issues.
-			),
-		);
+		$response = self::gh_api_request( $gh_api_endpoint );
 
 		if ( is_wp_error( $response ) ) {
 			return new \WP_REST_Response(
@@ -448,25 +403,30 @@ class GitHub_Pull_Requests {
 	/**
 	 * Extract total count from Link headers when using pulls API
 	 *
-	 * @param array $headers Response headers.
-	 * @param int   $current_count Current count of items fetched.
+	 * @param array|\WpOrg\Requests\Utility\CaseInsensitiveDictionary $headers Response headers.
+	 * @param int                                                     $current_count Current count of items fetched.
 	 *
 	 * @return int Total count of items.
 	 */
-	private static function get_total_count_from_headers( array $headers, int $current_count ): int {
+	private static function get_total_count_from_headers( array|\WpOrg\Requests\Utility\CaseInsensitiveDictionary $headers, int $current_count ): int {
+
+		// if headers is instance of CaseInsensitiveDictionary, convert to array.
+		if ( $headers instanceof \WpOrg\Requests\Utility\CaseInsensitiveDictionary ) {
+			$headers = $headers->getAll();
+		}
+
 		if ( ! isset( $headers['link'] ) ) {
 			return $current_count;
 		}
 
-		$link_header = $headers['link'];
+		$link_header = $headers['link'] ?? '';
 
 		// Parse the Link header to get last page.
-		if ( preg_match( '/page=(\d+)>; rel="last"/', $link_header, $matches ) ) {
+		if ( preg_match( '/<[^>]*\/pulls\?[^>]*page=(\d+)[^>]*>;\s*rel=["\']last["\']/i', $link_header, $matches ) ) {
 			$last_page = (int) $matches[1];
-			// This is an approximation.
+			// This is an approximation based on link header.
 			return $last_page * 25;
 		}
-
 		return $current_count;
 	}
 
@@ -476,26 +436,15 @@ class GitHub_Pull_Requests {
 	 * @param string $gh_owner GitHub owner.
 	 * @param string $gh_repo GitHub repo.
 	 * @param int    $pr_number Pull request number.
-	 * @param string $gh_token GitHub token.
 	 *
 	 * @return \WP_REST_Response
 	 */
-	private static function get_specific_pull_request( string $gh_owner, string $gh_repo, int $pr_number, string $gh_token ): \WP_REST_Response {
+	private static function get_specific_pull_request( string $gh_owner, string $gh_repo, int $pr_number ): \WP_REST_Response {
 
 		// gh api endpoint to get a specific pull request.
-		$gh_api_endpoint = "https://api.github.com/repos/{$gh_owner}/{$gh_repo}/pulls/{$pr_number}";
+		$gh_api_endpoint = self::GH_API_BASE_URL . "/repos/{$gh_owner}/{$gh_repo}/pulls/{$pr_number}";
 
-		$response = wp_safe_remote_get(
-			$gh_api_endpoint,
-			array(
-				'headers' => array(
-					'Authorization' => "Bearer {$gh_token}",
-					'Accept'        => 'application/vnd.github.v3+json',
-					'User-Agent'    => __( 'OneUpdate Plugin Loader', 'oneupdate' ),
-				),
-				'timeout' => 15, // phpcs:ignore WordPressVIPMinimum.Performance.RemoteRequestTimeout.timeout_timeout -- this is to avoid timeout issues.
-			),
-		);
+		$response = self::gh_api_request( $gh_api_endpoint );
 
 		if ( is_wp_error( $response ) ) {
 			return new \WP_REST_Response(
@@ -553,11 +502,11 @@ class GitHub_Pull_Requests {
 				'url'           => $pr['url'] ?? '',
 				'number'        => $pr['number'] ?? '',
 				'title'         => $pr['title'] ?? '',
-				'user'          => array(
+				'user'          => isset( $pr['user'] ) ? array(
 					'login'      => $pr['user']['login'] ?? '',
 					'avatar_url' => $pr['user']['avatar_url'] ?? '',
 					'html_url'   => $pr['user']['html_url'] ?? '',
-				),
+				) : null,
 				'labels'        => $pr['labels'] ?? '',
 				'state'         => $pr['state'] ?? '',
 				'created_at'    => $pr['created_at'] ?? '',
@@ -587,5 +536,31 @@ class GitHub_Pull_Requests {
 			);
 		}
 		return $formatted_prs;
+	}
+
+	/**
+	 * Make a GitHub API request.
+	 *
+	 * @param string $endpoint GitHub API endpoint.
+	 *
+	 * @return array|\WP_Error
+	 */
+	private static function gh_api_request( string $endpoint ): array|\WP_Error {
+		$gh_token = Utils::get_gh_token();
+		$response = wp_safe_remote_get(
+			$endpoint,
+			array(
+				'headers'     => array(
+					'Authorization'   => "Bearer {$gh_token}",
+					'Accept'          => 'application/vnd.github.v3+json',
+					'User-Agent'      => __( 'OneUpdate Plugin Loader', 'oneupdate' ),
+					'Content-Type'    => 'application/json',
+					'Accept-Encoding' => 'identity',
+				),
+				'httpversion' => '1.1',
+				'timeout'     => 15, // phpcs:ignore WordPressVIPMinimum.Performance.RemoteRequestTimeout.timeout_timeout -- this is to avoid timeout issues.
+			),
+		);
+		return $response;
 	}
 }

@@ -113,4 +113,13 @@ class Utils {
 
 		return $s3;
 	}
+
+	/**
+	 * Get GitHub token.
+	 *
+	 * @return string
+	 */
+	public static function get_gh_token(): string {
+		return get_option( Constants::ONEUPDATE_GH_TOKEN, '' );
+	}
 }
