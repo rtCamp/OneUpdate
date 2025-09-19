@@ -174,38 +174,20 @@ class GitHub_Pull_Requests {
 
 		$gh_api_endpoint = Utils::add_query_args( $gh_api_endpoint, $query_args );
 
-		$response = self::gh_api_request( $gh_api_endpoint );
+		$response = self::gh_api_request_with_validation( $gh_api_endpoint );
 
-		if ( is_wp_error( $response ) ) {
+		if ( false === $response['success'] ) {
 			return new \WP_REST_Response(
 				array(
 					'success' => false,
-					'message' => $response->get_error_message(),
+					'message' => $response['message'],
 				),
-				500
+				$response['status_code']
 			);
 		}
 
-		$status_code = wp_remote_retrieve_response_code( $response );
-		$body        = wp_remote_retrieve_body( $response );
-		$headers     = wp_remote_retrieve_headers( $response );
-
-		if ( 200 !== $status_code ) {
-			return new \WP_REST_Response(
-				array(
-					'success' => false,
-					'message' =>
-					sprintf(
-						/* translation: %s github response code */
-						'GitHub API returned status code %d.',
-						$status_code,
-					),
-				),
-				$status_code
-			);
-		}
-
-		$pull_requests = json_decode( $body, true );
+		$pull_requests = $response['data'] ?? array();
+		$headers       = $response['headers'] ?? array();
 
 		$pull_requests = self::format_github_pull_requests_info( $pull_requests );
 		$total_count   = self::get_total_count_from_headers( $headers, count( $pull_requests ) );
@@ -220,7 +202,6 @@ class GitHub_Pull_Requests {
 					'per_page'     => $per_page,
 					'total_pages'  => $total_pages,
 					'total_count'  => $total_count,
-					'headers'      => $headers,
 				),
 				'api'           => $gh_api_endpoint,
 			),
@@ -289,39 +270,20 @@ class GitHub_Pull_Requests {
 		);
 		$gh_api_endpoint = Utils::add_query_args( $gh_api_endpoint, $query_args );
 
-		$response = self::gh_api_request( $gh_api_endpoint );
+		$response = self::gh_api_request_with_validation( $gh_api_endpoint );
 
-		if ( is_wp_error( $response ) ) {
+		if ( false === $response['success'] ) {
 			return new \WP_REST_Response(
 				array(
 					'success' => false,
-					'message' => $response->get_error_message(),
+					'message' => $response['message'],
 				),
-				500
+				$response['status_code']
 			);
 		}
 
-		$status_code = wp_remote_retrieve_response_code( $response );
-		$body        = wp_remote_retrieve_body( $response );
-		$headers     = wp_remote_retrieve_headers( $response );
-
-		if ( 200 !== $status_code ) {
-			return new \WP_REST_Response(
-				array(
-					'success'       => false,
-					'message'       =>
-						sprintf(
-						/* translation: %s github response code */
-							'GitHub API returned status code %d.',
-							$status_code,
-						),
-					'response_body' => $body,
-				),
-				$status_code
-			);
-		}
-
-		$results = json_decode( $body, true );
+		$results = $response['data'] ?? array();
+		$headers = $response['headers'] ?? array();
 
 		// Handle different response formats.
 		if ( ! empty( $search_query ) ) {
@@ -380,37 +342,19 @@ class GitHub_Pull_Requests {
 		);
 		$gh_api_endpoint = Utils::add_query_args( $gh_api_endpoint, $query_args );
 
-		$response = self::gh_api_request( $gh_api_endpoint );
+		$response = self::gh_api_request_with_validation( $gh_api_endpoint );
 
-		if ( is_wp_error( $response ) ) {
+		if ( false === $response['success'] ) {
 			return new \WP_REST_Response(
 				array(
 					'success' => false,
-					'message' => $response->get_error_message(),
+					'message' => $response['message'],
 				),
-				500
+				$response['status_code']
 			);
 		}
 
-		$status_code = wp_remote_retrieve_response_code( $response );
-		$body        = wp_remote_retrieve_body( $response );
-
-		if ( 200 !== $status_code ) {
-			return new \WP_REST_Response(
-				array(
-					'success'       => false,
-					'message'       => sprintf(
-						/* translation: %s github response code */
-						'GitHub API returned status code %d.',
-						$status_code,
-					),
-					'response_body' => $body,
-				),
-				$status_code
-			);
-		}
-
-		$search_results = json_decode( $body, true );
+		$search_results = $response['data'] ?? array();
 		$pull_requests  = isset( $search_results['items'] ) ? self::format_github_pull_requests_info( $search_results['items'] ) : array();
 		$total_count    = $search_results['total_count'] ?? 0;
 		$total_pages    = ceil( $total_count / $per_page );
@@ -479,37 +423,19 @@ class GitHub_Pull_Requests {
 		// gh api endpoint to get a specific pull request.
 		$gh_api_endpoint = self::GH_API_BASE_URL . "/repos/{$gh_owner}/{$gh_repo}/pulls/{$pr_number}";
 
-		$response = self::gh_api_request( $gh_api_endpoint );
+		$response = self::gh_api_request_with_validation( $gh_api_endpoint );
 
-		if ( is_wp_error( $response ) ) {
+		if ( false === $response['success'] ) {
 			return new \WP_REST_Response(
 				array(
 					'success' => false,
-					'message' => $response->get_error_message(),
+					'message' => $response['message'],
 				),
-				500
+				$response['status_code']
 			);
 		}
 
-		$status_code = wp_remote_retrieve_response_code( $response );
-		$body        = wp_remote_retrieve_body( $response );
-
-		if ( 200 !== $status_code ) {
-			return new \WP_REST_Response(
-				array(
-					'success'       => false,
-					'message'       => sprintf(
-						/* translation: %s github response code */
-						'GitHub API returned status code %d.',
-						$status_code,
-					),
-					'response_body' => $body,
-				),
-				$status_code
-			);
-		}
-
-		$pull_request = json_decode( $body, true );
+		$pull_request = $response['data'] ?? array();
 
 		$pull_request = self::format_github_pull_requests_info( array( $pull_request ) );
 
@@ -549,8 +475,8 @@ class GitHub_Pull_Requests {
 				'closed_at'     => $pr['closed_at'] ?? '',
 				'html_url'      => $pr['html_url'] ?? '',
 				'body'          => $pr['body'] ?? '',
-				'pr_branch'     => $pr['head']['ref'] ?? '',
-				'base_branch'   => $pr['base']['ref'] ?? '',
+				'pr_branch'     => isset( $pr['head'] ) ? ( $pr['head']['ref'] ?? '' ) : '',
+				'base_branch'   => isset( $pr['base'] ) ? ( $pr['base']['ref'] ?? '' ) : '',
 				'merged_at'     => $pr['merged_at'] ?? null,
 				'merged'        => $pr['merged'] ?? null,
 				'merged_by'     => isset( $pr['merged_by'] ) ? array(
@@ -574,14 +500,85 @@ class GitHub_Pull_Requests {
 	}
 
 	/**
+	 * Make a GitHub API request with validation.
+	 *
+	 * @param string $endpoint GitHub API endpoint.
+	 *
+	 * @return array Array containing success status, data, headers, status_code, and message.
+	 */
+	private static function gh_api_request_with_validation( string $endpoint ): array {
+		$response = self::gh_api_request( $endpoint );
+
+		// Check for WP_Error.
+		if ( is_wp_error( $response ) ) {
+			return array(
+				'success'     => false,
+				'status_code' => 500,
+				'message'     => $response->get_error_message(),
+			);
+		}
+
+		// Get response details.
+		$status_code = wp_remote_retrieve_response_code( $response );
+		$body        = wp_remote_retrieve_body( $response );
+		$headers     = wp_remote_retrieve_headers( $response );
+
+		// Check for non-200 status codes.
+		if ( 200 !== $status_code ) {
+			return array(
+				'success'     => false,
+				'status_code' => $status_code,
+				'message'     => sprintf(
+					/* translation: %s github response code */
+					'GitHub API returned status code %d.',
+					$status_code,
+				),
+				'body'        => $body,
+				'headers'     => $headers,
+			);
+		}
+
+		// Decode JSON response.
+		$data = json_decode( $body, true );
+
+		// Check for JSON decode errors.
+		if ( json_last_error() !== JSON_ERROR_NONE ) {
+			return array(
+				'success'     => false,
+				'status_code' => 500,
+				'message'     => __( 'Failed to parse GitHub API response as JSON.', 'oneupdate' ),
+				'body'        => $body,
+			);
+		}
+
+		return array(
+			'success'     => true,
+			'status_code' => $status_code,
+			'data'        => $data,
+			'headers'     => $headers,
+			'body'        => $body,
+		);
+	}
+
+	/**
 	 * Make a GitHub API request.
 	 *
 	 * @param string $endpoint GitHub API endpoint.
 	 *
-	 * @return array|\WP_Error
+	 * @return array|\WP_Error|\WP_REST_Response
 	 */
-	private static function gh_api_request( string $endpoint ): array|\WP_Error {
+	private static function gh_api_request( string $endpoint ): array|\WP_Error|\WP_REST_Response {
 		$gh_token = Utils::get_gh_token();
+
+		if ( empty( $gh_token ) ) {
+			return new \WP_REST_Response(
+				array(
+					'success' => false,
+					'message' => __( 'GitHub token not configured.', 'oneupdate' ),
+				),
+				401
+			);
+		}
 
 		$response = wp_safe_remote_get(
 			$endpoint,
