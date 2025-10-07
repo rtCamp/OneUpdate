@@ -1,6 +1,6 @@
 {
 	"name": "oneupdate",
-	"version": "1.0.2",
+	"version": "1.0.0",
 	"description": "OneUpdate - Enterprise WordPress Plugin Manager Automate plugin updates across multiple WordPress sites with CI/CD integration. Creates pull requests for seamless development-to-production workflows.",
 	"private": true,
 	"author": "rtCamp",

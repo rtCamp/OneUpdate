@@ -37,10 +37,9 @@ jobs:
           cp composer.json /tmp/oneupdate/
           cp -r inc/ /tmp/oneupdate/
           cp oneupdate.php /tmp/oneupdate/
-          cp README.md /tmp/oneupdate/
+          cp readme.txt /tmp/oneupdate/
           cp uninstall.php /tmp/oneupdate/
           cp -r vendor/ /tmp/oneupdate/
-          cp -r languages/ /tmp/oneupdate/
           
           # Create the zip file
           cd /tmp

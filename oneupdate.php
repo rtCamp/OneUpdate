@@ -2,15 +2,15 @@
 /**
  * Plugin Name: OneUpdate
  * Plugin URI: https://github.com/rtCamp/OneUpdate/
- * Version: 1.0.2
+ * Version: 1.0.0
  * Description: OneUpdate - Enterprise WordPress Plugin Manager Automate plugin updates across multiple WordPress sites with CI/CD integration. Creates pull requests for seamless development-to-production workflows.
  * Author: Utsav Patel, rtCamp
  * Author URI: https://rtcamp.com
  * Text Domain: oneupdate
  * Domain Path: /languages
- * Requires at least: 6.5.0
- * Requires PHP: 7.4
- * Tested up to: 6.8.2
+ * Requires at least: 6.5
+ * Requires PHP: 8.0
+ * Tested up to: 6.8
  * License: GPLv2 or later
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
  *
@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'ONEUPDATE_PLUGIN_LOADER_VERSION', '1.0.2' );
+define( 'ONEUPDATE_PLUGIN_LOADER_VERSION', '1.0.0' );
 define( 'ONEUPDATE_PLUGIN_LOADER_FEATURES_PATH', untrailingslashit( plugin_dir_path( __FILE__ ) ) );
 define( 'ONEUPDATE_PLUGIN_LOADER_RELATIVE_PATH', dirname( plugin_basename( __FILE__ ) ) );
 define( 'ONEUPDATE_PLUGIN_LOADER_FEATURES_URL', untrailingslashit( plugin_dir_url( __FILE__ ) ) );
@@ -87,9 +87,6 @@ if ( file_exists( ONEUPDATE_PLUGIN_LOADER_FEATURES_PATH . '/vendor/autoload.php'
  */
 function oneupdate_plugin_loader() {
 	\OneUpdate\Plugin::get_instance();
-
-	// load plugin text domain.
-	load_plugin_textdomain( 'oneupdate', false, ONEUPDATE_PLUGIN_LOADER_RELATIVE_PATH . '/languages/' );
 }
 
 add_action( 'plugins_loaded', 'oneupdate_plugin_loader' );
