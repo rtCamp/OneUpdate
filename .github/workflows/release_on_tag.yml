@@ -40,7 +40,6 @@ jobs:
           cp readme.txt /tmp/oneupdate/
           cp uninstall.php /tmp/oneupdate/
           cp -r vendor/ /tmp/oneupdate/
-          cp -r languages/ /tmp/oneupdate/
           
           # Create the zip file
           cd /tmp
