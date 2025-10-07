@@ -3,13 +3,13 @@ Contributors: Utsav Patel, rtCamp
 Donate link: https://rtcamp.com/
 Tags: plugin manager, CI/CD, automation, enterprise
 Requires at least: 6.5
-Tested up to: 6.8.2
-Stable tag: 1.0.1
-Requires PHP: 7.4
+Tested up to: 6.8
+Stable tag: 1.0.0
+Requires PHP: 8.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Centralized plugin management for multiple WordPress sites using CI/CD workflows. Automate plugin updates across development, staging, and production environments.
+Centralized plugin management for WordPress sites via CI/CD. Automate updates across development, staging, and production environments.
 
 == Description ==
 
