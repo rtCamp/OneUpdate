@@ -4,7 +4,9 @@ Donate link: https://rtcamp.com/
 Tags: plugin manager, CI/CD, automation, enterprise
 Requires at least: 6.8
 Tested up to: 6.9
+<!-- x-release-please-start-version -->
 Stable tag: 1.1.3
+<!-- x-release-please-end -->
 Requires PHP: 8.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -24,7 +26,7 @@ OneUpdate solves this by providing a centralized governing to manage all sites w
 **Key Benefits:**
 
 * **50% Time Savings:** Reduce plugin update process time significantly
-* **Cost Reduction:** Lower operational costs through workflow optimization  
+* **Cost Reduction:** Lower operational costs through workflow optimization
 * **Streamlined Workflow:** Centralized management while maintaining site autonomy
 * **Security:** REST API with unique authentication keys and secure S3 integration
 
@@ -62,7 +64,7 @@ OneUpdate solves this by providing a centralized governing to manage all sites w
 1. Upload the OneUpdate plugin files to the `/wp-content/plugins/oneupdate` directory, or install the plugin through the WordPress plugins screen directly
 2. Activate the plugin through the 'Plugins' screen in WordPress
 3. Set up one site as the "Governing Site" for centralized management
-4. Configure other sites as "Brand Sites" 
+4. Configure other sites as "Brand Sites"
 5. Add required GitHub Actions workflows to your repositories:
    * `oneupdate-pr-creation.yml` (for public plugins)
    * `oneupdate-pr-creation-private.yml` (for private plugins)
